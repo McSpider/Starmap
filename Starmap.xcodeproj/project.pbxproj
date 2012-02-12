@@ -1,0 +1,290 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		AE57084314E78A190071E284 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE57084214E78A190071E284 /* Cocoa.framework */; };
+		AE57084D14E78A190071E284 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = AE57084B14E78A190071E284 /* InfoPlist.strings */; };
+		AE57084F14E78A190071E284 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AE57084E14E78A190071E284 /* main.m */; };
+		AE57085314E78A190071E284 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = AE57085114E78A190071E284 /* Credits.rtf */; };
+		AE57085614E78A190071E284 /* StarmapAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AE57085514E78A190071E284 /* StarmapAppDelegate.m */; };
+		AE57085914E78A190071E284 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = AE57085714E78A190071E284 /* MainMenu.xib */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		AE57083E14E78A190071E284 /* Starmap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Starmap.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		AE57084214E78A190071E284 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		AE57084514E78A190071E284 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		AE57084614E78A190071E284 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		AE57084714E78A190071E284 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		AE57084A14E78A190071E284 /* Starmap-Info.plist */ = {isa = PBXFileReference; path = "Starmap-Info.plist"; sourceTree = "<group>"; };
+		AE57084C14E78A190071E284 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		AE57084E14E78A190071E284 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		AE57085014E78A190071E284 /* Starmap-Prefix.pch */ = {isa = PBXFileReference; path = "Starmap-Prefix.pch"; sourceTree = "<group>"; };
+		AE57085214E78A190071E284 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
+		AE57085414E78A190071E284 /* StarmapAppDelegate.h */ = {isa = PBXFileReference; path = StarmapAppDelegate.h; sourceTree = "<group>"; };
+		AE57085514E78A190071E284 /* StarmapAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StarmapAppDelegate.m; sourceTree = "<group>"; };
+		AE57085814E78A190071E284 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		AE57083B14E78A190071E284 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AE57084314E78A190071E284 /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		AE57083314E78A190071E284 = {
+			isa = PBXGroup;
+			children = (
+				AE57084814E78A190071E284 /* Starmap */,
+				AE57084114E78A190071E284 /* Frameworks */,
+				AE57083F14E78A190071E284 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		AE57083F14E78A190071E284 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				AE57083E14E78A190071E284 /* Starmap.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		AE57084114E78A190071E284 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				AE57084214E78A190071E284 /* Cocoa.framework */,
+				AE57084414E78A190071E284 /* Other Frameworks */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		AE57084414E78A190071E284 /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				AE57084514E78A190071E284 /* AppKit.framework */,
+				AE57084614E78A190071E284 /* CoreData.framework */,
+				AE57084714E78A190071E284 /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		AE57084814E78A190071E284 /* Starmap */ = {
+			isa = PBXGroup;
+			children = (
+				AE57085414E78A190071E284 /* StarmapAppDelegate.h */,
+				AE57085514E78A190071E284 /* StarmapAppDelegate.m */,
+				AE57085714E78A190071E284 /* MainMenu.xib */,
+				AE57084914E78A190071E284 /* Supporting Files */,
+			);
+			path = Starmap;
+			sourceTree = "<group>";
+		};
+		AE57084914E78A190071E284 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				AE57084A14E78A190071E284 /* Starmap-Info.plist */,
+				AE57084B14E78A190071E284 /* InfoPlist.strings */,
+				AE57084E14E78A190071E284 /* main.m */,
+				AE57085014E78A190071E284 /* Starmap-Prefix.pch */,
+				AE57085114E78A190071E284 /* Credits.rtf */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		AE57083D14E78A190071E284 /* Starmap */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AE57085C14E78A190071E284 /* Build configuration list for PBXNativeTarget "Starmap" */;
+			buildPhases = (
+				AE57083A14E78A190071E284 /* Sources */,
+				AE57083B14E78A190071E284 /* Frameworks */,
+				AE57083C14E78A190071E284 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Starmap;
+			productName = Starmap;
+			productReference = AE57083E14E78A190071E284 /* Starmap.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		AE57083514E78A190071E284 /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = AE57083814E78A190071E284 /* Build configuration list for PBXProject "Starmap" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = AE57083314E78A190071E284;
+			productRefGroup = AE57083F14E78A190071E284 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				AE57083D14E78A190071E284 /* Starmap */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		AE57083C14E78A190071E284 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AE57084D14E78A190071E284 /* InfoPlist.strings in Resources */,
+				AE57085314E78A190071E284 /* Credits.rtf in Resources */,
+				AE57085914E78A190071E284 /* MainMenu.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		AE57083A14E78A190071E284 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AE57084F14E78A190071E284 /* main.m in Sources */,
+				AE57085614E78A190071E284 /* StarmapAppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		AE57084B14E78A190071E284 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				AE57084C14E78A190071E284 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		AE57085114E78A190071E284 /* Credits.rtf */ = {
+			isa = PBXVariantGroup;
+			children = (
+				AE57085214E78A190071E284 /* en */,
+			);
+			name = Credits.rtf;
+			sourceTree = "<group>";
+		};
+		AE57085714E78A190071E284 /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				AE57085814E78A190071E284 /* en */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		AE57085A14E78A190071E284 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		AE57085B14E78A190071E284 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		AE57085D14E78A190071E284 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Starmap/Starmap-Prefix.pch";
+				INFOPLIST_FILE = "Starmap/Starmap-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		AE57085E14E78A190071E284 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Starmap/Starmap-Prefix.pch";
+				INFOPLIST_FILE = "Starmap/Starmap-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		AE57083814E78A190071E284 /* Build configuration list for PBXProject "Starmap" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AE57085A14E78A190071E284 /* Debug */,
+				AE57085B14E78A190071E284 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AE57085C14E78A190071E284 /* Build configuration list for PBXNativeTarget "Starmap" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AE57085D14E78A190071E284 /* Debug */,
+				AE57085E14E78A190071E284 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = AE57083514E78A190071E284 /* Project object */;
+}
