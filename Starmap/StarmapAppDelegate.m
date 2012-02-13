@@ -10,7 +10,7 @@
 
 @implementation StarmapAppDelegate
 
-@synthesize window;
+@synthesize window,mainView;
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {

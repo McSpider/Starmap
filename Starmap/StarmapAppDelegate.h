@@ -7,11 +7,15 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "StarmapView.h"
 
 @interface StarmapAppDelegate : NSObject <NSApplicationDelegate> {
   NSWindow *window;
+  
+  StarmapView *mainView;
 }
 
 @property (assign) IBOutlet NSWindow *window;
+@property (assign) IBOutlet StarmapView *mainView;
 
 @end
