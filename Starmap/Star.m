@@ -34,6 +34,17 @@
               [syllables objectAtIndex:random() % [syllables count]],
               [syllables objectAtIndex:random() % [syllables count]]]
              capitalizedString] retain];
+    
+    // No canada tyvm.
+    while ([name isEqualToString:@"Canada"]) {
+      NSLog(@"Regenerating Canada");
+      name = [[[NSString stringWithFormat:@"%@%@%@",
+                [syllables objectAtIndex:random() % [syllables count]],
+                [syllables objectAtIndex:random() % [syllables count]],
+                [syllables objectAtIndex:random() % [syllables count]]]
+               capitalizedString] retain];
+    }
+    
   }
   
   return self;
