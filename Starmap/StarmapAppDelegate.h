@@ -19,6 +19,9 @@
   IBOutlet NSTextField *xSizeField;
   IBOutlet NSTextField *ySizeField;
   IBOutlet NSTextField *networkSizeField;
+  IBOutlet NSTextField *starMarginField;
+  IBOutlet NSTextField *networkMarginField;
+  
   IBOutlet NSTextField *statusField;
   IBOutlet NSButton *networkStarsCheck;
   IBOutlet NSPopUpButton *algorithmSelector;

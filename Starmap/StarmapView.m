@@ -103,7 +103,7 @@
 	// Drawing code here.
   int width = self.bounds.size.width;
   int height = self.bounds.size.height;
-  
+    
   [[NSColor colorWithDeviceWhite:0.7 alpha:1] set];
   NSRectFill(self.bounds);
   
@@ -112,10 +112,11 @@
   
   if (starmap.starmapShape == CIRCULAR_STARMAP) {
     int starmapRadius = starmap.starmapSize.width;
-    
     starmapRadius = sqrt(starmapRadius);
-    starmapRadius *= 60;
+    starmapRadius *= 20*2;
     
+    // 20px margin
+    starmapRadius += 20;
     NSRect mapMargin = NSMakeRect(0+width/2+(int)cameraOffset.x-starmapRadius/2,
                                   0+height/2+(int)cameraOffset.y-starmapRadius/2, 
                                   starmapRadius, starmapRadius);
@@ -138,6 +139,10 @@
                                   0+height/2+(int)cameraOffset.y-starmap.starmapSize.height/2, 
                                   starmap.starmapSize.width, starmap.starmapSize.height);
     
+    
+    // 20px margin
+    mapMargin = NSInsetRect(mapMargin, -10, -10);
+
     NSBezierPath *mapMarginPath = [NSBezierPath bezierPathWithRect:mapMargin];
     [[NSColor colorWithDeviceWhite:0 alpha:0.1] set];
     [mapMarginPath setLineWidth:4];

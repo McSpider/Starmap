@@ -21,8 +21,9 @@
 @protocol StarmapDelegate
 @optional
 
-- (void)willGenerateStarmap:(BOOL)flag;
+- (void)starmapGeneratorStarted;
 - (void)starmapGenerationFinishedWithTime:(float)time;
+- (void)starmapGenerationTimedOutWithTime:(float)time;
 
 @end
 
@@ -59,7 +60,7 @@
 - (id)initWithSeed:(uint)aSeed;
 
 - (void)generateStarmap;
-- (void)generateStarmapWithStars:(int)stars size:(NSSize)size ofType:(int)type;
+- (int)generateStarmapWithStars:(int)stars size:(NSSize)size ofType:(int)type;
 
 - (BOOL)goodStarPosition:(NSPoint)pos checkDistance:(int)checkDist;
 - (NSArray *)neighborStarsForStar:(Star *)theStar checkDistance:(int)checkDist;

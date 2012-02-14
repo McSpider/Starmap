@@ -45,6 +45,12 @@
                capitalizedString] retain];
     }
     
+    if ([name hasPrefix:@"Ack"]) {
+      name = [[[name autorelease] stringByReplacingCharactersInRange:NSMakeRange(0, 1) withString:@"Å"] retain];
+    }
+    else if ([name hasPrefix:@"Faack"]) {
+      name = [[[name autorelease] stringByReplacingCharactersInRange:NSMakeRange(2, 3) withString:@"i"] retain];
+    }
   }
   
   return self;

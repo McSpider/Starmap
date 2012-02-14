@@ -44,25 +44,40 @@
   return self;
 }
 
+- (void)dealloc
+{
+  [starArray release];
+  [super dealloc];
+}
+
 
 - (void)generateStarmap
 {
-  if (generatingStarmap) {
-    if ([delegate respondsToSelector:@selector(willGenerateStarmap:)]) {
-      [delegate willGenerateStarmap:NO];
-    }
+  if (generatingStarmap)
     return;
-  }
   
   generatingStarmap = YES;
-  if ([delegate respondsToSelector:@selector(willCreateStarmap:)]) {
-    [delegate willGenerateStarmap:YES];
+  if ([delegate respondsToSelector:@selector(starmapGeneratorStarted)]) {
+    [delegate starmapGeneratorStarted];
   }
   generatorStartTime = [[NSDate date] retain];
-  [self generateStarmapWithStars:starmapStarCount size:starmapSize ofType:starmapShape];
+  int result = [self generateStarmapWithStars:starmapStarCount size:starmapSize ofType:starmapShape];
+  
+  generatingStarmap = NO;  
+  if (result == 0) {
+    if ([delegate respondsToSelector:@selector(starmapGenerationFinishedWithTime:)]) {
+      [delegate starmapGenerationFinishedWithTime:[[NSDate date] timeIntervalSinceDate:generatorStartTime]];
+    }
+  }
+  else if (result == 1) {
+    if ([delegate respondsToSelector:@selector(starmapGenerationTimedOutWithTime:)]) {
+      [delegate starmapGenerationTimedOutWithTime:[[NSDate date] timeIntervalSinceDate:generatorStartTime]];
+    }
+  }
+  [generatorStartTime release];
 }
 
-- (void)generateStarmapWithStars:(int)stars size:(NSSize)size ofType:(int)type;
+- (int)generateStarmapWithStars:(int)stars size:(NSSize)size ofType:(int)type;
 {
   srand(seed);
   srandom(seed);
@@ -92,6 +107,16 @@
           float angle = rand() % 360;
           float radius = rand() % starmapRadius;
           
+          /*
+          float radius;
+          if (algorthm == STARMAP_RECURSIVE_ALGO || algorthm == STARMAP_MIXED_ALGO) {
+          radius = rand() % networkSize/2;
+          }
+          else {
+          radius = rand() % starmapRadius;
+          }
+          */
+          
           x = sqrt(radius) * cos(angle);
           y = sqrt(radius) * sin(angle);
           
@@ -113,8 +138,8 @@
           validStar = [self goodStarPosition:newStarPosition checkDistance:normalStarMargin];
           if (!validStar)
             if (SM_DEBUG == 1) { NSLog(@"Invalid Star: %i of %i At: %i,%i",i1+1,numstars,(int)x,(int)y); }
-          if (loops > numstars)
-            return;
+          if (loops > 100)
+            return 1;
           
           loops++;
         }
@@ -174,8 +199,8 @@
             validStar = [self goodStarPosition:newStarPosition checkDistance:networkStarMargin];
             if (!validStar)
               if (SM_DEBUG == 1) {  NSLog(@"Invalid Networking Star At: %i,%i",(int)x,(int)y); }
-            if (loops > numstars)
-              return;
+            if (loops > 100)
+              return 1;
             
             loops++;
           }
@@ -234,8 +259,8 @@
           validStar = [self goodStarPosition:newStarPosition checkDistance:5];
           if (!validStar)
             if (SM_DEBUG == 1) { NSLog(@"Invalid Star: %i of %i At: %i,%i",i1+1,numstars,(int)x,(int)y); }
-          if (loops > numstars)
-            return;
+          if (loops > 100)
+            return 1;
           
           loops++;
         }
@@ -290,8 +315,8 @@
             validStar = [self goodStarPosition:newStarPosition checkDistance:networkStarMargin];
             if (!validStar)
               if (SM_DEBUG == 1) { NSLog(@"Invalid Networking Star At: %i,%i",(int)x,(int)y); }
-            if (loops > numstars)
-              return;
+            if (loops > 100)
+              return 1;
             
             loops++;
           }
@@ -312,10 +337,7 @@
     }
   }
   
-  generatingStarmap = NO;  
-  if ([delegate respondsToSelector:@selector(starmapGenerationFinishedWithTime:)]) {
-    [delegate starmapGenerationFinishedWithTime:[[NSDate date] timeIntervalSinceDate:generatorStartTime]];
-  }  
+  return 0;
 }
 
 
@@ -326,7 +348,7 @@
   
   if (starmapShape == CIRCULAR_STARMAP) {
     float dist = sqrt(pos.x * pos.x + pos.y * pos.y);
-    if (dist > sqrt(starmapSize.width)*60)
+    if (dist > (sqrt(starmapSize.width)*20))
       return NO;
   }
   else if (starmapShape == RECTANGULAR_STARMAP) {
