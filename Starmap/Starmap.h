@@ -21,8 +21,8 @@
 @protocol StarmapDelegate
 @optional
 
-- (void)willCreateStarmap:(BOOL)flag;
-- (void)didCreateStarmap;
+- (void)willGenerateStarmap:(BOOL)flag;
+- (void)starmapGenerationFinishedWithTime:(float)time;
 
 @end
 
@@ -33,6 +33,7 @@
   int algorthm;
   int networkSize;
   int networkStarMargin;
+  int normalStarMargin;
   BOOL generateNetworkingStars;
   
   int starmapShape;
@@ -42,13 +43,14 @@
   NSMutableArray *starArray;
   
   BOOL generatingStarmap;
+  NSDate *generatorStartTime;
 }
 
 @property (nonatomic, assign) id delegate;
 @property unsigned int seed;
 @property int algorthm;
 @property int networkSize;
-@property int networkStarMargin;
+@property int networkStarMargin,normalStarMargin;
 @property BOOL generateNetworkingStars;
 @property int starmapShape;
 @property NSSize starmapSize;

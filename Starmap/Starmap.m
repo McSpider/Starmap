@@ -13,7 +13,7 @@
 @synthesize seed;
 @synthesize algorthm;
 @synthesize networkSize;
-@synthesize networkStarMargin;
+@synthesize networkStarMargin,normalStarMargin;
 @synthesize generateNetworkingStars;
 @synthesize starmapShape;
 @synthesize starmapSize;
@@ -30,6 +30,7 @@
     // Initialization code here.
     seed = aSeed;
     networkSize = 100;
+    normalStarMargin = 5;
     networkStarMargin = 3;
     generateNetworkingStars = YES;
     algorthm = STARMAP_RANDOM_ALGO;
@@ -47,16 +48,17 @@
 - (void)generateStarmap
 {
   if (generatingStarmap) {
-    if ([delegate respondsToSelector:@selector(willCreateStarmap:)]) {
-      [delegate willCreateStarmap:NO];
+    if ([delegate respondsToSelector:@selector(willGenerateStarmap:)]) {
+      [delegate willGenerateStarmap:NO];
     }
     return;
   }
   
   generatingStarmap = YES;
   if ([delegate respondsToSelector:@selector(willCreateStarmap:)]) {
-    [delegate willCreateStarmap:YES];
+    [delegate willGenerateStarmap:YES];
   }
+  generatorStartTime = [[NSDate date] retain];
   [self generateStarmapWithStars:starmapStarCount size:starmapSize ofType:starmapShape];
 }
 
@@ -78,7 +80,7 @@
     starArray = [[NSMutableArray alloc] init];
     
     // Stars
-    NSLog(@"Initializing Starmap");
+    NSLog(@"Generating Starmap");
     for (int i1 = 0; i1 < numstars; ++i1)  {
       if (tempStar != nil) {
         NSPoint previousPos = tempStar.starPos;
@@ -108,7 +110,7 @@
             newStarPosition = NSMakePoint(x,y);
           }
           
-          validStar = [self goodStarPosition:newStarPosition checkDistance:5];
+          validStar = [self goodStarPosition:newStarPosition checkDistance:normalStarMargin];
           if (!validStar)
             if (SM_DEBUG == 1) { NSLog(@"Invalid Star: %i of %i At: %i,%i",i1+1,numstars,(int)x,(int)y); }
           if (loops > numstars)
@@ -137,7 +139,7 @@
         
         tempStar = [[Star alloc] init];  // create a temporary star
         [tempStar setStarPos:NSMakePoint(x,y)];
-        NSLog(@"Adding First Star");
+        if (SM_DEBUG == 1) { NSLog(@"Adding First Star At:  %i,%i",(int)tempStar.starPos.x,(int)tempStar.starPos.y); }
         [tempStar setType:FIRST_STAR];
         [starArray addObject:tempStar];
       }
@@ -205,7 +207,7 @@
     starArray = [[NSMutableArray alloc] init];
     
     // Stars
-    NSLog(@"Initializing Starmap");
+    NSLog(@"Generating Starmap");
     for (int i1 = 0; i1 < numstars; ++i1)  {
       if (tempStar != nil) {
         NSPoint previousPos = tempStar.starPos;
@@ -253,7 +255,7 @@
         
         tempStar = [[Star alloc] init];  // create a temporary star
         [tempStar setStarPos:NSMakePoint(x,y)];
-        NSLog(@"Adding First Star");
+        if (SM_DEBUG == 1) { NSLog(@"Adding First Star At:  %i,%i",(int)tempStar.starPos.x,(int)tempStar.starPos.y); }
         [tempStar setType:FIRST_STAR];
         [starArray addObject:tempStar];
       }
@@ -310,10 +312,10 @@
     }
   }
   
-  generatingStarmap = NO;
-  if ([delegate respondsToSelector:@selector(didCreateStarmap)]) {
-    [delegate didCreateStarmap];
-  }
+  generatingStarmap = NO;  
+  if ([delegate respondsToSelector:@selector(starmapGenerationFinishedWithTime:)]) {
+    [delegate starmapGenerationFinishedWithTime:[[NSDate date] timeIntervalSinceDate:generatorStartTime]];
+  }  
 }
 
 

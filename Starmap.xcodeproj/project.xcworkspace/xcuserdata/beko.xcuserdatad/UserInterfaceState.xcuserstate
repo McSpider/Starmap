@@ -4765,10 +4765,10 @@
     s = 0;
 }</string>
 		</dict>
-		<real>350887435.13952398</real>
-		<string>{837, 1622}</string>
-		<string>{2361, 0}</string>
-		<string>-didCreateStarmap</string>
+		<real>350889770.700652</real>
+		<string>{914, 1681}</string>
+		<string>{2372, 0}</string>
+		<string>-starmapGenerationFinishedWithTime:</string>
 		<dict>
 			<key>$class</key>
 			<dict>
@@ -9245,9 +9245,9 @@
 				</dict>
 			</array>
 		</dict>
-		<real>350887435.14046401</real>
-		<string>{10235, 1025}</string>
-		<string>{11493, 0}</string>
+		<real>350889770.70125699</real>
+		<string>{10600, 909}</string>
+		<string>{11860, 0}</string>
 		<string>-neighborStarsForStar:checkDistance:</string>
 		<dict>
 			<key>$class</key>
@@ -9580,7 +9580,7 @@
 				<integer>635</integer>
 			</dict>
 		</dict>
-		<string>file://localhost/Users/beko/Developer/Cocoa/Starmap/Starmap/en.lproj/MainMenu.xib</string>
+		<string>file://localhost/Users/beko/Developer/Cocoa/Starmap/Starmap/StarmapAppDelegate.m</string>
 		<dict>
 			<key>$class</key>
 			<dict>
@@ -9598,7 +9598,7 @@
 				<integer>637</integer>
 			</dict>
 		</dict>
-		<string>file://localhost/Users/beko/Developer/Cocoa/Starmap/Starmap/StarmapAppDelegate.m</string>
+		<string>file://localhost/Users/beko/Developer/Cocoa/Starmap/Starmap/en.lproj/MainMenu.xib</string>
 		<dict>
 			<key>$class</key>
 			<dict>
@@ -9616,7 +9616,7 @@
 				<integer>639</integer>
 			</dict>
 		</dict>
-		<string>file://localhost/Users/beko/Developer/Cocoa/Starmap/Starmap/StarmapAppDelegate.h</string>
+		<string>file://localhost/Users/beko/Developer/Cocoa/Starmap/Starmap/StarmapView.m</string>
 		<dict>
 			<key>$class</key>
 			<dict>
@@ -9634,7 +9634,7 @@
 				<integer>641</integer>
 			</dict>
 		</dict>
-		<string>file://localhost/Users/beko/Developer/Cocoa/Starmap/Starmap/StarmapView.h</string>
+		<string>file://localhost/Users/beko/Developer/Cocoa/Starmap/Starmap/Starmap.m</string>
 		<dict>
 			<key>$class</key>
 			<dict>
@@ -9652,7 +9652,7 @@
 				<integer>643</integer>
 			</dict>
 		</dict>
-		<string>file://localhost/Users/beko/Developer/Cocoa/Starmap/Starmap/StarmapView.m</string>
+		<string>file://localhost/Users/beko/Developer/Cocoa/Starmap/Starmap/Starmap.h</string>
 		<dict>
 			<key>$class</key>
 			<dict>
@@ -9670,7 +9670,7 @@
 				<integer>645</integer>
 			</dict>
 		</dict>
-		<string>file://localhost/Users/beko/Developer/Cocoa/Starmap/Starmap/Starmap.m</string>
+		<string>file://localhost/Users/beko/Developer/Cocoa/Starmap/Starmap/StarmapView.h</string>
 		<dict>
 			<key>$class</key>
 			<dict>
@@ -9688,7 +9688,7 @@
 				<integer>647</integer>
 			</dict>
 		</dict>
-		<string>file://localhost/Users/beko/Developer/Cocoa/Starmap/Starmap/Starmap.h</string>
+		<string>file://localhost/Users/beko/Developer/Cocoa/Starmap/Starmap/StarmapAppDelegate.h</string>
 		<dict>
 			<key>$class</key>
 			<dict>
@@ -10935,7 +10935,7 @@
 				</dict>
 			</array>
 		</dict>
-		<real>350887379.08268303</real>
+		<real>350888586.66720998</real>
 		<string>{0, 1067}</string>
 		<string>{777, 0}</string>
 		<dict>
@@ -11077,7 +11077,7 @@
 				</dict>
 			</array>
 		</dict>
-		<real>350887367.70120001</real>
+		<real>350888959.90424597</real>
 		<string>{0, 542}</string>
 		<string>{361, 0}</string>
 		<dict>
@@ -11125,9 +11125,9 @@
 				</dict>
 			</array>
 		</dict>
-		<real>350887435.13186002</real>
-		<string>{10235, 1025}</string>
-		<string>{11493, 0}</string>
+		<real>350889770.69538802</real>
+		<string>{10600, 909}</string>
+		<string>{11860, 0}</string>
 		<dict>
 			<key>$class</key>
 			<dict>
@@ -11173,9 +11173,9 @@
 				</dict>
 			</array>
 		</dict>
-		<real>350887365.89041001</real>
-		<string>{6230, 2148}</string>
-		<string>{6998, 0}</string>
+		<real>350889759.00588399</real>
+		<string>{5686, 2273}</string>
+		<string>{7436, 0}</string>
 		<dict>
 			<key>$class</key>
 			<dict>
@@ -11268,9 +11268,9 @@
 				</dict>
 			</array>
 		</dict>
-		<real>350880882.04320401</real>
+		<real>350888571.15885699</real>
 		<string>{0, 1695}</string>
-		<string>{1154, 0}</string>
+		<string>{382, 0}</string>
 		<dict>
 			<key>$class</key>
 			<dict>
@@ -11522,9 +11522,9 @@
 				</dict>
 			</array>
 		</dict>
-		<real>350887435.13159502</real>
-		<string>{837, 1622}</string>
-		<string>{2361, 0}</string>
+		<real>350889770.69524902</real>
+		<string>{914, 1681}</string>
+		<string>{2372, 0}</string>
 		<dict>
 			<key>$class</key>
 			<dict>
@@ -11570,9 +11570,9 @@
 				</dict>
 			</array>
 		</dict>
-		<real>350886218.81901503</real>
-		<string>{76, 1262}</string>
-		<string>{417, 0}</string>
+		<real>350889090.14578497</real>
+		<string>{32, 1259}</string>
+		<string>{398, 0}</string>
 		<dict>
 			<key>$class</key>
 			<dict>
@@ -12732,9 +12732,9 @@
 				</dict>
 			</array>
 		</dict>
-		<real>350887435.13455302</real>
-		<string>{10235, 1025}</string>
-		<string>{11493, 0}</string>
+		<real>350889770.69711</real>
+		<string>{10600, 909}</string>
+		<string>{11860, 0}</string>
 		<dict>
 			<key>$class</key>
 			<dict>
@@ -15408,7 +15408,7 @@
 				<integer>1009</integer>
 			</dict>
 			<key>NS.time</key>
-			<real>350887409.102386</real>
+			<real>350889632.81091398</real>
 		</dict>
 		<dict>
 			<key>$classes</key>
@@ -15419,7 +15419,7 @@
 			<key>$classname</key>
 			<string>NSDate</string>
 		</dict>
-		<string>Today at 8:43 PM</string>
+		<string>Today at 9:20 PM</string>
 		<integer>234</integer>
 	</array>
 	<key>$top</key>

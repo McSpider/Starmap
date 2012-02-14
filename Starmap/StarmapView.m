@@ -241,7 +241,7 @@
                             [NSColor colorWithDeviceWhite:0.0 alpha:0.8],NSForegroundColorAttributeName,nil];
       [nameLabel drawAtPoint:NSMakePoint(xPos+width/2+(int)cameraOffset.x, yPos+height/2+(int)cameraOffset.y) withAttributes:attr];
       
-      if (zoomFactor >= 4){
+      if (zoomFactor >= 3){
         NSString *posLabel = [NSString stringWithFormat:@"%.1f,%.1f",aStar.starPos.x,aStar.starPos.y];
         attr = [NSDictionary dictionaryWithObjectsAndKeys:[NSFont systemFontOfSize:3],NSFontAttributeName,
                               [NSColor colorWithDeviceWhite:0.0 alpha:0.8],NSForegroundColorAttributeName,nil];
@@ -253,6 +253,11 @@
 }
 
 - (BOOL)isOpaque
+{
+  return YES;
+}
+
+- (BOOL)canBecomeKeyView
 {
   return YES;
 }

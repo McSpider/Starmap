@@ -73,7 +73,7 @@
   return mapSize;
 }
 
-- (void)willCreateStarmap:(BOOL)flag
+- (void)willGenerateStarmap:(BOOL)flag
 {
   if (flag == YES) {
     [statusField setStringValue:@"Generating Starmap"];
@@ -82,12 +82,13 @@
   }
 }
 
-- (void)didCreateStarmap
+- (void)starmapGenerationFinishedWithTime:(float)time
 {
-  [statusField setStringValue:@"Starmap Created"];
+  [statusField setStringValue:[NSString stringWithFormat:@"Starmap Created - Generation Time %fsec",time]];  
   [activityIndicator stopAnimation:self];
   [generateButton setEnabled:YES];
-  NSLog(@"Created Starmap");
+  NSLog(@"Starmap Created");
+  NSLog(@"Generation Time: %fsec",time);
   [mapView setStarmap:starmap];
   [mapView setNeedsDisplay:YES];
 }
