@@ -9,6 +9,7 @@
 #import "Starmap.h"
 
 @implementation Starmap
+@synthesize delegate;
 @synthesize seed;
 @synthesize algorthm;
 @synthesize networkSize;
@@ -16,6 +17,7 @@
 @synthesize generateNetworkingStars;
 @synthesize starmapShape;
 @synthesize starmapSize;
+@synthesize starmapStarCount;
 
 - (id)init
 {
@@ -32,6 +34,8 @@
     generateNetworkingStars = YES;
     algorthm = STARMAP_RANDOM_ALGO;
     starmapShape = CIRCULAR_STARMAP;
+    starmapSize = NSMakeSize(100, 100);
+    starmapStarCount = 100;
     
     starArray = [[NSMutableArray alloc] init];
   }
@@ -40,12 +44,29 @@
 }
 
 
+- (void)generateStarmap
+{
+  if (generatingStarmap) {
+    if ([delegate respondsToSelector:@selector(willCreateStarmap:)]) {
+      [delegate willCreateStarmap:NO];
+    }
+    return;
+  }
+  
+  generatingStarmap = YES;
+  if ([delegate respondsToSelector:@selector(willCreateStarmap:)]) {
+    [delegate willCreateStarmap:YES];
+  }
+  [self generateStarmapWithStars:starmapStarCount size:starmapSize ofType:starmapShape];
+}
+
 - (void)generateStarmapWithStars:(int)stars size:(NSSize)size ofType:(int)type;
 {
   srand(seed);
   srandom(seed);
   starmapShape = type;
   starmapSize = size;
+  starmapStarCount = stars;
   
   if (starmapShape == CIRCULAR_STARMAP) {
     int numstars = stars;
@@ -89,7 +110,7 @@
           
           validStar = [self goodStarPosition:newStarPosition checkDistance:5];
           if (!validStar)
-            NSLog(@"Invalid Star: %i of %i At: %i,%i",i1+1,numstars,(int)x,(int)y);
+            if (SM_DEBUG == 1) { NSLog(@"Invalid Star: %i of %i At: %i,%i",i1+1,numstars,(int)x,(int)y); }
           if (loops > numstars)
             return;
           
@@ -101,7 +122,7 @@
         
         [tempStar setStarPos:newStarPosition];
         [tempStar setType:PRIMARY_STAR];
-        NSLog(@"Adding Star: %i of %i At: %i,%i",i1+1,numstars,(int)tempStar.starPos.x,(int)tempStar.starPos.y);
+        if (SM_DEBUG == 1) { NSLog(@"Adding Star: %i of %i At: %i,%i",i1+1,numstars,(int)tempStar.starPos.x,(int)tempStar.starPos.y); }
         [starArray addObject:tempStar];
       }
       else {
@@ -121,7 +142,7 @@
         [starArray addObject:tempStar];
       }
     }
-    NSLog(@"\n");
+    if (SM_DEBUG == 1) { NSLog(@"\n"); }
     
     //Networking Stars - Only generated for stars with less than 3 neighbors.
     if (generateNetworkingStars) {
@@ -150,7 +171,7 @@
             newStarPosition = NSMakePoint(aStar.starPos.x + x,aStar.starPos.y + y);
             validStar = [self goodStarPosition:newStarPosition checkDistance:networkStarMargin];
             if (!validStar)
-              NSLog(@"Invalid Networking Star At: %i,%i",(int)x,(int)y);
+              if (SM_DEBUG == 1) {  NSLog(@"Invalid Networking Star At: %i,%i",(int)x,(int)y); }
             if (loops > numstars)
               return;
             
@@ -160,12 +181,12 @@
           tempStar = [[Star alloc] init];  // create a temporary star
           [tempStar setStarPos:newStarPosition];
           [tempStar setType:NETWORKING_STAR];
-          NSLog(@"Adding Networking Star At: %i,%i",(int)tempStar.starPos.x,(int)tempStar.starPos.y);
+          if (SM_DEBUG == 1) { NSLog(@"Adding Networking Star At: %i,%i",(int)tempStar.starPos.x,(int)tempStar.starPos.y); }
           [starArray addObject:tempStar];
           [tempStar release];
         }
       }
-      NSLog(@"\n");
+      if (SM_DEBUG == 1) { NSLog(@"\n"); }
     }
     
     for (Star *aStar in starArray) {
@@ -210,7 +231,7 @@
 
           validStar = [self goodStarPosition:newStarPosition checkDistance:5];
           if (!validStar)
-            NSLog(@"Invalid Star: %i of %i At: %i,%i",i1+1,numstars,(int)x,(int)y);
+            if (SM_DEBUG == 1) { NSLog(@"Invalid Star: %i of %i At: %i,%i",i1+1,numstars,(int)x,(int)y); }
           if (loops > numstars)
             return;
           
@@ -223,7 +244,7 @@
         
         [tempStar setStarPos:newStarPosition];
         [tempStar setType:PRIMARY_STAR];
-        NSLog(@"Adding Star: %i of %i At: %i,%i",i1+1,numstars,(int)tempStar.starPos.x,(int)tempStar.starPos.y);
+        if (SM_DEBUG == 1) { NSLog(@"Adding Star: %i of %i At: %i,%i",i1+1,numstars,(int)tempStar.starPos.x,(int)tempStar.starPos.y); }
         [starArray addObject:tempStar];
       }
       else {        
@@ -237,7 +258,7 @@
         [starArray addObject:tempStar];
       }
     }
-    NSLog(@"\n");
+    if (SM_DEBUG == 1) { NSLog(@"\n"); }
     
     //Networking Stars - Only generated for stars with less than 3 neighbors.
     if (generateNetworkingStars) {
@@ -266,7 +287,7 @@
             newStarPosition = NSMakePoint(aStar.starPos.x + x,aStar.starPos.y + y);
             validStar = [self goodStarPosition:newStarPosition checkDistance:networkStarMargin];
             if (!validStar)
-              NSLog(@"Invalid Networking Star At: %i,%i",(int)x,(int)y);
+              if (SM_DEBUG == 1) { NSLog(@"Invalid Networking Star At: %i,%i",(int)x,(int)y); }
             if (loops > numstars)
               return;
             
@@ -276,18 +297,22 @@
           tempStar = [[Star alloc] init];  // create a temporary star
           [tempStar setStarPos:newStarPosition];
           [tempStar setType:NETWORKING_STAR];
-          NSLog(@"Adding Networking Star At: %i,%i",(int)tempStar.starPos.x,(int)tempStar.starPos.y);
+          if (SM_DEBUG == 1) { NSLog(@"Adding Networking Star At: %i,%i",(int)tempStar.starPos.x,(int)tempStar.starPos.y); }
           [starArray addObject:tempStar];
           [tempStar release];
         }
       }
-      NSLog(@"\n");
+      if (SM_DEBUG == 1) { NSLog(@"\n"); }
     }
     
     for (Star *aStar in starArray) {
       [aStar setNeighbors:[self neighborStarsForStar:aStar checkDistance:networkSize/2]];
     }
-    
+  }
+  
+  generatingStarmap = NO;
+  if ([delegate respondsToSelector:@selector(didCreateStarmap)]) {
+    [delegate didCreateStarmap];
   }
 }
 

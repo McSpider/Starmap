@@ -18,11 +18,17 @@
   IBOutlet NSTextField *radiusField;
   IBOutlet NSTextField *xSizeField;
   IBOutlet NSTextField *ySizeField;
-  IBOutlet NSSlider *networkSizeSlider;
+  IBOutlet NSTextField *networkSizeField;
+  IBOutlet NSTextField *statusField;
   IBOutlet NSButton *networkStarsCheck;
   IBOutlet NSPopUpButton *algorithmSelector;
   IBOutlet NSSegmentedControl *shapeSelector;
   IBOutlet NSTabView *sizeTabView;
+  
+  IBOutlet NSButton *generateButton;
+  
+  IBOutlet NSProgressIndicator *activityIndicator;
+
   
   Starmap *starmap;
 }
@@ -33,11 +39,6 @@
 @property (nonatomic, assign) Starmap *starmap;
 
 - (IBAction)generate:(id)sender;
-
-- (IBAction)toggleNetworkStars:(id)sender;
-- (IBAction)changeNetworkSize:(id)sender;
-- (IBAction)changeMapShape:(id)sender;
-
 - (NSSize)starmapSize;
 
 @end

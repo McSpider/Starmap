@@ -139,13 +139,13 @@
                                   starmap.starmapSize.width, starmap.starmapSize.height);
     
     NSBezierPath *mapMarginPath = [NSBezierPath bezierPathWithRect:mapMargin];
-    [[NSColor colorWithDeviceWhite:0 alpha:0.4] set];
-    [mapMarginPath setLineWidth:1];
+    [[NSColor colorWithDeviceWhite:0 alpha:0.1] set];
+    [mapMarginPath setLineWidth:4];
     [mapMarginPath stroke];
     
-    mapMarginPath = [NSBezierPath bezierPathWithRect:NSInsetRect(mapMargin, -2, -2)];
-    [[NSColor colorWithDeviceWhite:0 alpha:0.1] set];
-    [mapMarginPath setLineWidth:3];
+    mapMarginPath = [NSBezierPath bezierPathWithRect:NSInsetRect(mapMargin, 2, 2)];
+    [[NSColor colorWithDeviceWhite:0 alpha:0.4] set];
+    [mapMarginPath setLineWidth:1];
     [mapMarginPath stroke];
     
     [[NSColor whiteColor] set];
@@ -162,7 +162,7 @@
       
       int xPos = aStar.starPos.x;
       int yPos = aStar.starPos.y;
-      
+            
       [circlesPath appendBezierPathWithOvalInRect:
        NSMakeRect(xPos+width/2+(int)cameraOffset.x-starmap.networkSize/2,
                   yPos+height/2+(int)cameraOffset.y-starmap.networkSize/2,
@@ -251,6 +251,12 @@
     }
   }
 }
+
+- (BOOL)isOpaque
+{
+  return YES;
+}
+
 
 - (void)mouseDown:(NSEvent *)theEvent
 {

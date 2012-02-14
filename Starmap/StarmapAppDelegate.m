@@ -16,12 +16,15 @@
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
   starmap = [[Starmap alloc] initWithSeed:23747];
+  [starmap setDelegate:self];
   [starmap setGenerateNetworkingStars:YES];
   [starmap setNetworkSize:106];
   [starmap setNetworkStarMargin:3];
-  [starmap generateStarmapWithStars:100 size:NSMakeSize(100, 100) ofType:CIRCULAR_STARMAP];
-  [mapView setStarmap:starmap];
-  [mapView setNeedsDisplay:YES];
+  [starmap setStarmapSize:NSMakeSize(100, 100)];
+  [starmap setStarmapShape:CIRCULAR_STARMAP];
+  [starmap setStarmapStarCount:100];
+  
+  [starmap performSelectorInBackground:@selector(generateStarmap) withObject:nil];
 }
 
 - (void)dealloc
@@ -36,7 +39,8 @@
   [radiusField setStringValue:@"100"];
   [xSizeField  setStringValue:@"500"];
   [ySizeField  setStringValue:@"500"];
-  [networkSizeSlider setIntValue:106];
+  [networkSizeField setStringValue:@"106"];
+  [statusField setStringValue:@""];
 
   [window center];
   [window zoom:self];
@@ -46,37 +50,15 @@
 - (IBAction)generate:(id)sender
 {  
   [starmap setSeed:[seedField intValue]];
-  [starmap setNetworkSize:[networkSizeSlider intValue]];
+  [starmap setNetworkSize:[networkSizeField intValue]];
   [starmap setGenerateNetworkingStars:[networkStarsCheck state]];
   [starmap setAlgorthm:(int)[algorithmSelector indexOfSelectedItem]];
-  [starmap generateStarmapWithStars:[starsField intValue] size:[self starmapSize] ofType:(int)[shapeSelector selectedSegment]];
   
-  [mapView setStarmap:starmap];
-  [mapView setNeedsDisplay:YES];
-}
-
-
-- (IBAction)changeMapShape:(id)sender
-{
-  [sizeTabView selectTabViewItemAtIndex:[sender indexOfSelectedItem]];
-}
-
-- (IBAction)toggleNetworkStars:(id)sender
-{
-  [starmap setGenerateNetworkingStars:[sender state]];
-  [starmap generateStarmapWithStars:[starsField intValue] size:[self starmapSize] ofType:(int)[shapeSelector selectedSegment]];
+  [starmap setStarmapSize:[self starmapSize]];
+  [starmap setStarmapShape:(int)[shapeSelector selectedSegment]];
+  [starmap setStarmapStarCount:[starsField intValue]];  
   
-  [mapView setStarmap:starmap];
-  [mapView setNeedsDisplay:YES];
-}
-
-- (IBAction)changeNetworkSize:(id)sender
-{
-  [starmap setNetworkSize:[sender intValue]];
-  [starmap generateStarmapWithStars:[starsField intValue] size:[self starmapSize] ofType:(int)[shapeSelector selectedSegment]];
-  
-  [mapView setStarmap:starmap];
-  [mapView setNeedsDisplay:YES];
+  [starmap performSelectorInBackground:@selector(generateStarmap) withObject:nil];
 }
 
 - (NSSize)starmapSize
@@ -89,6 +71,25 @@
     mapSize = NSMakeSize([xSizeField intValue], [ySizeField intValue]);
   }
   return mapSize;
+}
+
+- (void)willCreateStarmap:(BOOL)flag
+{
+  if (flag == YES) {
+    [statusField setStringValue:@"Generating Starmap"];
+    [activityIndicator startAnimation:self];
+    [generateButton setEnabled:NO];
+  }
+}
+
+- (void)didCreateStarmap
+{
+  [statusField setStringValue:@"Starmap Created"];
+  [activityIndicator stopAnimation:self];
+  [generateButton setEnabled:YES];
+  NSLog(@"Created Starmap");
+  [mapView setStarmap:starmap];
+  [mapView setNeedsDisplay:YES];
 }
 
 @end
