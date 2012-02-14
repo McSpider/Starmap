@@ -7,35 +7,28 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "Star.h"
+#import "Starmap.h"
 
 @interface StarmapView : NSView {
-  
-  IBOutlet NSTextField *seedField;
-  IBOutlet NSTextField *starsField;
-  IBOutlet NSTextField *sizeField;
-  IBOutlet NSPopUpButton *algorithmSelector;
-  BOOL networkingStars;
-
-  
-  unsigned int seed;
-  NSMutableArray *starmap;
+  id delegate;
   
   NSPoint mousePos;
   NSPoint cameraOffset;
   int zoomFactor;
   
-  int networkSize;
   BOOL drawNetwork;
   BOOL drawRings;
   BOOL drawLabels;
+  
+  Starmap *starmap;
 }
 
-- (IBAction)generate:(id)sender;
+
 - (IBAction)resetCamera:(id)sender;
 - (IBAction)zoomCamera:(id)sender;
 
+- (IBAction)saveToPDF:(id)sender;
 
-- (void)generateStarmapWithSeed:(unsigned int)seed starAmount:(int)stars size:(int)size;
+- (void)setStarmap:(Starmap *)aStarmap;
 
 @end

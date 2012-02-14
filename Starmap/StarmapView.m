@@ -13,30 +13,22 @@
 - (id)initWithFrame:(NSRect)frameRect
 {
   if ((self = [super initWithFrame:frameRect])) {
+    starmap = [[Starmap alloc] init];
     cameraOffset = NSMakePoint(0, 0);
-    starmap = [[NSMutableArray alloc] init];
-    seed = 23747;
-    networkSize = 106;
     drawNetwork = YES;
-    networkingStars = YES;
     drawRings = NO;
     drawLabels = YES;
-    zoomFactor = 1;
+    zoomFactor = 1;    
   }
   
   return self;
 }
 
 - (void)awakeFromNib {  
-  [seedField setStringValue:@"23747"];
-  [starsField setStringValue:@"100"];
-  [sizeField setStringValue:@"100"];
-  [self generateStarmapWithSeed:23747 starAmount:100 size:100];
-  [[self window] center];
-  [[self window] zoom:self];
-  
   [self scaleUnitSquareToSize:NSMakeSize(2, 2)];
   zoomFactor += 1;
+  
+  [self setNeedsDisplay:YES];
 }
 
 - (void)dealloc
@@ -45,15 +37,30 @@
   [super dealloc];
 }
 
-- (IBAction)generate:(id)sender
-{
-  [self generateStarmapWithSeed:[seedField intValue] starAmount:[starsField intValue] size:[sizeField intValue]];
-}
 
 - (IBAction)resetCamera:(id)sender
 {
   cameraOffset = NSMakePoint(0, 0);
   [self setNeedsDisplay:YES];
+  
+  if (zoomFactor == 4) {
+    [self scaleUnitSquareToSize:NSMakeSize(0.50, 0.50)];
+    [self scaleUnitSquareToSize:NSMakeSize(0.50, 0.50)];
+    zoomFactor = 2;
+  }
+  else if (zoomFactor == 3) {
+    [self scaleUnitSquareToSize:NSMakeSize(0.50, 0.50)];
+    zoomFactor = 2;
+  }
+  else if (zoomFactor == 1) {
+    [self scaleUnitSquareToSize:NSMakeSize(2, 2)];
+    zoomFactor = 2;
+  }
+  else if (zoomFactor == 0) {
+    [self scaleUnitSquareToSize:NSMakeSize(2, 2)];
+    [self scaleUnitSquareToSize:NSMakeSize(2, 2)];
+    zoomFactor = 2;
+  }
 }
 
 - (IBAction)zoomCamera:(id)sender
@@ -74,163 +81,21 @@
   [self setNeedsDisplay:YES];
 }
 
-- (BOOL)goodStarPosition:(NSPoint)pos checkDistance:(int)checkDist
-{  
-  if (pos.x == 0 && pos.y == 0)
-    return NO;
-  
-  for (Star *aStar in starmap) {
-    
-    float nomX = pos.x - aStar.xPos;
-    float nomY = pos.y - aStar.yPos;
-    
-    float dist = sqrt(nomX * nomX + nomY * nomY);
-    if (dist < checkDist)
-      return NO;
-  }
-  return YES;
-}
-
-- (NSArray *)neighborStars:(NSPoint)pos checkDistance:(int)checkDist
+- (IBAction)saveToPDF:(id)sender
 {
-  NSMutableArray *aArray = [[NSMutableArray alloc] init];
-  if (pos.x == 0 && pos.y == 0)
-    return NO;
+  int width = self.bounds.size.width;
+  int height = self.bounds.size.height;
   
-  for (Star *aStar in starmap) {
-    if (aStar.type == NETWORKING_STAR && !networkingStars)
-      continue;
-    
-    float nomX = pos.x - aStar.xPos;
-    float nomY = pos.y - aStar.yPos;
-    
-    float dist = sqrt(nomX * nomX + nomY * nomY);
-    if (dist < checkDist)
-      [aArray addObject:aStar];
-  }
-  return [NSArray arrayWithArray:[aArray autorelease]];
-}
+  int w = starmap.starmapSize.width;
+  int h = starmap.starmapSize.height;
 
-- (void)generateStarmapWithSeed:(unsigned int)aSeed starAmount:(int)stars size:(int)size;
-{
-  seed = aSeed;
-  srand(seed);
-  srandom(seed);
-      
-  int numstars = stars;
-  float x,y = 0;
-  Star *tempStar = nil;
+  NSRect mapMargin = NSMakeRect( width/2 - w/2,
+                                height/2 - h/2,
+                                w, h);
+  mapMargin = NSInsetRect(mapMargin,-1000,-1000);
+  mapMargin = NSOffsetRect(mapMargin,500+250,500+250);
   
-  [starmap release];
-  starmap = [[NSMutableArray alloc] init];
-  
-  // Stars
-  NSLog(@"Initializing Starmap");
-  for (int i1 = 0; i1 < numstars; ++i1)  {
-    if (tempStar != nil) {
-      float oldX = tempStar.xPos;
-      float oldY = tempStar.xPos;
-      
-      
-      BOOL validStar = NO;
-      while (!validStar) {
-        float angle = rand() % 360;
-        float radius = rand() % stars;
-        
-        x = sqrt(radius) * cos(angle);
-        y = sqrt(radius) * sin(angle);
-        
-        x *= 20;
-        y *= 20;
-
-        validStar = [self goodStarPosition:NSMakePoint(x, y) checkDistance:5];
-        if (!validStar)
-          NSLog(@"Invalid Star: %i of %i At: %i,%i",i1+1,numstars,(int)x,(int)y);        
-      }
-
-      
-      [tempStar release];
-      tempStar = [[Star alloc] init];  // create a temporary star
-      
-      if ([algorithmSelector indexOfSelectedItem] == 3) {
-        // Normalize new star postion relative to the previous star
-        [tempStar setXPos:oldX + x];
-        [tempStar setYPos:oldY + y];
-      }
-      else if ([algorithmSelector indexOfSelectedItem] == 4) {
-        Star *randomStar = [starmap objectAtIndex:rand() % [starmap count]];
-        // Normalize new star postion relative to a random star
-        [tempStar setXPos:randomStar.xPos + x];
-        [tempStar setYPos:randomStar.yPos + y];
-      }
-      else {
-        [tempStar setXPos:x];
-        [tempStar setYPos:y];
-      }
-      [tempStar setType:PRIMARY_STAR];
-      NSLog(@"Adding Star: %i of %i At: %i,%i",i1+1,numstars,(int)tempStar.xPos,(int)tempStar.yPos);
-      [starmap addObject:tempStar];
-    }
-    else {
-      float angle = rand() % 360;
-      float radius = rand() % stars/2;
-      
-      x = sqrt(radius) * cos(angle);
-      y = sqrt(radius) * sin(angle);
-      
-      x *= 20;
-      y *= 20;
-      
-      tempStar = [[Star alloc] init];  // create a temporary star
-      [tempStar setXPos:x];
-      [tempStar setYPos:y];
-      NSLog(@"Adding First Star");
-      [tempStar setType:FIRST_STAR];
-      [starmap addObject:tempStar];
-    }
-  }
-  NSLog(@"\n");
-  
-  //Networking Stars - Only generated for stars with less than 3 neighbors.
-  if (networkingStars) {
-    int i5;
-    for (i5 = 0; i5 < [starmap count]; i5++) {
-      Star *aStar = [starmap objectAtIndex:i5];
-      if (aStar.type == NETWORKING_STAR)
-        continue;
-      
-      NSArray *neighbors = [self neighborStars:NSMakePoint(aStar.xPos, aStar.yPos) checkDistance:networkSize/2];
-      if ([neighbors count] <= 3) {
-        
-        BOOL validStar = NO;
-        while (!validStar) {
-          float angle = rand() % 360;
-          float radius = rand() % networkSize/20;
-          
-          x = sqrt(radius) * cos(angle);
-          y = sqrt(radius) * sin(angle);
-          
-          x *= 20;
-          y *= 20;
-          
-          validStar = [self goodStarPosition:NSMakePoint(x, y) checkDistance:3];
-          if (!validStar)
-            NSLog(@"Invalid Networking Star At: %i,%i",(int)x,(int)y);        
-        }
-        
-        tempStar = [[Star alloc] init];  // create a temporary star
-        [tempStar setXPos:aStar.xPos - x];
-        [tempStar setYPos:aStar.yPos - y];
-        [tempStar setType:NETWORKING_STAR];
-        NSLog(@"Adding Networking Star At: %i,%i",(int)tempStar.xPos,(int)tempStar.yPos);
-        [starmap addObject:tempStar];
-      }
-    }
-    NSLog(@"\n");
-  }
-  
-  
-  [self setNeedsDisplay:YES];
+  [[self dataWithPDFInsideRect:mapMargin] writeToFile:[@"~/Desktop/output.pdf" stringByExpandingTildeInPath] atomically:YES];
 }
 
 - (void)drawRect:(NSRect)dirtyRect
@@ -239,22 +104,69 @@
   int width = self.bounds.size.width;
   int height = self.bounds.size.height;
   
-  [[NSColor whiteColor] set];
+  [[NSColor colorWithDeviceWhite:0.7 alpha:1] set];
   NSRectFill(self.bounds);
+  
+  if ([starmap.starArray count] == 0)
+    return;
+  
+  if (starmap.starmapShape == CIRCULAR_STARMAP) {
+    int starmapRadius = starmap.starmapSize.width;
+    
+    starmapRadius = sqrt(starmapRadius);
+    starmapRadius *= 60;
+    
+    NSRect mapMargin = NSMakeRect(0+width/2+(int)cameraOffset.x-starmapRadius/2,
+                                  0+height/2+(int)cameraOffset.y-starmapRadius/2, 
+                                  starmapRadius, starmapRadius);
+    
+    NSBezierPath *mapMarginPath = [NSBezierPath bezierPathWithOvalInRect:mapMargin];
+    [[NSColor colorWithDeviceWhite:0 alpha:0.1] set];
+    [mapMarginPath setLineWidth:4];
+    [mapMarginPath stroke];
+    
+    mapMarginPath = [NSBezierPath bezierPathWithOvalInRect:NSInsetRect(mapMargin, 2, 2)];
+    [[NSColor colorWithDeviceWhite:0 alpha:0.4] set];
+    [mapMarginPath setLineWidth:1];
+    [mapMarginPath stroke];
+    
+    [[NSColor whiteColor] set];
+    [mapMarginPath fill];
+  }
+  else if (starmap.starmapShape == RECTANGULAR_STARMAP) {
+    NSRect mapMargin = NSMakeRect(0+width/2+(int)cameraOffset.x-starmap.starmapSize.width/2,
+                                  0+height/2+(int)cameraOffset.y-starmap.starmapSize.height/2, 
+                                  starmap.starmapSize.width, starmap.starmapSize.height);
+    
+    NSBezierPath *mapMarginPath = [NSBezierPath bezierPathWithRect:mapMargin];
+    [[NSColor colorWithDeviceWhite:0 alpha:0.4] set];
+    [mapMarginPath setLineWidth:1];
+    [mapMarginPath stroke];
+    
+    mapMarginPath = [NSBezierPath bezierPathWithRect:NSInsetRect(mapMargin, -2, -2)];
+    [[NSColor colorWithDeviceWhite:0 alpha:0.1] set];
+    [mapMarginPath setLineWidth:3];
+    [mapMarginPath stroke];
+    
+    [[NSColor whiteColor] set];
+    [mapMarginPath fill];
+  }
 
   
   // Draw Network
-  
-  if (networkSize != 0) {
+  if (starmap.networkSize != 0) {
     NSBezierPath * circlesPath = [NSBezierPath bezierPath];
     int i3;
-    for (i3 = 0; i3 < [starmap count]; i3++) {
-      Star *aStar = [starmap objectAtIndex:i3];      
+    for (i3 = 0; i3 < [starmap.starArray count]; i3++) {
+      Star *aStar = [starmap.starArray objectAtIndex:i3];      
       
-      int xPos = aStar.xPos;
-      int yPos = aStar.yPos;
+      int xPos = aStar.starPos.x;
+      int yPos = aStar.starPos.y;
       
-      [circlesPath appendBezierPathWithOvalInRect:NSMakeRect(xPos+width/2+(int)cameraOffset.x-networkSize/2, yPos+height/2+(int)cameraOffset.y-networkSize/2, networkSize, networkSize)];
+      [circlesPath appendBezierPathWithOvalInRect:
+       NSMakeRect(xPos+width/2+(int)cameraOffset.x-starmap.networkSize/2,
+                  yPos+height/2+(int)cameraOffset.y-starmap.networkSize/2,
+                  starmap.networkSize, starmap.networkSize)];
     }
     
     [[NSColor colorWithDeviceWhite:0 alpha:0.05] set];
@@ -270,20 +182,23 @@
   // Draw Network Lines
   if (drawNetwork) {
     int i1;
-    for (i1 = 0; i1 < [starmap count]; i1++) {
-      Star *aStar = [starmap objectAtIndex:i1];
+    for (i1 = 0; i1 < [starmap.starArray count]; i1++) {
+      Star *aStar = [starmap.starArray objectAtIndex:i1];
       
-      NSArray *aArray = [self neighborStars:NSMakePoint(aStar.xPos, aStar.yPos) checkDistance:networkSize/2];
+      NSArray *aArray = aStar.neighbors;
       
-      int xPos = aStar.xPos;
-      int yPos = aStar.yPos;
+      int xFrom = aStar.starPos.x;
+      int yFrom = aStar.starPos.y;
       
       for (int i4 = 0; i4 < [aArray count]; i4++) {
         Star *neighborStar = [aArray objectAtIndex:i4];
         
+        int xTo = neighborStar.starPos.x;
+        int yTo = neighborStar.starPos.y;
+        
         NSBezierPath *starPath = [NSBezierPath bezierPath];
-        [starPath moveToPoint:NSMakePoint(xPos+width/2+(int)cameraOffset.x, yPos+height/2+(int)cameraOffset.y)];
-        [starPath lineToPoint:NSMakePoint(neighborStar.xPos+width/2+(int)cameraOffset.x, neighborStar.yPos+height/2+(int)cameraOffset.y)];
+        [starPath moveToPoint:NSMakePoint(xFrom+width/2+(int)cameraOffset.x, yFrom+height/2+(int)cameraOffset.y)];
+        [starPath lineToPoint:NSMakePoint(xTo+width/2+(int)cameraOffset.x, yTo+height/2+(int)cameraOffset.y)];
         
         [[NSColor colorWithDeviceWhite:0 alpha:0.2] set];
         [starPath setLineWidth:0.5];
@@ -294,12 +209,12 @@
   
 	// Draw Points
   int i2;
-  for (i2 = 0; i2 < [starmap count]; i2++) {
-    Star *aStar = [starmap objectAtIndex:i2];
+  for (i2 = 0; i2 < [starmap.starArray count]; i2++) {
+    Star *aStar = [starmap.starArray objectAtIndex:i2];
     
   	NSBezierPath * path;
-  	int xPos = aStar.xPos;
-  	int yPos = aStar.yPos;
+    int xPos = aStar.starPos.x;
+    int yPos = aStar.starPos.y;
     
     NSRect dotRect = NSMakeRect(xPos+width/2+(int)cameraOffset.x-2, yPos+height/2+(int)cameraOffset.y-2, 4, 4);
     path = [NSBezierPath bezierPathWithOvalInRect:dotRect];
@@ -315,16 +230,24 @@
   // Draw star names
   if (drawLabels) {
     int i3;
-    for (i3 = 0; i3 < [starmap count]; i3++) {
-      Star *aStar = [starmap objectAtIndex:i3];
+    for (i3 = 0; i3 < [starmap.starArray count]; i3++) {
+      Star *aStar = [starmap.starArray objectAtIndex:i3];
       
-      int xPos = aStar.xPos;
-      int yPos = aStar.yPos;
+      int xPos = aStar.starPos.x;
+      int yPos = aStar.starPos.y;
       
-      NSString *label = [NSString stringWithFormat:@"%@",aStar.starName];
+      NSString *nameLabel = [NSString stringWithFormat:@"%@",aStar.starName];
       NSDictionary *attr = [NSDictionary dictionaryWithObjectsAndKeys:[NSFont systemFontOfSize:5],NSFontAttributeName,
                             [NSColor colorWithDeviceWhite:0.0 alpha:0.8],NSForegroundColorAttributeName,nil];
-      [label drawAtPoint:NSMakePoint(xPos+width/2+(int)cameraOffset.x, yPos+height/2+(int)cameraOffset.y) withAttributes:attr];
+      [nameLabel drawAtPoint:NSMakePoint(xPos+width/2+(int)cameraOffset.x, yPos+height/2+(int)cameraOffset.y) withAttributes:attr];
+      
+      if (zoomFactor >= 4){
+        NSString *posLabel = [NSString stringWithFormat:@"%.1f,%.1f",aStar.starPos.x,aStar.starPos.y];
+        attr = [NSDictionary dictionaryWithObjectsAndKeys:[NSFont systemFontOfSize:3],NSFontAttributeName,
+                              [NSColor colorWithDeviceWhite:0.0 alpha:0.8],NSForegroundColorAttributeName,nil];
+        [posLabel drawAtPoint:NSMakePoint(xPos+width/2+(int)cameraOffset.x+2, yPos+height/2+(int)cameraOffset.y-2) withAttributes:attr];
+      }
+        
     }
   }
 }
@@ -344,16 +267,12 @@
 }
 
 
-- (void)setNetworkSize:(int)aNetworkSize
+- (void)setStarmap:(Starmap *)aStarmap
 {
-  networkSize = aNetworkSize;
-  [self generate:self];
-  [self setNeedsDisplay:YES];
-}
-
-- (int)networkSize
-{
-  return networkSize;
+  if (aStarmap != starmap) {
+    [starmap release];
+    starmap = [aStarmap retain];
+  }
 }
 
 - (void)setDrawNetwork:(BOOL)flag
@@ -389,16 +308,5 @@
   return drawLabels;
 }
 
-- (void)setNetworkingStars:(BOOL)flag
-{
-  networkingStars = flag;
-  [self generate:self];
-  [self setNeedsDisplay:YES];
-}
-
-- (int)networkingStars
-{
-  return networkingStars;
-}
 
 @end

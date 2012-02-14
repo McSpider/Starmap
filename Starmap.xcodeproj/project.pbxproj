@@ -16,6 +16,7 @@
 		AE57085914E78A190071E284 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = AE57085714E78A190071E284 /* MainMenu.xib */; };
 		AE57086114E78A2D0071E284 /* StarmapView.m in Sources */ = {isa = PBXBuildFile; fileRef = AE57086014E78A2D0071E284 /* StarmapView.m */; };
 		AE57087214E78AFF0071E284 /* Star.m in Sources */ = {isa = PBXBuildFile; fileRef = AE57087114E78AFF0071E284 /* Star.m */; };
+		AE7F30CA14E9A8BC002D7912 /* Starmap.m in Sources */ = {isa = PBXBuildFile; fileRef = AE7F30C914E9A8BC002D7912 /* Starmap.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,8 +37,10 @@
 		AE57085814E78A190071E284 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		AE57085F14E78A2D0071E284 /* StarmapView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StarmapView.h; sourceTree = "<group>"; };
 		AE57086014E78A2D0071E284 /* StarmapView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StarmapView.m; sourceTree = "<group>"; };
-		AE57087014E78AFF0071E284 /* Star.h */ = {isa = PBXFileReference; fileEncoding = 4; path = Star.h; sourceTree = "<group>"; };
+		AE57087014E78AFF0071E284 /* Star.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Star.h; sourceTree = "<group>"; };
 		AE57087114E78AFF0071E284 /* Star.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Star.m; sourceTree = "<group>"; };
+		AE7F30C814E9A8BC002D7912 /* Starmap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Starmap.h; sourceTree = "<group>"; };
+		AE7F30C914E9A8BC002D7912 /* Starmap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Starmap.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +98,8 @@
 				AE57085514E78A190071E284 /* StarmapAppDelegate.m */,
 				AE57085F14E78A2D0071E284 /* StarmapView.h */,
 				AE57086014E78A2D0071E284 /* StarmapView.m */,
+				AE7F30C814E9A8BC002D7912 /* Starmap.h */,
+				AE7F30C914E9A8BC002D7912 /* Starmap.m */,
 				AE57087014E78AFF0071E284 /* Star.h */,
 				AE57087114E78AFF0071E284 /* Star.m */,
 				AE0DAC1F14E8512700ECF52B /* KBLabel.h */,
@@ -182,6 +187,7 @@
 				AE57086114E78A2D0071E284 /* StarmapView.m in Sources */,
 				AE57087214E78AFF0071E284 /* Star.m in Sources */,
 				AE0DAC2114E8512700ECF52B /* KBLabel.m in Sources */,
+				AE7F30CA14E9A8BC002D7912 /* Starmap.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

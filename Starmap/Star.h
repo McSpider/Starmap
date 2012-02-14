@@ -14,17 +14,19 @@
 
 @interface Star : NSObject {
   
-  float xPos;
-  float yPos;
+  NSPoint starPos;
   
   int type;
   
   NSString *name;
+  
+  NSArray *neighbors;
 }
 
-@property float xPos;
-@property float yPos;
+@property NSPoint starPos;
 @property int type;
+
+@property (nonatomic, retain) NSArray *neighbors; 
 
 - (NSColor *)starColor;
 - (NSColor *)starName;

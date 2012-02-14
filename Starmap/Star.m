@@ -9,16 +9,18 @@
 #import "Star.h"
 
 @implementation Star
-@synthesize xPos;
-@synthesize yPos;
+@synthesize starPos;
 @synthesize type;
+@synthesize neighbors;
 
 
 - (id)init
 {
   if ((self = [super init])) {
     type = FIRST_STAR;
-    xPos = 0; yPos = 0;
+    starPos = NSZeroPoint;
+    
+    neighbors = [[NSArray alloc] init];
     
     NSArray *syllables = [NSArray arrayWithObjects: 
                           @"en", @"la", @"can", @"be", @"and", @"phi", @"eth", @"ol",
@@ -40,6 +42,7 @@
 - (void)dealloc
 {
   [name release];
+  [neighbors release];
   [super dealloc];
 }
 
