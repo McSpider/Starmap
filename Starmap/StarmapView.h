@@ -14,6 +14,7 @@
 
   NSPoint mousePos;
   NSPoint cameraOffset;
+  BOOL wasDragging;
   int zoomFactor;
 
   BOOL drawNetwork;

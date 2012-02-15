@@ -338,29 +338,43 @@
   return YES;
 }
 
-
 - (void)mouseDown:(NSEvent *)theEvent
 {
   mousePos = [self convertPoint:[theEvent locationInWindow] fromView:nil];
+}
 
-  int width = self.bounds.size.width;
-  int height = self.bounds.size.height;
-
-  int i2;
-  for (i2 = 0; i2 < [starmap.starArray count]; i2++) {
-    Star *aStar = [starmap.starArray objectAtIndex:i2];
-
-    int xPos = aStar.starPos.x;
-    int yPos = aStar.starPos.y;
-
-    NSRect dotRect = NSMakeRect(xPos+width/2+(int)cameraOffset.x-2, yPos+height/2+(int)cameraOffset.y-2, 4, 4);
-    if (NSPointInRect(mousePos, dotRect)) {
-      [self willChangeValueForKey:@"selectedStar"];
-      selectedStar = aStar;
-      [self didChangeValueForKey:@"selectedStar"];
-      [self setNeedsDisplay:YES];
+- (void)mouseUp:(NSEvent *)theEvent
+{
+  if (!wasDragging) {
+    mousePos = [self convertPoint:[theEvent locationInWindow] fromView:nil];
+    
+    int width = self.bounds.size.width;
+    int height = self.bounds.size.height;
+    
+    BOOL starSelected = NO;
+    
+    int i2;
+    for (i2 = 0; i2 < [starmap.starArray count]; i2++) {
+      Star *aStar = [starmap.starArray objectAtIndex:i2];
+      
+      int xPos = aStar.starPos.x;
+      int yPos = aStar.starPos.y;
+      
+      NSRect dotRect = NSMakeRect(xPos+width/2+(int)cameraOffset.x-2, yPos+height/2+(int)cameraOffset.y-2, 4, 4);
+      if (NSPointInRect(mousePos, dotRect)) {
+        [self willChangeValueForKey:@"selectedStar"];
+        selectedStar = aStar;
+        starSelected = YES;
+        [self didChangeValueForKey:@"selectedStar"];
+      }
+    }
+    if (!starSelected) {
+      selectedStar = nil;
     }
   }
+  
+  wasDragging = NO;
+  [self setNeedsDisplay:YES];
 }
 
 - (void)mouseDragged:(NSEvent *)theEvent
@@ -369,6 +383,7 @@
   cameraOffset = NSMakePoint(cameraOffset.x + (dragPos.x - mousePos.x), cameraOffset.y + (dragPos.y - mousePos.y));
   mousePos = dragPos;
 
+  wasDragging = YES;
   [self setNeedsDisplay:YES];
 }
 
