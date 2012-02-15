@@ -11,17 +11,20 @@
 
 @interface StarmapView : NSView {
   id delegate;
-  
+
   NSPoint mousePos;
   NSPoint cameraOffset;
   int zoomFactor;
-  
+
   BOOL drawNetwork;
   BOOL drawRings;
   BOOL drawLabels;
-  
+
   Starmap *starmap;
+  Star *selectedStar;
 }
+
+@property (nonatomic, readonly) Star *selectedStar;
 
 
 - (IBAction)resetCamera:(id)sender;

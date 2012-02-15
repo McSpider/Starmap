@@ -19,22 +19,22 @@
   if ((self = [super init])) {
     type = FIRST_STAR;
     starPos = NSZeroPoint;
-    
+
     neighbors = [[NSArray alloc] init];
-    
-    NSArray *syllables = [NSArray arrayWithObjects: 
+
+    NSArray *syllables = [NSArray arrayWithObjects:
                           @"en", @"la", @"can", @"be", @"and", @"phi", @"eth", @"ol",
                           @"ve", @"ho", @"a", @"lia", @"an", @"ar", @"ur", @"mi",
                           @"in", @"ti", @"qu", @"so", @"ed", @"ess", @"ex", @"io",
                           @"ce", @"ze", @"fa", @"ay", @"wa", @"da", @"ack", @"gre", nil];
-    
-    // use random() istead of rand() to prevent changes to the starmap
+
+    // use random() instead of rand() to prevent changes to the starmap
     name = [[[NSString stringWithFormat:@"%@%@%@",
               [syllables objectAtIndex:random() % [syllables count]],
               [syllables objectAtIndex:random() % [syllables count]],
               [syllables objectAtIndex:random() % [syllables count]]]
              capitalizedString] retain];
-    
+
     // No canada tyvm.
     while ([name isEqualToString:@"Canada"]) {
       NSLog(@"Regenerating Canada");
@@ -44,15 +44,15 @@
                 [syllables objectAtIndex:random() % [syllables count]]]
                capitalizedString] retain];
     }
-    
-    if ([name hasPrefix:@"Ack"]) {
+
+    if ([name hasPrefix:@"Acki"]) {
       name = [[[name autorelease] stringByReplacingCharactersInRange:NSMakeRange(0, 1) withString:@"Å"] retain];
     }
     else if ([name hasPrefix:@"Faack"]) {
       name = [[[name autorelease] stringByReplacingCharactersInRange:NSMakeRange(2, 3) withString:@"i"] retain];
     }
   }
-  
+
   return self;
 }
 

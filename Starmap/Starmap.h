@@ -29,20 +29,20 @@
 
 @interface Starmap : NSObject {
   id delegate;
-  
+
   unsigned int seed;
   int algorthm;
   int networkSize;
   int networkStarMargin;
   int normalStarMargin;
   BOOL generateNetworkingStars;
-  
+
   int starmapShape;
   NSSize starmapSize;
   int starmapStarCount;
 
   NSMutableArray *starArray;
-  
+
   BOOL generatingStarmap;
   NSDate *generatorStartTime;
 }

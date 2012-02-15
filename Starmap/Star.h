@@ -13,20 +13,19 @@
 #define NETWORKING_STAR 3
 
 @interface Star : NSObject {
-  
+
   NSPoint starPos;
-  
-  int type;
-  
+
   NSString *name;
-  
+  int type;
+
   NSArray *neighbors;
 }
 
 @property NSPoint starPos;
 @property int type;
 
-@property (nonatomic, retain) NSArray *neighbors; 
+@property (nonatomic, retain) NSArray *neighbors;
 
 - (NSColor *)starColor;
 - (NSColor *)starName;

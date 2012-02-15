@@ -11,7 +11,7 @@
 
 @interface KBLabel : NSTextField {
 @private
-  
+
 }
 
 @end

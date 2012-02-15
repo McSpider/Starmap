@@ -12,7 +12,7 @@
 @interface StarmapAppDelegate : NSObject <NSApplicationDelegate> {
   NSWindow *window;
   StarmapView *mapView;
-  
+
   IBOutlet NSTextField *seedField;
   IBOutlet NSTextField *starsField;
   IBOutlet NSTextField *radiusField;
@@ -21,18 +21,18 @@
   IBOutlet NSTextField *networkSizeField;
   IBOutlet NSTextField *starMarginField;
   IBOutlet NSTextField *networkMarginField;
-  
+
   IBOutlet NSTextField *statusField;
   IBOutlet NSButton *networkStarsCheck;
   IBOutlet NSPopUpButton *algorithmSelector;
   IBOutlet NSSegmentedControl *shapeSelector;
   IBOutlet NSTabView *sizeTabView;
-  
+
   IBOutlet NSButton *generateButton;
-  
+
   IBOutlet NSProgressIndicator *activityIndicator;
 
-  
+
   Starmap *starmap;
 }
 

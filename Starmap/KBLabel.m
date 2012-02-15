@@ -15,7 +15,7 @@
 {
 	if (![super initWithCoder:decoder])
 		return nil;
-	
+
 	[[self cell] setBackgroundStyle:NSBackgroundStyleRaised];
 	return self;
 }

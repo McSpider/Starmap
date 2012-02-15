@@ -23,7 +23,7 @@
   [starmap setStarmapSize:NSMakeSize(200, 200)];
   [starmap setStarmapShape:CIRCULAR_STARMAP];
   [starmap setStarmapStarCount:100];
-  
+
   [starmap performSelectorInBackground:@selector(generateStarmap) withObject:nil];
 }
 
@@ -50,19 +50,19 @@
 
 
 - (IBAction)generate:(id)sender
-{  
+{
   [starmap setSeed:[seedField intValue]];
   [starmap setNetworkSize:[networkSizeField intValue]];
   [starmap setGenerateNetworkingStars:[networkStarsCheck state]];
   [starmap setAlgorthm:(int)[algorithmSelector indexOfSelectedItem]];
-  
+
   [starmap setStarmapSize:[self starmapSize]];
   [starmap setStarmapShape:(int)[shapeSelector selectedSegment]];
   [starmap setStarmapStarCount:[starsField intValue]];
-  
+
   [starmap setNormalStarMargin:[starMarginField intValue]];
   [starmap setNetworkStarMargin:[networkMarginField intValue]];
-  
+
   [starmap performSelectorInBackground:@selector(generateStarmap) withObject:nil];
 }
 
@@ -87,20 +87,20 @@
 
 - (void)starmapGenerationFinishedWithTime:(float)time
 {
-  [statusField setStringValue:[NSString stringWithFormat:@"Starmap Created - Generation Time %fsec",time]];  
+  [statusField setStringValue:[NSString stringWithFormat:@"Starmap Created - Generation Time %fsec",time]];
   [activityIndicator stopAnimation:self];
   [generateButton setEnabled:YES];
   NSLog(@"Starmap Created");
   NSLog(@"Generation Time: %fsec",time);
   [mapView setStarmap:starmap];
   [mapView setNeedsDisplay:YES];
-  
+
   if (starmap.starmapShape == CIRCULAR_STARMAP) {
     int starmapRadius = starmap.starmapSize.width;
     starmapRadius = sqrt(starmapRadius);
     starmapRadius *= 20*2;
 
-    [statusField setStringValue:[NSString stringWithFormat:@"%@ - Actual Radius %i",[statusField stringValue],starmapRadius]];  
+    [statusField setStringValue:[NSString stringWithFormat:@"%@ - Actual Radius %i",[statusField stringValue],starmapRadius]];
   }
 }
 
