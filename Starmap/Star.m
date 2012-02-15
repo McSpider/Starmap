@@ -65,6 +65,20 @@
 }
 
 
+- (NSString *)description
+{
+  NSString *starType = @"First Star";
+  if (self.type == PRIMARY_STAR)
+    starType = @"Primary Star";
+  if (self.type == NETWORKING_STAR)
+    starType = @"Networking Star";
+  if (self.type == SOLITARY_STAR)
+    starType = @"Solitary Star";
+  if (self.type == NETWORKING_STAR)
+    return [NSString stringWithFormat:@"Name: %@ \r\nParent: %@ \r\nNeighbors: %i \r\nType: %@",self.starName,self.parentStar.starName,[self.neighbors count],starType];
+  return [NSString stringWithFormat:@"Name: %@ \r\nNeighbors: %i \r\nType: %@",self.starName,[self.neighbors count],starType];
+}
+
 - (NSColor *)starColor
 {
   if (type == PRIMARY_STAR)

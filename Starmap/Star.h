@@ -31,7 +31,7 @@
 @property (nonatomic, assign) Star *parentStar;
 
 - (NSColor *)starColor;
-- (NSColor *)starName;
+- (NSString *)starName;
 
 
 @end

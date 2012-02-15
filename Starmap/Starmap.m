@@ -329,14 +329,22 @@
   // Mark solitary stars
   NSMutableArray *solitaryStars = [[NSMutableArray alloc] init];
   for (Star *aStar in starArray) {
-    if ([aStar.neighbors count] == 1) {
+    if ([aStar.neighbors count] == 0) {
       [solitaryStars addObject:aStar];
     }
-    else if ([aStar.neighbors count] == 2) {
-      Star *nextStar = [aStar.neighbors objectAtIndex:0];
-      if ([nextStar.neighbors count] == 2) {
+    else if ([aStar.neighbors count] == 1) {
+      Star *nextStar1 = [aStar.neighbors objectAtIndex:0];
+      if ([nextStar1.neighbors count] == 1) {
         [solitaryStars addObject:aStar];
-        [solitaryStars addObject:nextStar];
+        [solitaryStars addObject:nextStar1];
+      }
+    }
+    else if ([aStar.neighbors count] == 2) {
+      Star *nextStar1 = [aStar.neighbors objectAtIndex:0];
+      Star *nextStar2 = [aStar.neighbors objectAtIndex:1];
+      if ([nextStar1.neighbors count] == 1 && [nextStar2.neighbors count] == 1) {
+        [solitaryStars addObject:aStar];
+        [solitaryStars addObject:nextStar1];
       }
     }
   }

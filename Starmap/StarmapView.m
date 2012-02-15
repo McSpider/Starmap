@@ -369,7 +369,9 @@
       }
     }
     if (!starSelected) {
+      [self willChangeValueForKey:@"selectedStar"];
       selectedStar = nil;
+      [self didChangeValueForKey:@"selectedStar"];
     }
   }
   
