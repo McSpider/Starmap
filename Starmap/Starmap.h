@@ -9,8 +9,6 @@
 #import <Foundation/Foundation.h>
 #import "Star.h"
 
-#define SM_DEBUG 0
-
 #define CIRCULAR_STARMAP 0
 #define RECTANGULAR_STARMAP 1
 

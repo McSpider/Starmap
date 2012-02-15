@@ -85,7 +85,7 @@
 
 - (IBAction)saveToPDF:(id)sender
 {
-  NSRect mapMargin = self.bounds;
+  NSRect mapMargin = NSMakeRect(0, 0, self.frame.size.width, self.frame.size.height);
 
   NSSavePanel *savepanel;
 
@@ -93,7 +93,7 @@
   [savepanel setAllowedFileTypes:[NSArray arrayWithObject:@"pdf"]];
 	[savepanel setCanSelectHiddenExtension:YES];
   [savepanel setNameFieldStringValue:@"SMOutput.pdf"];
-  [savepanel setMessage:@"Does not properly account for zooming."];
+  [savepanel setMessage:@"Only saves what is currently visible."];
 
 	/* if successful, save file under designated name */
 	if ([savepanel runModal] == NSOKButton) {
@@ -187,6 +187,23 @@
     }
   }
 
+  // Darken Selected Star Network Ring
+  if (selectedStar != nil && drawRings) {    
+    float radius = starmap.networkSize/2; //sqrt(starmap.networkSize/20)*20;
+    
+    int xPos = selectedStar.starPos.x;
+    int yPos = selectedStar.starPos.y;
+    
+    NSBezierPath * circlesPath = [NSBezierPath bezierPathWithOvalInRect:
+                                  NSMakeRect(xPos+width/2+(int)cameraOffset.x-radius,
+                                             yPos+height/2+(int)cameraOffset.y-radius,
+                                             radius*2, radius*2)];
+    
+    [[NSColor colorWithDeviceWhite:0 alpha:0.2] set];
+    [circlesPath setLineWidth:0.5];
+    [circlesPath stroke];
+  }
+
   // Draw Network Lines
   if (drawNetwork) {
     int i1;
@@ -265,11 +282,24 @@
     [[aStar starColor] set];
   	[path fill];
 
-    if (aStar.type == FIRST_STAR || aStar == selectedStar) {
+    if (aStar == selectedStar) {
       path = [NSBezierPath bezierPathWithOvalInRect:NSInsetRect(dotRect, -4, -4)];
       [[[aStar starColor] colorWithAlphaComponent:0.2] set];
       [path setLineWidth:2];
       [path stroke];
+      
+      // Also hilight parent
+      if (aStar.type == NETWORKING_STAR) {
+        NSBezierPath * path;
+        int xPos = aStar.parentStar.starPos.x;
+        int yPos = aStar.parentStar.starPos.y;
+        
+        NSRect dotRect = NSMakeRect(xPos+width/2+(int)cameraOffset.x-2, yPos+height/2+(int)cameraOffset.y-2, 4, 4);
+        path = [NSBezierPath bezierPathWithOvalInRect:NSInsetRect(dotRect, -4, -4)];
+        [[[aStar.parentStar starColor] colorWithAlphaComponent:0.2] set];
+        [path setLineWidth:2];
+        [path stroke];
+      }
     }
   }
 

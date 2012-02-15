@@ -19,6 +19,7 @@
   NSString *name;
   int type;
 
+  Star *parentStar;
   NSArray *neighbors;
 }
 
@@ -26,6 +27,7 @@
 @property int type;
 
 @property (nonatomic, retain) NSArray *neighbors;
+@property (nonatomic, assign) Star *parentStar;
 
 - (NSColor *)starColor;
 - (NSColor *)starName;

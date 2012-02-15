@@ -12,6 +12,7 @@
 @synthesize starPos;
 @synthesize type;
 @synthesize neighbors;
+@synthesize parentStar;
 
 
 - (id)init
@@ -19,7 +20,7 @@
   if ((self = [super init])) {
     type = FIRST_STAR;
     starPos = NSZeroPoint;
-
+    parentStar = nil;
     neighbors = [[NSArray alloc] init];
 
     NSArray *syllables = [NSArray arrayWithObjects:
