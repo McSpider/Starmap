@@ -15,6 +15,7 @@
 @synthesize networkSize;
 @synthesize networkStarMargin,normalStarMargin;
 @synthesize generateNetworkingStars;
+@synthesize removeSolitaryStars;
 @synthesize starmapShape;
 @synthesize starmapSize;
 @synthesize starmapStarCount;
@@ -33,6 +34,7 @@
     normalStarMargin = 5;
     networkStarMargin = 3;
     generateNetworkingStars = YES;
+    removeSolitaryStars = NO;
     algorthm = STARMAP_RANDOM_ALGO;
     starmapShape = CIRCULAR_STARMAP;
     starmapSize = NSMakeSize(100, 100);
@@ -169,7 +171,7 @@
           continue;
 
         NSArray *neighbors = [self neighborStarsForStar:aStar checkDistance:networkSize/2];
-        if ([neighbors count] <= 3) {
+        if ([neighbors count] < 3) {
 
           int loops = 0;
           BOOL validStar = NO;
@@ -281,7 +283,7 @@
           continue;
 
         NSArray *neighbors = [self neighborStarsForStar:aStar checkDistance:networkSize/2];
-        if ([neighbors count] <= 3) {
+        if ([neighbors count] < 3) {
 
           int loops = 0;
           BOOL validStar = NO;
@@ -323,6 +325,29 @@
   for (Star *aStar in starArray) {
     [aStar setNeighbors:[self neighborStarsForStar:aStar checkDistance:networkSize/2]];
   }
+  
+  // Mark solitary stars
+  NSMutableArray *solitaryStars = [[NSMutableArray alloc] init];
+  for (Star *aStar in starArray) {
+    if ([aStar.neighbors count] == 1) {
+      [solitaryStars addObject:aStar];
+    }
+    else if ([aStar.neighbors count] == 2) {
+      Star *nextStar = [aStar.neighbors objectAtIndex:0];
+      if ([nextStar.neighbors count] == 2) {
+        [solitaryStars addObject:aStar];
+        [solitaryStars addObject:nextStar];
+      }
+    }
+  }
+
+  for (Star *aStar in solitaryStars) {
+    [aStar setType:SOLITARY_STAR];
+  }
+  if (removeSolitaryStars) {
+    [starArray removeObjectsInArray:solitaryStars];
+  }
+  [solitaryStars release];
 
   return 0;
 }
@@ -361,7 +386,7 @@
   NSMutableArray *neighborsArray = [[NSMutableArray alloc] init];
 
   for (Star *aStar in starArray) {
-    if (aStar.type == NETWORKING_STAR && !generateNetworkingStars)
+    if (aStar == theStar)
       continue;
 
     float nomX = theStar.starPos.x - aStar.starPos.x;

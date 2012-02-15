@@ -71,6 +71,8 @@
     return [NSColor colorWithCalibratedRed:0.00 green:0.00 blue:0.80 alpha:1.00];
   if (type == NETWORKING_STAR)
     return [NSColor colorWithCalibratedRed:0.49 green:0.00 blue:0.80 alpha:1.00];
+  if (type == SOLITARY_STAR)
+    return [NSColor colorWithCalibratedRed:0.80 green:0.20 blue:0.00 alpha:1.00];
   return [NSColor colorWithCalibratedRed:0.20 green:0.20 blue:0.20 alpha:1.00];
 }
 

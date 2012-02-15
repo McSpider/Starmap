@@ -11,6 +11,7 @@
 #define FIRST_STAR 1
 #define PRIMARY_STAR 2
 #define NETWORKING_STAR 3
+#define SOLITARY_STAR 4
 
 @interface Star : NSObject {
 

@@ -34,6 +34,7 @@
   int networkStarMargin;
   int normalStarMargin;
   BOOL generateNetworkingStars;
+  BOOL removeSolitaryStars;
 
   int starmapShape;
   NSSize starmapSize;
@@ -51,6 +52,7 @@
 @property int networkSize;
 @property int networkStarMargin,normalStarMargin;
 @property BOOL generateNetworkingStars;
+@property BOOL removeSolitaryStars;
 @property int starmapShape;
 @property NSSize starmapSize;
 @property int starmapStarCount;
