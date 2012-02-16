@@ -32,6 +32,7 @@
 
 - (NSColor *)starColor;
 - (NSString *)starName;
+- (NSString *)starType;
 
 
 @end

@@ -233,40 +233,7 @@
   }
 
   // Draw Route to selectedStar
-  /*if (selectedStar != nil) {
-
-    // create the open list of nodes, initially containing only our starting node
-    NSArray *openNodes = [[NSArray alloc] initWithObjects:[starmap.starArray objectAtIndex:0], nil];
-    // create the closed list of nodes, initially empty
-    NSArray *closedNodes = [[NSArray alloc] init];
-
-    Star *currentStar = nil;
-    BOOL finished = NO;
-    while (!finished) { // while we have not reached our goal
-      //consider the best node in the open list (the node with the lowest f value)
-      if (currentStar == selectedStar) { // if this node is the goal
-        // then we're done
-        finished = YES;
-      }
-      else {
-        //move the current node to the closed list and consider all of its neighbors
-        for (Star *neighborStar in currentStar.neighbors) { //each neighbor
-          if ([closedNodes containsObject:neighborStar] && (currentStar.gValue < neighborStar.gValue)) { // if this neighbor is in the closed list and our current g value is lower
-            // update the neighbor with the new, lower, g value
-            // change the neighbor's parent to our current node
-          }
-          else if ([openNodes containsObject:neighborStar] && (currentStar.gValue < neighborStar.gValue)) { // this neighbor is in the open list and our current g value is lower
-            // update the neighbor with the new, lower, g value
-            // change the neighbor's parent to our current node
-          }
-          else { //this neighbor is not in either the open or closed list
-            // add the neighbor to the open list and set its g value
-          }
-        }
-      }
-    }
-
-  }*/
+  if (selectedStar != nil) { }
 
 	// Draw Points
   int i2;
