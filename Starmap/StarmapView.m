@@ -16,6 +16,7 @@
   if ((self = [super initWithFrame:frameRect])) {
     starmap = [[Starmap alloc] init];
     selectedStar = nil;
+    selectedStarPath = [[NSArray alloc] init];
     cameraOffset = NSMakePoint(0, 0);
     drawNetwork = YES;
     drawRings = NO;
@@ -35,6 +36,7 @@
 
 - (void)dealloc
 {
+  [selectedStarPath release];
   [starmap release];
   [super dealloc];
 }
@@ -233,7 +235,31 @@
   }
 
   // Draw Route to selectedStar
-  if (selectedStar != nil) { }
+  if (selectedStar != nil && selectedStarPath != nil) {
+    [[NSColor colorWithDeviceWhite:0 alpha:0.5] set];
+    
+    int i1;
+    for (i1 = 0; i1 < [selectedStarPath count]; i1++) {
+      Star *aStar = [selectedStarPath objectAtIndex:i1];
+            
+      int xFrom = aStar.starPos.x;
+      int yFrom = aStar.starPos.y;
+      
+      if ([selectedStarPath count] > i1+1) {
+        Star *nextStar = [selectedStarPath objectAtIndex:i1+1];
+        
+        int xTo = nextStar.starPos.x;
+        int yTo = nextStar.starPos.y;
+        
+        NSBezierPath *starPath = [NSBezierPath bezierPath];
+        [starPath moveToPoint:NSMakePoint(xFrom+width/2+(int)cameraOffset.x, yFrom+height/2+(int)cameraOffset.y)];
+        [starPath lineToPoint:NSMakePoint(xTo+width/2+(int)cameraOffset.x, yTo+height/2+(int)cameraOffset.y)];
+        
+        [starPath setLineWidth:0.5];
+        [starPath stroke];
+      }
+    }
+  }
 
 	// Draw Points
   int i2;
@@ -255,15 +281,15 @@
       [path setLineWidth:2];
       [path stroke];
       
-      // Also hilight parent
+      // Also hilight netwrok star
       if (aStar.type == NETWORKING_STAR) {
         NSBezierPath * path;
-        int xPos = aStar.parentStar.starPos.x;
-        int yPos = aStar.parentStar.starPos.y;
+        int xPos = aStar.networkStar.starPos.x;
+        int yPos = aStar.networkStar.starPos.y;
         
         NSRect dotRect = NSMakeRect(xPos+width/2+(int)cameraOffset.x-2, yPos+height/2+(int)cameraOffset.y-2, 4, 4);
         path = [NSBezierPath bezierPathWithOvalInRect:NSInsetRect(dotRect, -4, -4)];
-        [[[aStar.parentStar starColor] colorWithAlphaComponent:0.2] set];
+        [[[aStar.networkStar starColor] colorWithAlphaComponent:0.2] set];
         [path setLineWidth:2];
         [path stroke];
       }
@@ -333,11 +359,16 @@
         selectedStar = aStar;
         starSelected = YES;
         [self didChangeValueForKey:@"selectedStar"];
+        
+        Pathfinder *pathF = [[Pathfinder alloc] init];
+        [selectedStarPath release];
+        selectedStarPath = [[pathF runPathfinderWithStars:starmap.starArray fromStar:[starmap.starArray objectAtIndex:0] toStar:selectedStar] retain];        
       }
     }
     if (!starSelected) {
       [self willChangeValueForKey:@"selectedStar"];
       selectedStar = nil;
+      selectedStarPath = nil;
       [self didChangeValueForKey:@"selectedStar"];
     }
   }

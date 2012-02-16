@@ -11,8 +11,11 @@
 @implementation Star
 @synthesize starPos;
 @synthesize type;
-@synthesize neighbors;
+@synthesize networkStar;
+@synthesize g, f, h;
 @synthesize parentStar;
+@synthesize neighbors;
+
 
 
 - (id)init
@@ -20,6 +23,8 @@
   if ((self = [super init])) {
     type = FIRST_STAR;
     starPos = NSZeroPoint;
+    networkStar = nil;
+    g = f = h = 0;
     parentStar = nil;
     neighbors = [[NSArray alloc] init];
 
@@ -69,7 +74,7 @@
 {
   if (self.type == NETWORKING_STAR) {
     return [NSString stringWithFormat:@"Name: %@ \r\nParent: %@ \r\nNeighbors: %i \r\nType: %@",
-            self.starName,self.parentStar.starName,[self.neighbors count],self.starType];
+            self.starName,self.networkStar.starName,[self.neighbors count],self.starType];
   }
   return [NSString stringWithFormat:@"Name: %@ \r\nNeighbors: %i \r\nType: %@",
           self.starName,[self.neighbors count],self.starType];

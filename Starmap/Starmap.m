@@ -200,7 +200,7 @@
           tempStar = [[Star alloc] init];  // create a temporary star
           [tempStar setStarPos:newStarPosition];
           [tempStar setType:NETWORKING_STAR];
-          [tempStar setParentStar:aStar];
+          [tempStar setNetworkStar:aStar];
           NSLog(@"Adding Networking Star At: %i,%i",(int)tempStar.starPos.x,(int)tempStar.starPos.y);
           [starArray addObject:tempStar];
           [tempStar release];
@@ -311,7 +311,7 @@
           tempStar = [[Star alloc] init];  // create a temporary star
           [tempStar setStarPos:newStarPosition];
           [tempStar setType:NETWORKING_STAR];
-          [tempStar setParentStar:aStar];
+          [tempStar setNetworkStar:aStar];
           NSLog(@"Adding Networking Star At: %i,%i",(int)tempStar.starPos.x,(int)tempStar.starPos.y);
           [starArray addObject:tempStar];
           [tempStar release];

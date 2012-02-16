@@ -33,7 +33,8 @@
   [super dealloc];
 }
 
-- (void)awakeFromNib {
+- (void)awakeFromNib
+{
   [seedField setStringValue:@"23747"];
   [starsField setStringValue:@"100"];
   [radiusField setStringValue:@"200"];

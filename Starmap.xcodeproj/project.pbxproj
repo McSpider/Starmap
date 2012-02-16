@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AE03056614EC7248000BFD25 /* Pathfinder.m in Sources */ = {isa = PBXBuildFile; fileRef = AE03056514EC7248000BFD25 /* Pathfinder.m */; };
 		AE0DAC2114E8512700ECF52B /* KBLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = AE0DAC2014E8512700ECF52B /* KBLabel.m */; };
 		AE57084314E78A190071E284 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE57084214E78A190071E284 /* Cocoa.framework */; };
 		AE57084D14E78A190071E284 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = AE57084B14E78A190071E284 /* InfoPlist.strings */; };
@@ -20,6 +21,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		AE03056414EC7248000BFD25 /* Pathfinder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Pathfinder.h; sourceTree = "<group>"; };
+		AE03056514EC7248000BFD25 /* Pathfinder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Pathfinder.m; sourceTree = "<group>"; };
 		AE0DAC1F14E8512700ECF52B /* KBLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KBLabel.h; sourceTree = "<group>"; };
 		AE0DAC2014E8512700ECF52B /* KBLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KBLabel.m; sourceTree = "<group>"; };
 		AE57083E14E78A190071E284 /* Starmap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Starmap.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -55,6 +58,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AE03056B14EC7260000BFD25 /* A Star Pathfinding */ = {
+			isa = PBXGroup;
+			children = (
+				AE03056414EC7248000BFD25 /* Pathfinder.h */,
+				AE03056514EC7248000BFD25 /* Pathfinder.m */,
+			);
+			name = "A Star Pathfinding";
+			sourceTree = "<group>";
+		};
 		AE57083314E78A190071E284 = {
 			isa = PBXGroup;
 			children = (
@@ -102,6 +114,7 @@
 				AE7F30C914E9A8BC002D7912 /* Starmap.m */,
 				AE57087014E78AFF0071E284 /* Star.h */,
 				AE57087114E78AFF0071E284 /* Star.m */,
+				AE03056B14EC7260000BFD25 /* A Star Pathfinding */,
 				AE0DAC1F14E8512700ECF52B /* KBLabel.h */,
 				AE0DAC2014E8512700ECF52B /* KBLabel.m */,
 				AE57085714E78A190071E284 /* MainMenu.xib */,
@@ -188,6 +201,7 @@
 				AE57087214E78AFF0071E284 /* Star.m in Sources */,
 				AE0DAC2114E8512700ECF52B /* KBLabel.m in Sources */,
 				AE7F30CA14E9A8BC002D7912 /* Starmap.m in Sources */,
+				AE03056614EC7248000BFD25 /* Pathfinder.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
