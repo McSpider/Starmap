@@ -362,12 +362,14 @@
         
         Pathfinder *pathF = [[Pathfinder alloc] init];
         [selectedStarPath release];
-        selectedStarPath = [[pathF runPathfinderWithStars:starmap.starArray fromStar:[starmap.starArray objectAtIndex:0] toStar:selectedStar] retain];        
+        selectedStarPath = [[pathF runPathfinderWithStars:starmap.starArray fromStar:[starmap.starArray objectAtIndex:0] toStar:selectedStar] retain];
+        [pathF release];
       }
     }
     if (!starSelected) {
       [self willChangeValueForKey:@"selectedStar"];
       selectedStar = nil;
+      [selectedStarPath release];
       selectedStarPath = nil;
       [self didChangeValueForKey:@"selectedStar"];
     }
@@ -394,6 +396,11 @@
     [starmap release];
     starmap = [aStarmap retain];
   }
+  [self willChangeValueForKey:@"selectedStar"];
+  selectedStar = nil;
+  [self didChangeValueForKey:@"selectedStar"];
+  [selectedStarPath release];
+  selectedStarPath = nil;
 }
 
 - (void)setDrawNetwork:(BOOL)flag

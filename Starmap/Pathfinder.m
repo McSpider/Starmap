@@ -13,19 +13,18 @@
 
 - (id)init
 {
-    self = [super init];
-    if (self) {
-        // Initialization code here.
-    }
-    
-    return self;
+  if (self = [super init]) {
+    // Initialization code here.
+  }
+  
+  return self;
 }
 
 - (int)heuristicForStar:(Star *)fromStar toStar:(Star *)toStar travelCost:(int)cost
 {
-  int dx = fromStar.starPos.x - toStar.starPos.x;
-	int dy = fromStar.starPos.y - toStar.starPos.y;
-	return sqrt( dx * dx + dy * dy ) * cost;
+  float dx = fromStar.starPos.x - toStar.starPos.x;
+  float dy = fromStar.starPos.y - toStar.starPos.y;
+  return sqrt( dx * dx + dy * dy ) * cost;
 }
 
 static NSInteger numericSort(id star1, id star2, void *context) {
@@ -63,7 +62,7 @@ static NSInteger numericSort(id star1, id star2, void *context) {
   [currentStar setF:currentStar.g + currentStar.h];
   int l = (int)[starData count];
   int i;
-    
+  
   while (currentStar != toStar) {
     connectedNodes = currentStar.neighbors;
     l = (int)[connectedNodes count];
@@ -98,8 +97,8 @@ static NSInteger numericSort(id star1, id star2, void *context) {
     [openStars removeObjectAtIndex:0];
   }
   
-  
-  NSLog(@"Stars %@",starData);
+  [openStars release];
+  [closedStars release];
   
   NSMutableArray *path = [[NSMutableArray alloc] init];
   Star *star = toStar;
@@ -108,7 +107,6 @@ static NSInteger numericSort(id star1, id star2, void *context) {
     star = star.parentStar;
     [path insertObject:star atIndex:0];
   }
-  NSLog(@"Finished Path %@",path);
   return [NSArray arrayWithArray:[path autorelease]];
 }
 
