@@ -18,6 +18,7 @@
 		AE57086114E78A2D0071E284 /* StarmapView.m in Sources */ = {isa = PBXBuildFile; fileRef = AE57086014E78A2D0071E284 /* StarmapView.m */; };
 		AE57087214E78AFF0071E284 /* Star.m in Sources */ = {isa = PBXBuildFile; fileRef = AE57087114E78AFF0071E284 /* Star.m */; };
 		AE7F30CA14E9A8BC002D7912 /* Starmap.m in Sources */ = {isa = PBXBuildFile; fileRef = AE7F30C914E9A8BC002D7912 /* Starmap.m */; };
+		AEE2F1DB14EDDC6300DF77D1 /* License.rtf in Resources */ = {isa = PBXBuildFile; fileRef = AEE2F1DA14EDDC6300DF77D1 /* License.rtf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +45,7 @@
 		AE57087114E78AFF0071E284 /* Star.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Star.m; sourceTree = "<group>"; };
 		AE7F30C814E9A8BC002D7912 /* Starmap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Starmap.h; sourceTree = "<group>"; };
 		AE7F30C914E9A8BC002D7912 /* Starmap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Starmap.m; sourceTree = "<group>"; };
+		AEE2F1DA14EDDC6300DF77D1 /* License.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = License.rtf; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,6 +133,7 @@
 				AE57084E14E78A190071E284 /* main.m */,
 				AE57085014E78A190071E284 /* Starmap-Prefix.pch */,
 				AE57085114E78A190071E284 /* Credits.rtf */,
+				AEE2F1DA14EDDC6300DF77D1 /* License.rtf */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -185,6 +188,7 @@
 				AE57084D14E78A190071E284 /* InfoPlist.strings in Resources */,
 				AE57085314E78A190071E284 /* Credits.rtf in Resources */,
 				AE57085914E78A190071E284 /* MainMenu.xib in Resources */,
+				AEE2F1DB14EDDC6300DF77D1 /* License.rtf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -255,6 +255,9 @@
         [starPath moveToPoint:NSMakePoint(xFrom+width/2+(int)cameraOffset.x, yFrom+height/2+(int)cameraOffset.y)];
         [starPath lineToPoint:NSMakePoint(xTo+width/2+(int)cameraOffset.x, yTo+height/2+(int)cameraOffset.y)];
         
+        double array[] = {5.0,4.0};
+        [starPath setLineDash:array count:2 phase: 0.0];
+        
         [starPath setLineWidth:0.5];
         [starPath stroke];
       }
@@ -281,7 +284,7 @@
       [path setLineWidth:2];
       [path stroke];
       
-      // Also hilight netwrok star
+      // Also hilight the network star
       if (aStar.type == NETWORKING_STAR) {
         NSBezierPath * path;
         int xPos = aStar.networkStar.starPos.x;
