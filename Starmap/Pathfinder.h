@@ -2,8 +2,8 @@
 //  Pathfinder.h
 //  Starmap
 //
-//  Created by Benjamin Kohler on 12/02/15.
-//  Copyright 2012 __MyCompanyName__. All rights reserved.
+//  Created by Ben K on 12/02/15.
+//  All code is provided under the New BSD license.
 //
 
 #import <Foundation/Foundation.h>

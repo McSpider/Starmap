@@ -2,8 +2,8 @@
 //  StarmapAppDelegate.m
 //  Starmap
 //
-//  Created by Benjamin Kohler on 12/02/11.
-//  Copyright 2012 __MyCompanyName__. All rights reserved.
+//  Created by Ben K on 12/02/11.
+//  All code is provided under the New BSD license.
 //
 
 #import "StarmapAppDelegate.h"
