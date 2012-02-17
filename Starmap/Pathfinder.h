@@ -11,7 +11,7 @@
 
 @interface Pathfinder : NSObject {
   
-  
+  NSDate *pathfinderStartTime;
 }
 
 - (NSArray *)runPathfinderWithStars:(NSArray *)nodeData fromStar:(Star *)fromStar toStar:(Star *)toStar;

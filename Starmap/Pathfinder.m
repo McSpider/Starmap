@@ -41,6 +41,7 @@ static NSInteger numericSort(id star1, id star2, void *context) {
 
 - (NSArray *)runPathfinderWithStars:(NSArray *)starData fromStar:(Star *)fromStar toStar:(Star *)toStar
 {
+  pathfinderStartTime = [[NSDate date] retain];
   // G . the exact cost to reach this node from the starting node.
   // H . the estimated(heuristic) cost to reach the destination from here.
   // F = G + H . As the algorithm runs the F value of a node tells us how expensive we think it will be to reach our goal by way of that node.
@@ -107,6 +108,11 @@ static NSInteger numericSort(id star1, id star2, void *context) {
     star = star.parentStar;
     [path insertObject:star atIndex:0];
   }
+  
+  // Get run time
+  NSLog(@"Pathfinder Time: %fsec",[[NSDate date] timeIntervalSinceDate:pathfinderStartTime]);
+  [pathfinderStartTime release];
+  
   return [NSArray arrayWithArray:[path autorelease]];
 }
 
