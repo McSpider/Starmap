@@ -358,14 +358,19 @@
       
       NSRect dotRect = NSMakeRect(xPos+width/2+(int)cameraOffset.x-2, yPos+height/2+(int)cameraOffset.y-2, 4, 4);
       if (NSPointInRect(mousePos, dotRect)) {
-        [self willChangeValueForKey:@"selectedStar"];
-        selectedStar = aStar;
-        starSelected = YES;
-        [self didChangeValueForKey:@"selectedStar"];
+        if ([theEvent modifierFlags] & NSRightMouseDownMask) {
+          firstStar = aStar;
+          starSelected = YES;
+        } else {
+          [self willChangeValueForKey:@"selectedStar"];
+          selectedStar = aStar;
+          starSelected = YES;
+          [self didChangeValueForKey:@"selectedStar"];
+        }
         
         Pathfinder *pathF = [[Pathfinder alloc] init];
         [selectedStarPath release];
-        selectedStarPath = [[pathF runPathfinderWithStars:starmap.starArray fromStar:[starmap.starArray objectAtIndex:0] toStar:selectedStar] retain];
+        selectedStarPath = [[pathF runPathfinderWithStars:starmap.starArray fromStar:firstStar toStar:selectedStar] retain];
         [pathF release];
       }
     }
@@ -399,6 +404,7 @@
     [starmap release];
     starmap = [aStarmap retain];
   }
+  firstStar = [starmap.starArray objectAtIndex:0];
   [self willChangeValueForKey:@"selectedStar"];
   selectedStar = nil;
   [self didChangeValueForKey:@"selectedStar"];

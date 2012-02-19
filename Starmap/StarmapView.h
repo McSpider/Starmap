@@ -24,6 +24,7 @@
 
   Starmap *starmap;
   Star *selectedStar;
+  Star *firstStar;
   
   NSArray *selectedStarPath;
 }
