@@ -10,11 +10,13 @@
 #import "Star.h"
 
 @implementation Pathfinder
+@synthesize pathfinderType;
 
 - (id)init
 {
   if ((self = [super init])) {
-    // Initialization code here.
+    //pathfinderType = A_STAR;
+    pathfinderType = DJIKSTRA;
   }
   
   return self;
@@ -22,9 +24,14 @@
 
 - (int)heuristicForStar:(Star *)fromStar toStar:(Star *)toStar travelCost:(int)cost
 {
-  float dx = fromStar.starPos.x - toStar.starPos.x;
-  float dy = fromStar.starPos.y - toStar.starPos.y;
-  return sqrt( dx * dx + dy * dy ) * cost;
+  // A Star pathfinding uses heristics Djikstra's doesn't.
+  if (pathfinderType == A_STAR) {
+    float dx = fromStar.starPos.x - toStar.starPos.x;
+    float dy = fromStar.starPos.y - toStar.starPos.y;
+    return sqrt( dx * dx + dy * dy ) * cost;
+  }
+  // pathfinderType == DJIKSTRA
+  return 0;
 }
 
 static NSInteger numericSort(id star1, id star2, void *context) {
@@ -53,7 +60,7 @@ static NSInteger numericSort(id star1, id star2, void *context) {
   
   
   Star *currentStar;
-  currentStar = [starData objectAtIndex:0];
+  currentStar = fromStar;
   Star *testStar;
   NSArray *connectedNodes;
   int travelCost = 1.0;
