@@ -368,10 +368,12 @@
           [self didChangeValueForKey:@"selectedStar"];
         }
         
-        Pathfinder *pathF = [[Pathfinder alloc] init];
-        [selectedStarPath release];
-        selectedStarPath = [[pathF runPathfinderWithStars:starmap.starArray fromStar:firstStar toStar:selectedStar] retain];
-        [pathF release];
+        if (firstStar != nil && selectedStar != nil) {
+          Pathfinder *pathF = [[Pathfinder alloc] init];
+          [selectedStarPath release];
+          selectedStarPath = [[pathF runPathfinderWithStars:starmap.starArray fromStar:firstStar toStar:selectedStar] retain];
+          [pathF release];
+        }
       }
     }
     if (!starSelected) {
