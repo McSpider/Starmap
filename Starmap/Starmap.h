@@ -67,5 +67,6 @@
 
 
 - (NSArray *)starArray;
+- (NSString *)xmlData;
 
 @end

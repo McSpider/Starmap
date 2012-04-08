@@ -424,4 +424,31 @@
   return [NSArray arrayWithArray:starArray];
 }
 
+- (NSString *)xmlData
+{
+  NSString *xmlString = [[NSString alloc] initWithString:@"<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n<data>\n"];
+  
+  for (uint i1 = 0; i1 < starArray.count; i1++) {
+    Star *aStar = [starArray objectAtIndex:i1];
+    NSString *xmlStar = [NSString stringWithFormat:@"<star index=\"%u\">\n  <name>%@</name>\n  <pos>%f,%f</pos>\n  <type>%i</type>\n",
+                         i1,aStar.starName,aStar.starPos.x,aStar.starPos.y,aStar.type];
+    
+    
+    xmlStar = [xmlStar stringByAppendingString:@"  <neighbors>\n"];
+    for (uint i2 = 0; i2 < aStar.neighbors.count; i2++) {
+      Star *nStar = [aStar.neighbors objectAtIndex:i2];
+      NSString *neighborStar = [NSString stringWithFormat:@"    <star index=\"%u\">\n      <name>%@</name>\n      <pos>%f,%f</pos>\n      <type>%i</type>\n    </star>\n",i2,nStar.starName,nStar.starPos.x,nStar.starPos.y,nStar.type];
+      xmlStar = [xmlStar stringByAppendingString:neighborStar];
+    }
+    xmlStar = [xmlStar stringByAppendingString:@"  </neighbors>\n"];
+    
+    //xmlStar = [xmlStar stringByAppendingString:[NSString stringWithFormat:@"  <neighbors>%@</neighbors>",aStar.neighbors]];
+    xmlStar = [xmlStar stringByAppendingString:@"</star>\n"];
+    xmlString = [xmlString stringByAppendingString:xmlStar];
+  }
+  xmlString = [xmlString stringByAppendingString:@"</data>\n"];
+  
+  return [xmlString autorelease];
+}
+
 @end

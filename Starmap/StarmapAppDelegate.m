@@ -49,6 +49,30 @@
   [window zoom:self];
 }
 
+- (BOOL)validateUserInterfaceItem:(id <NSValidatedUserInterfaceItem>)anItem
+{
+	if (anItem.action == @selector(saveStarmapXML:)) {
+		return starmap.starArray.count != 0;
+	}
+	return YES;
+}
+
+
+- (IBAction)saveStarmapXML:(id)sender
+{  
+  NSSavePanel *savepanel;
+  
+	savepanel = [NSSavePanel savePanel];
+  [savepanel setAllowedFileTypes:[NSArray arrayWithObject:@"xml"]];
+	[savepanel setCanSelectHiddenExtension:YES];
+  [savepanel setNameFieldStringValue:@"Starmap_XML.xml"];
+  [savepanel setMessage:@"Only saves what is currently visible."];
+  
+	/* if successful, save file under designated name */
+	if ([savepanel runModal] == NSOKButton) {
+		[[starmap xmlData] writeToURL:[savepanel URL] atomically:YES encoding:NSUTF8StringEncoding error:nil];
+	}
+}
 
 - (IBAction)generate:(id)sender
 {

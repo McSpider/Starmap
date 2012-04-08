@@ -42,6 +42,7 @@
 @property (nonatomic, assign) Starmap *starmap;
 
 - (IBAction)generate:(id)sender;
+- (IBAction)saveStarmapXML:(id)sender;
 - (NSSize)starmapSize;
 
 @end
