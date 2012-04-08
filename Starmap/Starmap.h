@@ -67,6 +67,6 @@
 
 
 - (NSArray *)starArray;
-- (NSString *)xmlData;
+- (NSString *)xmlDataWithNeighbors:(BOOL)saveNeighbors;
 
 @end

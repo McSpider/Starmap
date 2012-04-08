@@ -70,7 +70,7 @@
   
 	/* if successful, save file under designated name */
 	if ([savepanel runModal] == NSOKButton) {
-		[[starmap xmlData] writeToURL:[savepanel URL] atomically:YES encoding:NSUTF8StringEncoding error:nil];
+		[[starmap xmlDataWithNeighbors:YES] writeToURL:[savepanel URL] atomically:YES encoding:NSUTF8StringEncoding error:nil];
 	}
 }
 
