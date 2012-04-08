@@ -66,7 +66,6 @@
   [savepanel setAllowedFileTypes:[NSArray arrayWithObject:@"xml"]];
 	[savepanel setCanSelectHiddenExtension:YES];
   [savepanel setNameFieldStringValue:@"Starmap_XML.xml"];
-  [savepanel setMessage:@"Only saves what is currently visible."];
   
 	/* if successful, save file under designated name */
 	if ([savepanel runModal] == NSOKButton) {
