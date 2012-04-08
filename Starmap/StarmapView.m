@@ -407,7 +407,7 @@
     starmap = [aStarmap retain];
   }
     if (starmap.starArray.count==0) {
-        NSLog(@"WARNING: nil value in array");
+        NSLog(@"WARNING: nil value in stararray");
     }else{
   firstStar = [starmap.starArray objectAtIndex:0];
   [self willChangeValueForKey:@"selectedStar"];
