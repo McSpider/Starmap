@@ -144,6 +144,7 @@
         [starArray addObject:tempStar];
       }
       else {
+          if (starmapRadius!=0){
         float angle = rand() % 360;
         float radius = rand() % starmapRadius/2;
 
@@ -158,6 +159,11 @@
         //NSLog(@"Adding First Star At:  %i,%i",(int)tempStar.starPos.x,(int)tempStar.starPos.y);
         [tempStar setType:FIRST_STAR];
         [starArray addObject:tempStar];
+          }else{
+              NSLog(@"WARNING: starmapRadius is nil");
+              //Note that if starmapRadius is nil then so will stararray.
+              return 0;
+          }
       }
     }
     //NSLog(@"\n");
@@ -177,6 +183,7 @@
           BOOL validStar = NO;
           NSPoint newStarPosition;
           while (!validStar) {
+              if (networkSize!=0) {
             float angle = rand() % 360;
             float radius = rand() % networkSize/20;
             
@@ -195,6 +202,10 @@
               return 1;
 
             loops++;
+              }else {
+                  NSLog(@"WARNING: networkSize is nil");
+                  return 0;
+              }
           }
 
           tempStar = [[Star alloc] init];  // create a temporary star

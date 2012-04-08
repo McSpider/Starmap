@@ -406,12 +406,16 @@
     [starmap release];
     starmap = [aStarmap retain];
   }
+    if (starmap.starArray.count==0) {
+        NSLog(@"WARNING: nil value in stararray");
+    }else{
   firstStar = [starmap.starArray objectAtIndex:0];
   [self willChangeValueForKey:@"selectedStar"];
   selectedStar = nil;
   [self didChangeValueForKey:@"selectedStar"];
   [selectedStarPath release];
   selectedStarPath = nil;
+    }
 }
 
 - (void)setDrawNetwork:(BOOL)flag
