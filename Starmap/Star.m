@@ -10,8 +10,10 @@
 
 @implementation Star
 @synthesize starPos;
+@synthesize uid;
 @synthesize type;
 @synthesize networkStar;
+@synthesize starSystem;
 @synthesize g, f, h;
 @synthesize parentStar;
 @synthesize neighbors;
@@ -20,45 +22,27 @@
 
 - (id)init
 {
-  if ((self = [super init])) {
-    type = FIRST_STAR;
-    starPos = NSZeroPoint;
-    networkStar = nil;
-    g = f = h = 0;
-    parentStar = nil;
-    neighbors = [[NSArray alloc] init];
+  return [self initWithSeed:(uint)time(NULL)];
+}
 
-    NSArray *syllables = [NSArray arrayWithObjects:
-                          @"en", @"la", @"can", @"be", @"and", @"phi", @"eth", @"ol",
-                          @"ve", @"ho", @"a", @"lia", @"an", @"ar", @"ur", @"mi",
-                          @"in", @"ti", @"qu", @"so", @"ed", @"ess", @"ex", @"io",
-                          @"ce", @"ze", @"fa", @"ay", @"wa", @"da", @"ack", @"gre", nil];
-
-    // use random() instead of rand() to prevent changes to the starmap
-    name = [[[NSString stringWithFormat:@"%@%@%@",
-              [syllables objectAtIndex:random() % [syllables count]],
-              [syllables objectAtIndex:random() % [syllables count]],
-              [syllables objectAtIndex:random() % [syllables count]]]
-             capitalizedString] retain];
-
-    // No canada tyvm.
-    while ([name isEqualToString:@"Canada"]) {
-      NSLog(@"Regenerating Canada");
-      name = [[[NSString stringWithFormat:@"%@%@%@",
-                [syllables objectAtIndex:random() % [syllables count]],
-                [syllables objectAtIndex:random() % [syllables count]],
-                [syllables objectAtIndex:random() % [syllables count]]]
-               capitalizedString] retain];
-    }
-
-    if ([name hasPrefix:@"Acki"]) {
-      name = [[[name autorelease] stringByReplacingCharactersInRange:NSMakeRange(0, 1) withString:@"Å"] retain];
-    }
-    else if ([name hasPrefix:@"Faack"]) {
-      name = [[[name autorelease] stringByReplacingCharactersInRange:NSMakeRange(2, 3) withString:@"i"] retain];
-    }
-  }
-
+- (id)initWithSeed:(uint)aSeed
+{
+  if (!(self = [super init]))
+    return nil;
+  
+  mtrand = [[MTRandom alloc] initWithSeed:aSeed];
+  
+  type = FIRST_STAR;
+  uid = 0;
+  starPos = NSZeroPoint;
+  networkStar = nil;
+  g = f = h = 0;
+  parentStar = nil;
+  neighbors = [[NSArray alloc] init];
+  
+  name = [[self randomStarName] retain];
+  starSystem = [[StarSystem alloc] initWithName:name andSeed:[mtrand randomUInt32]];
+  NSLog(@"%@",[starSystem systemInfo]);
   return self;
 }
 
@@ -66,6 +50,7 @@
 {
   [name release];
   [neighbors release];
+  [starSystem release];
   [super dealloc];
 }
 
@@ -94,6 +79,41 @@
 - (NSString *)starName
 {
   return name;
+}
+
+- (NSString *)randomStarName
+{
+  NSString *aName;
+  NSArray *syllables = [NSArray arrayWithObjects:
+                        @"en", @"la", @"can", @"be", @"and", @"phi", @"eth", @"ol",
+                        @"ve", @"ho", @"a", @"lia", @"an", @"ar", @"ur", @"mi",
+                        @"in", @"ti", @"qu", @"so", @"ed", @"ess", @"ex", @"io",
+                        @"ce", @"ze", @"fa", @"ay", @"wa", @"da", @"ack", @"gre", nil];
+  
+  aName = [[NSString stringWithFormat:@"%@%@",
+           [syllables objectAtIndex:[mtrand randomUInt32From:0 to:(uint)[syllables count] - 1]],
+           [syllables objectAtIndex:[mtrand randomUInt32From:0 to:(uint)[syllables count] - 1]]]
+           capitalizedString];
+  
+  // 10% chance that the name is only 2 syllables
+  if ([mtrand randomUInt32From:0 to:100] > 10)
+    aName = [aName stringByAppendingString:[syllables objectAtIndex:[mtrand randomUInt32From:0 to:(uint)[syllables count] - 1]]];
+  
+  // No canada tyvm.
+  while ([aName isEqualToString:@"Canada"]) {
+    aName = [self randomStarName];
+  }
+  
+  if ([aName hasPrefix:@"Acki"]) {
+    aName = [[aName stringByReplacingCharactersInRange:NSMakeRange(0, 1) withString:@"Å"] retain];
+  }
+  NSRange range = [aName rangeOfString:@"Faack"];
+  if (range.location != NSNotFound) {
+    aName = [self randomStarName];
+    //aName = [[aName stringByReplacingCharactersInRange:range withString:@"Faick"] retain];
+  }
+  
+  return aName;
 }
 
 - (NSString *)starType

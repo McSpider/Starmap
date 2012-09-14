@@ -1,0 +1,71 @@
+galaxy:
+  planets:
+    desert:
+      frequency: 20
+      habitable: 10 # 0 - 100 % equates to YES or NO in the generator
+      temperature: "Hot"
+      technology_level: 30 # base tech level, will be modified by the generator
+      surface_sites: NO
+      subterranean_sites: YES
+      produce: "lithus ore"
+    ocean:
+      frequency: 40
+      habitable: 30 # 0 - 100 % equates to YES or NO in the generator
+      temperature: "Temperate"
+      technology_level: 80 # base tech level, will be modified by the generator
+      surface_sites: YES
+      subterranean_sites: NO
+      produce: "fish", "mussels" , "Quartz Sand"
+    jungle:
+      frequency: 25
+
+    gas:
+      frequency: 70
+      habitable: 0 # 0 - 100 % equates to YES or NO in the generator
+      temperature: "Hot"
+      technology_level: 20 # base tech level, will be modified by the generator
+      surface_sites: NO
+      subterranean_sites: NO
+      produce: "Xyphon Fuel"
+
+    rock:
+      frequency: 80
+      habitable: 20 # 0 - 100 % equates to YES or NO in the generator
+      temperature: "temperate", "warm", "cool"
+
+    ice:
+      frequency: 30
+      habitable: 20 # 0 - 100 % equates to YES or NO in the generator
+      temperature: "cold", "freezing", "icy"
+
+    terra:
+      frequency: 30
+
+
+  stations:
+    subterranean:
+      cave:
+        planets: "desert", "jungle"
+        description: "A large spaceport build in one of the vast caves of the planet %p."
+      
+    surface:
+      floating:
+        planets: "ocean"
+        description: "A highly technological floating spaceport build to weather the roughest of seas."
+
+    orbiting:
+
+
+
+  races:
+     humanoid:
+       frequency: 80 # 0 - 100 %
+       planets: "all"
+     avian:
+       frequency: 1 # 0 - 100 %
+       planets: "jungle", "terra"
+     enuue:
+       frequency: 19 # 0 - 100 %
+       planets: "ocean"
+
+  

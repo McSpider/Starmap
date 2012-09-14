@@ -12,9 +12,13 @@
 #define CIRCULAR_STARMAP 0
 #define RECTANGULAR_STARMAP 1
 
-#define STARMAP_RANDOM_ALGO 0
-#define STARMAP_RECURSIVE_ALGO 1
-#define STARMAP_MIXED_ALGO 2
+typedef enum {
+  S_Eliptical,
+  S_Starburst,
+  S_Ring,
+  S_Spiral,
+} GalaxyShapes;
+
 
 @protocol StarmapDelegate
 @optional
@@ -29,10 +33,11 @@
   id delegate;
 
   unsigned int seed;
-  int algorthm;
+  int shape;
   int networkSize;
   int networkStarMargin;
   int normalStarMargin;
+  int networkStarNeighbors;
   BOOL generateNetworkingStars;
   BOOL removeSolitaryStars;
 
@@ -48,9 +53,10 @@
 
 @property (nonatomic, assign) id delegate;
 @property unsigned int seed;
-@property int algorthm;
+@property int shape;
 @property int networkSize;
 @property int networkStarMargin,normalStarMargin;
+@property int networkStarNeighbors;
 @property BOOL generateNetworkingStars;
 @property BOOL removeSolitaryStars;
 @property int starmapShape;

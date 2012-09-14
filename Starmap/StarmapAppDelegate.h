@@ -21,10 +21,9 @@
   IBOutlet NSTextField *networkSizeField;
   IBOutlet NSTextField *starMarginField;
   IBOutlet NSTextField *networkMarginField;
+  IBOutlet NSTextField *nStarNeighborsField;
 
   IBOutlet NSTextField *statusField;
-  IBOutlet NSButton *networkStarsCheck;
-  IBOutlet NSPopUpButton *algorithmSelector;
   IBOutlet NSSegmentedControl *shapeSelector;
   IBOutlet NSTabView *sizeTabView;
 

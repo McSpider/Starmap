@@ -13,16 +13,17 @@
 
 - (id)initWithFrame:(NSRect)frameRect
 {
-  if ((self = [super initWithFrame:frameRect])) {
-    starmap = [[Starmap alloc] init];
-    selectedStar = nil;
-    selectedStarPath = [[NSArray alloc] init];
-    cameraOffset = NSMakePoint(0, 0);
-    drawNetwork = YES;
-    drawRings = NO;
-    drawLabels = YES;
-    zoomFactor = 1;
-  }
+  if (!(self = [super initWithFrame:frameRect]))
+    return nil;
+  
+  starmap = [[Starmap alloc] init];
+  selectedStar = nil;
+  selectedStarPath = [[NSArray alloc] init];
+  cameraOffset = NSMakePoint(0, 0);
+  drawNetwork = YES;
+  drawRings = NO;
+  drawLabels = YES;
+  zoomFactor = 1;
 
   return self;
 }
@@ -122,22 +123,46 @@
 
     // 20px margin
     starmapRadius += 20;
-    NSRect mapMargin = NSMakeRect(0+width/2+(int)cameraOffset.x-starmapRadius/2,
-                                  0+height/2+(int)cameraOffset.y-starmapRadius/2,
+    NSRect mapMargin = NSMakeRect(0+width/2+(int)cameraOffset.x-(starmapRadius/2),
+                                  0+height/2+(int)cameraOffset.y-(starmapRadius/2),
                                   starmapRadius, starmapRadius);
 
-    NSBezierPath *mapMarginPath = [NSBezierPath bezierPathWithOvalInRect:mapMargin];
+    NSBezierPath *mapMarginPath = [NSBezierPath bezierPathWithOvalInRect:NSInsetRect(mapMargin, -2, -2)];
     [[NSColor colorWithDeviceWhite:0 alpha:0.1] set];
     [mapMarginPath setLineWidth:4];
     [mapMarginPath stroke];
 
-    mapMarginPath = [NSBezierPath bezierPathWithOvalInRect:NSInsetRect(mapMargin, 2, 2)];
+    mapMarginPath = [NSBezierPath bezierPathWithOvalInRect:mapMargin];
     [[NSColor colorWithDeviceWhite:0 alpha:0.4] set];
     [mapMarginPath setLineWidth:1];
     [mapMarginPath stroke];
 
     [[NSColor whiteColor] set];
     [mapMarginPath fill];
+    
+    // Rings
+    for (int i1 = 1; i1 < 5; i1++) { // i1 = 1; because this way we skip the outermost ring
+      NSBezierPath *gridPath = [NSBezierPath bezierPathWithOvalInRect:NSInsetRect(mapMargin, ((starmapRadius/2)/5)*i1, ((starmapRadius/2)/5)*i1)];
+      [[NSColor colorWithDeviceWhite:0 alpha:0.1] set];
+      [gridPath setLineWidth:0.5];
+      [gridPath stroke];
+    }
+    // Radiating lines
+    for (int i1 = 0; i1 < 16; i1++) {
+      float angle = ((360/16)*i1)*pi/180;
+      float radius = (starmapRadius/2);
+      
+      float x = radius * cos(angle);
+      float y = radius * sin(angle);
+      
+      NSBezierPath *starPath = [NSBezierPath bezierPath];
+      [starPath moveToPoint:NSMakePoint(0+width/2+(int)cameraOffset.x, 0+height/2+(int)cameraOffset.y)];
+      [starPath lineToPoint:NSMakePoint(x+width/2+(int)cameraOffset.x, (y)+height/2+(int)cameraOffset.y)];
+      
+      [[NSColor colorWithDeviceWhite:0 alpha:0.1] set];
+      [starPath setLineWidth:0.5];
+      [starPath stroke];
+    }
   }
   else if (starmap.starmapShape == RECTANGULAR_STARMAP) {
     NSRect mapMargin = NSMakeRect(0+width/2+(int)cameraOffset.x-starmap.starmapSize.width/2,
@@ -314,7 +339,7 @@
       [nameLabel drawAtPoint:NSMakePoint(xPos+width/2+(int)cameraOffset.x, yPos+height/2+(int)cameraOffset.y) withAttributes:attr];
 
       if (zoomFactor >= 3){
-        NSString *posLabel = [NSString stringWithFormat:@"%.1f,%.1f",aStar.starPos.x,aStar.starPos.y];
+        NSString *posLabel = [NSString stringWithFormat:@"%.1f,%.1f uid:%u",aStar.starPos.x,aStar.starPos.y,aStar.uid];
         attr = [NSDictionary dictionaryWithObjectsAndKeys:[NSFont systemFontOfSize:3],NSFontAttributeName,
                               [NSColor colorWithDeviceWhite:0.0 alpha:0.8],NSForegroundColorAttributeName,nil];
         [posLabel drawAtPoint:NSMakePoint(xPos+width/2+(int)cameraOffset.x+2, yPos+height/2+(int)cameraOffset.y-2) withAttributes:attr];
@@ -365,6 +390,7 @@
           [self willChangeValueForKey:@"selectedStar"];
           selectedStar = aStar;
           starSelected = YES;
+          [systemView setActiveStar:aStar];
           [self didChangeValueForKey:@"selectedStar"];
         }
         
@@ -378,9 +404,10 @@
     }
     if (!starSelected) {
       [self willChangeValueForKey:@"selectedStar"];
-      selectedStar = nil;
+      selectedStar = firstStar;
       [selectedStarPath release];
       selectedStarPath = nil;
+      [systemView setActiveStar:firstStar];
       [self didChangeValueForKey:@"selectedStar"];
     }
   }
@@ -406,16 +433,18 @@
     [starmap release];
     starmap = [aStarmap retain];
   }
-    if (starmap.starArray.count==0) {
-        NSLog(@"WARNING: nil value in stararray");
-    }else{
-  firstStar = [starmap.starArray objectAtIndex:0];
-  [self willChangeValueForKey:@"selectedStar"];
-  selectedStar = nil;
-  [self didChangeValueForKey:@"selectedStar"];
-  [selectedStarPath release];
-  selectedStarPath = nil;
-    }
+  if (starmap.starArray.count==0) {
+    NSLog(@"WARNING: nil value in stararray");
+  }
+  else {
+    firstStar = [starmap.starArray objectAtIndex:0];
+    [self willChangeValueForKey:@"selectedStar"];
+    selectedStar = firstStar;
+    [systemView setActiveStar:selectedStar];
+    [self didChangeValueForKey:@"selectedStar"];
+    [selectedStarPath release];
+    selectedStarPath = nil;
+  }
 }
 
 - (void)setDrawNetwork:(BOOL)flag

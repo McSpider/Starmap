@@ -10,6 +10,9 @@
 		AE03056614EC7248000BFD25 /* Pathfinder.m in Sources */ = {isa = PBXBuildFile; fileRef = AE03056514EC7248000BFD25 /* Pathfinder.m */; };
 		AE0DAC2114E8512700ECF52B /* KBLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = AE0DAC2014E8512700ECF52B /* KBLabel.m */; };
 		AE16E84815314B19002262D4 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = AE16E84715314B19002262D4 /* README.md */; };
+		AE2BB21615F7B92C00F06A89 /* Design.png in Resources */ = {isa = PBXBuildFile; fileRef = AE2BB21415F7B92C00F06A89 /* Design.png */; };
+		AE2BB21715F7B92C00F06A89 /* Magnifying Glass.png in Resources */ = {isa = PBXBuildFile; fileRef = AE2BB21515F7B92C00F06A89 /* Magnifying Glass.png */; };
+		AE2BB21B15F7B98200F06A89 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AE2BB21A15F7B98200F06A89 /* ViewController.m */; };
 		AE57084314E78A190071E284 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE57084214E78A190071E284 /* Cocoa.framework */; };
 		AE57084D14E78A190071E284 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = AE57084B14E78A190071E284 /* InfoPlist.strings */; };
 		AE57084F14E78A190071E284 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AE57084E14E78A190071E284 /* main.m */; };
@@ -19,6 +22,11 @@
 		AE57086114E78A2D0071E284 /* StarmapView.m in Sources */ = {isa = PBXBuildFile; fileRef = AE57086014E78A2D0071E284 /* StarmapView.m */; };
 		AE57087214E78AFF0071E284 /* Star.m in Sources */ = {isa = PBXBuildFile; fileRef = AE57087114E78AFF0071E284 /* Star.m */; };
 		AE7F30CA14E9A8BC002D7912 /* Starmap.m in Sources */ = {isa = PBXBuildFile; fileRef = AE7F30C914E9A8BC002D7912 /* Starmap.m */; };
+		AE833B9E15F54BE000E2A68B /* SystemView.m in Sources */ = {isa = PBXBuildFile; fileRef = AE833B9D15F54BE000E2A68B /* SystemView.m */; };
+		AE833BA215F54F9400E2A68B /* StarSystem.m in Sources */ = {isa = PBXBuildFile; fileRef = AE833BA115F54F9400E2A68B /* StarSystem.m */; };
+		AE9163D715FEF0E3002C08D7 /* SM_Galaxy.yml in Resources */ = {isa = PBXBuildFile; fileRef = AE9163D615FEF0E3002C08D7 /* SM_Galaxy.yml */; };
+		AE9163DA15FEF53A002C08D7 /* SM_Generator.yml in Resources */ = {isa = PBXBuildFile; fileRef = AE9163D915FEF53A002C08D7 /* SM_Generator.yml */; };
+		AEB9041D1602CC42008B0F24 /* MTRandom.m in Sources */ = {isa = PBXBuildFile; fileRef = AEB9041C1602CC42008B0F24 /* MTRandom.m */; };
 		AEE2F1DB14EDDC6300DF77D1 /* License.rtf in Resources */ = {isa = PBXBuildFile; fileRef = AEE2F1DA14EDDC6300DF77D1 /* License.rtf */; };
 /* End PBXBuildFile section */
 
@@ -28,6 +36,10 @@
 		AE0DAC1F14E8512700ECF52B /* KBLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KBLabel.h; sourceTree = "<group>"; };
 		AE0DAC2014E8512700ECF52B /* KBLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KBLabel.m; sourceTree = "<group>"; };
 		AE16E84715314B19002262D4 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
+		AE2BB21415F7B92C00F06A89 /* Design.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Design.png; sourceTree = "<group>"; };
+		AE2BB21515F7B92C00F06A89 /* Magnifying Glass.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Magnifying Glass.png"; sourceTree = "<group>"; };
+		AE2BB21915F7B98200F06A89 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		AE2BB21A15F7B98200F06A89 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		AE57083E14E78A190071E284 /* Starmap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Starmap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AE57084214E78A190071E284 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		AE57084514E78A190071E284 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -47,6 +59,14 @@
 		AE57087114E78AFF0071E284 /* Star.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Star.m; sourceTree = "<group>"; };
 		AE7F30C814E9A8BC002D7912 /* Starmap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Starmap.h; sourceTree = "<group>"; };
 		AE7F30C914E9A8BC002D7912 /* Starmap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Starmap.m; sourceTree = "<group>"; };
+		AE833B9C15F54BE000E2A68B /* SystemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SystemView.h; sourceTree = "<group>"; };
+		AE833B9D15F54BE000E2A68B /* SystemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SystemView.m; sourceTree = "<group>"; };
+		AE833BA015F54F9400E2A68B /* StarSystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StarSystem.h; sourceTree = "<group>"; };
+		AE833BA115F54F9400E2A68B /* StarSystem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StarSystem.m; sourceTree = "<group>"; };
+		AE9163D615FEF0E3002C08D7 /* SM_Galaxy.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SM_Galaxy.yml; sourceTree = "<group>"; };
+		AE9163D915FEF53A002C08D7 /* SM_Generator.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SM_Generator.yml; sourceTree = "<group>"; };
+		AEB9041B1602CC42008B0F24 /* MTRandom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTRandom.h; sourceTree = "<group>"; };
+		AEB9041C1602CC42008B0F24 /* MTRandom.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTRandom.m; sourceTree = "<group>"; };
 		AEE2F1DA14EDDC6300DF77D1 /* License.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = License.rtf; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
@@ -115,13 +135,20 @@
 				AE57085514E78A190071E284 /* StarmapAppDelegate.m */,
 				AE57085F14E78A2D0071E284 /* StarmapView.h */,
 				AE57086014E78A2D0071E284 /* StarmapView.m */,
+				AE833B9C15F54BE000E2A68B /* SystemView.h */,
+				AE833B9D15F54BE000E2A68B /* SystemView.m */,
 				AE7F30C814E9A8BC002D7912 /* Starmap.h */,
 				AE7F30C914E9A8BC002D7912 /* Starmap.m */,
 				AE57087014E78AFF0071E284 /* Star.h */,
 				AE57087114E78AFF0071E284 /* Star.m */,
+				AE833BA015F54F9400E2A68B /* StarSystem.h */,
+				AE833BA115F54F9400E2A68B /* StarSystem.m */,
 				AE03056B14EC7260000BFD25 /* A Star Pathfinding */,
 				AE0DAC1F14E8512700ECF52B /* KBLabel.h */,
 				AE0DAC2014E8512700ECF52B /* KBLabel.m */,
+				AE2BB21915F7B98200F06A89 /* ViewController.h */,
+				AE2BB21A15F7B98200F06A89 /* ViewController.m */,
+				AEB9041E1602CC46008B0F24 /* Preble */,
 				AE57085714E78A190071E284 /* MainMenu.xib */,
 				AE57084914E78A190071E284 /* Supporting Files */,
 			);
@@ -131,6 +158,10 @@
 		AE57084914E78A190071E284 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				AE9163D915FEF53A002C08D7 /* SM_Generator.yml */,
+				AE9163D615FEF0E3002C08D7 /* SM_Galaxy.yml */,
+				AE2BB21415F7B92C00F06A89 /* Design.png */,
+				AE2BB21515F7B92C00F06A89 /* Magnifying Glass.png */,
 				AE57084A14E78A190071E284 /* Starmap-Info.plist */,
 				AE57084B14E78A190071E284 /* InfoPlist.strings */,
 				AE57084E14E78A190071E284 /* main.m */,
@@ -139,6 +170,15 @@
 				AEE2F1DA14EDDC6300DF77D1 /* License.rtf */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		AEB9041E1602CC46008B0F24 /* Preble */ = {
+			isa = PBXGroup;
+			children = (
+				AEB9041B1602CC42008B0F24 /* MTRandom.h */,
+				AEB9041C1602CC42008B0F24 /* MTRandom.m */,
+			);
+			name = Preble;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -193,6 +233,10 @@
 				AE57085914E78A190071E284 /* MainMenu.xib in Resources */,
 				AEE2F1DB14EDDC6300DF77D1 /* License.rtf in Resources */,
 				AE16E84815314B19002262D4 /* README.md in Resources */,
+				AE2BB21615F7B92C00F06A89 /* Design.png in Resources */,
+				AE2BB21715F7B92C00F06A89 /* Magnifying Glass.png in Resources */,
+				AE9163D715FEF0E3002C08D7 /* SM_Galaxy.yml in Resources */,
+				AE9163DA15FEF53A002C08D7 /* SM_Generator.yml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -210,6 +254,10 @@
 				AE0DAC2114E8512700ECF52B /* KBLabel.m in Sources */,
 				AE7F30CA14E9A8BC002D7912 /* Starmap.m in Sources */,
 				AE03056614EC7248000BFD25 /* Pathfinder.m in Sources */,
+				AE833B9E15F54BE000E2A68B /* SystemView.m in Sources */,
+				AE833BA215F54F9400E2A68B /* StarSystem.m in Sources */,
+				AE2BB21B15F7B98200F06A89 /* ViewController.m in Sources */,
+				AEB9041D1602CC42008B0F24 /* MTRandom.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -291,6 +339,11 @@
 		AE57085D14E78A190071E284 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../../Library/Frameworks\"",
+					"\"$(SRCROOT)\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Starmap/Starmap-Prefix.pch";
 				INFOPLIST_FILE = "Starmap/Starmap-Info.plist";
@@ -302,6 +355,11 @@
 		AE57085E14E78A190071E284 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../../Library/Frameworks\"",
+					"\"$(SRCROOT)\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Starmap/Starmap-Prefix.pch";
 				INFOPLIST_FILE = "Starmap/Starmap-Info.plist";

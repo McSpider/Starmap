@@ -14,11 +14,10 @@
 
 - (id)init
 {
-  if ((self = [super init])) {
-    //pathfinderType = A_STAR;
-    pathfinderType = DJIKSTRA;
-  }
+  if (!(self = [super init]))
+    return nil;
   
+  pathfinderType = DJIKSTRA;
   return self;
 }
 
@@ -98,6 +97,8 @@ static NSInteger numericSort(id star1, id star2, void *context) {
     }
     [closedStars addObject:currentStar];
     if ([openStars count] == 0) {
+      [openStars release];
+      [closedStars release];
       return nil;
     }
     [openStars sortUsingFunction:numericSort context:NULL];

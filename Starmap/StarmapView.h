@@ -9,6 +9,7 @@
 #import <Cocoa/Cocoa.h>
 #import "Starmap.h"
 #import "Pathfinder.h"
+#import "SystemView.h"
 
 @interface StarmapView : NSView {
   id delegate;
@@ -27,6 +28,8 @@
   Star *firstStar;
   
   NSArray *selectedStarPath;
+  
+  IBOutlet SystemView *systemView;
 }
 
 @property (nonatomic, readonly) Star *selectedStar;
