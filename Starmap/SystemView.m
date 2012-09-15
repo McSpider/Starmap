@@ -43,7 +43,7 @@
     return;
   
     
-  int starSystemRadius = activeStar.starSystem.size;
+  int starSystemRadius = activeStar.starSystem.size.width;
   
   // 20px margin
   starSystemRadius += 20;

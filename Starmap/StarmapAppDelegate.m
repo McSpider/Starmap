@@ -21,8 +21,10 @@
   [starmap setNetworkSize:100];
   [starmap setNetworkStarMargin:3];
   [starmap setStarmapSize:NSMakeSize(500, 500)];
-  [starmap setStarmapShape:CIRCULAR_STARMAP];
+  [starmap setStarmapShape:SHAPE_CIRCULAR];
   [starmap setStarmapStarCount:100];
+  
+  [statusField setStringValue:@"Opening Connection to Xyphon. Wayfarer Information Loaded."];
 
   [starmap performSelectorInBackground:@selector(generateStarmap) withObject:nil];
 }
@@ -107,7 +109,7 @@
   [mapView setStarmap:starmap];
   [mapView setNeedsDisplay:YES];
 
-  if (starmap.starmapShape == CIRCULAR_STARMAP) {
+  if (starmap.starmapShape == SHAPE_CIRCULAR) {
     float starmapRadius = starmap.starmapSize.width;
     [statusField setStringValue:[NSString stringWithFormat:@"%@ - Radius %.0f",[statusField stringValue],starmapRadius]];
   }

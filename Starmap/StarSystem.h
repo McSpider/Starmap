@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-#define MAX_TECH_LVL = 8
+#define MAX_TECH_LVL 8
 
 typedef enum {
   PT_Gas,
@@ -117,16 +117,22 @@ typedef enum {
 //  Copyright 2012 __MyCompanyName__. All rights reserved.
 //
 
+#define SHAPE_CIRCULAR 0
+#define SHAPE_RECTANGULAR 1
+
 @interface StarSystem : NSObject {
   MTRandom *mtrand;
 
-  uint size;
+  NSSize size;
+  uint shape;
   uint sectorSize;
   SystemPlanet *planet;
   NSMutableArray *objects;
 }
 
-@property uint size, sectorSize;
+@property NSSize size;
+@property uint shape;
+@property uint sectorSize;
 @property (nonatomic, retain) SystemPlanet *planet;
 
 - (id)initWithName:(NSString *)aName andSeed:(uint)aSeed;

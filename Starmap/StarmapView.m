@@ -116,14 +116,15 @@
   if ([starmap.starArray count] == 0)
     return;
 
-  if (starmap.starmapShape == CIRCULAR_STARMAP) {
-    int starmapRadius = starmap.starmapSize.width;    
+  if (starmap.starmapShape == SHAPE_CIRCULAR) {
+    int starmapRadius = starmap.starmapSize.width;
+    // 20px margin
+    starmapRadius = starmapRadius+20;
+    
     NSRect mapMargin = NSMakeRect(0+width/2+(int)cameraOffset.x-(starmapRadius/2),
                                   0+height/2+(int)cameraOffset.y-(starmapRadius/2),
                                   starmapRadius, starmapRadius);
     
-    // 20px margin
-    mapMargin = NSInsetRect(mapMargin, -10, -10);
 
     NSBezierPath *mapMarginPath = [NSBezierPath bezierPathWithOvalInRect:NSInsetRect(mapMargin, -2, -2)];
     [[NSColor colorWithDeviceWhite:0 alpha:0.1] set];
@@ -162,14 +163,14 @@
       [starPath stroke];
     }
   }
-  else if (starmap.starmapShape == RECTANGULAR_STARMAP) {
+  else if (starmap.starmapShape == SHAPE_RECTANGULAR) {
     NSRect mapMargin = NSMakeRect(0+width/2+(int)cameraOffset.x-starmap.starmapSize.width/2,
                                   0+height/2+(int)cameraOffset.y-starmap.starmapSize.height/2,
                                   starmap.starmapSize.width, starmap.starmapSize.height);
 
 
     // 20px margin
-    mapMargin = NSInsetRect(mapMargin, -10, -10);
+    mapMargin = NSInsetRect(mapMargin, -20, -20);
 
     NSBezierPath *mapMarginPath = [NSBezierPath bezierPathWithRoundedRect:mapMargin xRadius:2 yRadius:2];
     [[NSColor colorWithDeviceWhite:0 alpha:0.1] set];

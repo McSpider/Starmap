@@ -118,7 +118,9 @@
 //
 
 @implementation StarSystem
-@synthesize size, sectorSize;
+@synthesize size;
+@synthesize shape;
+@synthesize sectorSize;
 @synthesize planet;
 
 - (id)init
@@ -134,7 +136,8 @@
   // Initialization code here.
   mtrand = [[MTRandom alloc] initWithSeed:aSeed];
   
-  size = 512;
+  size = NSMakeSize(512, 512);
+  shape = SHAPE_CIRCULAR;
   sectorSize = 64;
   planet = [[SystemPlanet alloc] initWithName:aName];
   uint gov = [mtrand randomUInt32From:0 to:7];

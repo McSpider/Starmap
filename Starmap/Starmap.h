@@ -9,9 +9,6 @@
 #import <Foundation/Foundation.h>
 #import "Star.h"
 
-#define CIRCULAR_STARMAP 0
-#define RECTANGULAR_STARMAP 1
-
 #define SM_TIMEOUT 1
 #define SM_FATAL_ERROR 2
 

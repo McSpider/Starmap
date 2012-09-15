@@ -45,7 +45,7 @@
   generateNetworkingStars = YES;
   removeSolitaryStars = NO;
   shape = S_Eliptical;
-  starmapShape = CIRCULAR_STARMAP;
+  starmapShape = SHAPE_CIRCULAR;
   starmapSize = NSMakeSize(100, 100);
   starmapStarCount = 100;
   
@@ -95,10 +95,10 @@
   starmapSize = size;
   starmapStarCount = stars;
   
-  if (starmapShape == CIRCULAR_STARMAP) {
+  if (starmapShape == SHAPE_CIRCULAR) {
     returnValue = [self generateCircularStarmap];
   }
-  else if (starmapShape == RECTANGULAR_STARMAP) {
+  else if (starmapShape == SHAPE_RECTANGULAR) {
     returnValue = [self generateRectangularStarmap];
   }
   
@@ -140,113 +140,6 @@
   
   [mtrand release];
   return returnValue;
-}
-
-- (uint)generateRectangularStarmap
-{
-  int numstars = starmapStarCount;
-  int starmapWidth = starmapSize.width;
-  int starmapHeight = starmapSize.height;
-  float x,y = 0;
-  uint star_uid = 0;
-  Star *tempStar = nil;
-  
-  [starArray release];
-  starArray = [[NSMutableArray alloc] init];
-  
-  // Stars
-  NSLog(@"Generating Starmap");
-  for (int i1 = 0; i1 < numstars; ++i1)  {
-    if (tempStar != nil) {
-      int loops = 0;
-      BOOL validStar = NO;
-      NSPoint newStarPosition;
-      
-      while (!validStar) {
-        x = [mtrand randomDoubleFrom:0 to: starmapWidth]-starmapWidth/2;
-        y = [mtrand randomDoubleFrom:0 to: starmapHeight]-starmapHeight/2;
-        
-        newStarPosition = NSMakePoint(x,y);          
-        validStar = [self goodStarPosition:newStarPosition checkDistance:5];
-        //if (!validStar)
-        //  NSLog(@"Invalid Star: %i of %i At: %i,%i",i1+1,numstars,(int)x,(int)y);
-        if (loops > 500)
-          return SM_TIMEOUT;
-        
-        loops++;
-      }
-      
-      
-      [tempStar release];
-      tempStar = [[Star alloc] initWithSeed:[mtrand randomUInt32]];  // create a temporary star
-      [tempStar setStarPos:newStarPosition];
-      [tempStar setType:PRIMARY_STAR];
-      [tempStar setUid:star_uid];
-      star_uid ++;
-      //NSLog(@"Adding Star: %i of %i At: %i,%i",i1+1,numstars,(int)tempStar.starPos.x,(int)tempStar.starPos.y);
-      [starArray addObject:tempStar];
-    }
-    else {
-      x = [mtrand randomDoubleFrom:0 to: starmapWidth]-starmapWidth/2;
-      y = [mtrand randomDoubleFrom:0 to: starmapHeight]-starmapHeight/2;
-      
-      tempStar = [[Star alloc] initWithSeed:[mtrand randomUInt32]];  // create a temporary star
-      [tempStar setStarPos:NSMakePoint(x,y)];
-      [tempStar setUid:star_uid];
-      star_uid ++;
-      //NSLog(@"Adding First Star At:  %i,%i",(int)tempStar.starPos.x,(int)tempStar.starPos.y);
-      [tempStar setType:FIRST_STAR];
-      [starArray addObject:tempStar];
-    }
-  }
-  //NSLog(@"\n");
-  
-  //Networking Stars - Only generated for stars with less than networkStarNeighbors.
-  if (generateNetworkingStars) {
-    int i5;
-    for (i5 = 0; i5 < [starArray count]; i5++) {
-      Star *aStar = [starArray objectAtIndex:i5];
-      if (aStar.type == NETWORKING_STAR)
-        continue;
-      
-      NSArray *neighbors = [self neighborStarsForStar:aStar checkDistance:networkSize/2];
-      if ([neighbors count] < networkStarNeighbors) {
-        
-        int loops = 0;
-        BOOL validStar = NO;
-        NSPoint newStarPosition;
-        while (!validStar) {
-          float angle = [mtrand randomDoubleFrom:0 to:360]*pi/180;
-          float radius = sqrt([mtrand randomDouble]) * (networkSize/2.5);
-          
-          x = radius * cos(angle);
-          y = radius * sin(angle);
-          
-          
-          newStarPosition = NSMakePoint(aStar.starPos.x + x,aStar.starPos.y + y);
-          validStar = [self goodStarPosition:newStarPosition checkDistance:networkStarMargin];
-          //if (!validStar)
-          //  NSLog(@"Invalid Networking Star At: %i,%i",(int)x,(int)y);
-          if (loops > 500)
-            return SM_TIMEOUT;
-          
-          loops++;
-        }
-        
-        tempStar = [[Star alloc] initWithSeed:[mtrand randomUInt32]];  // create a temporary star
-        [tempStar setStarPos:newStarPosition];
-        [tempStar setType:NETWORKING_STAR];
-        [tempStar setNetworkStar:aStar];
-        [tempStar setUid:star_uid];
-        star_uid ++;
-        //NSLog(@"Adding Networking Star At: %i,%i",(int)tempStar.starPos.x,(int)tempStar.starPos.y);
-        [starArray addObject:tempStar];
-        [tempStar release];
-      }
-    }
-    //NSLog(@"\n");
-  }
-  return 0;
 }
 
 - (uint)generateCircularStarmap
@@ -297,26 +190,24 @@
       [starArray addObject:tempStar];
     }
     else {
-      if (starmapRadius!=0) {
-        float angle = [mtrand randomDoubleFrom:0 to:360]*pi/180;
-        float radius = sqrt([mtrand randomDouble]) * (starmapRadius/2);
-        
-        x = radius * cos(angle);
-        y = radius * sin(angle);
-        
-        tempStar = [[Star alloc] initWithSeed:[mtrand randomUInt32]];  // create a temporary star
-        [tempStar setStarPos:NSMakePoint(x,y)];
-        NSLog(@"Adding First Star At:  %i,%i",(int)tempStar.starPos.x,(int)tempStar.starPos.y);
-        [tempStar setType:FIRST_STAR];
-        [tempStar setUid:star_uid];
-        star_uid ++;
-        [starArray addObject:tempStar];
-      }
-      else {
-        NSLog(@"WARNING: starmapRadius is nil");
+      if (starmapRadius <= 0) {
+        NSLog(@"WARNING: starmapRadius is zero");
         //Note that if starmapRadius is nil then so will stararray.
         return SM_FATAL_ERROR;
       }
+      float angle = [mtrand randomDoubleFrom:0 to:360]*pi/180;
+      float radius = sqrt([mtrand randomDouble]) * (starmapRadius/2);
+      
+      x = radius * cos(angle);
+      y = radius * sin(angle);
+      
+      tempStar = [[Star alloc] initWithSeed:[mtrand randomUInt32]];  // create a temporary star
+      [tempStar setStarPos:NSMakePoint(x,y)];
+      NSLog(@"Adding First Star At:  %i,%i",(int)tempStar.starPos.x,(int)tempStar.starPos.y);
+      [tempStar setType:FIRST_STAR];
+      [tempStar setUid:star_uid];
+      star_uid ++;
+      [starArray addObject:tempStar];
     }
   }
   //NSLog(@"\n");
@@ -336,27 +227,139 @@
         BOOL validStar = NO;
         NSPoint newStarPosition;
         while (!validStar) {
-          if (networkSize!=0) {
-            float angle = [mtrand randomDoubleFrom:0 to:360]*pi/180;
-            float radius = sqrt([mtrand randomDouble]) * (networkSize/2.5);
-            
-            x = radius * cos(angle);
-            y = radius * sin(angle);
-            
-            
-            newStarPosition = NSMakePoint(aStar.starPos.x + x,aStar.starPos.y + y);
-            validStar = [self goodStarPosition:newStarPosition checkDistance:networkStarMargin];
-            //if (!validStar)
-            //  NSLog(@"Invalid Networking Star At: %i,%i",(int)x,(int)y);
-            if (loops > 500)
-              return SM_TIMEOUT;
-            
-            loops++;
-          }
-          else {
-            NSLog(@"WARNING: networkSize is nil");
-            return SM_FATAL_ERROR;
-          }
+          float angle = [mtrand randomDoubleFrom:0 to:360]*pi/180;
+          float radius = sqrt([mtrand randomDouble]) * (networkSize/2.5);
+          
+          x = radius * cos(angle);
+          y = radius * sin(angle);
+          
+          
+          newStarPosition = NSMakePoint(aStar.starPos.x + x,aStar.starPos.y + y);
+          validStar = [self goodStarPosition:newStarPosition checkDistance:networkStarMargin];
+          //if (!validStar)
+          //  NSLog(@"Invalid Networking Star At: %i,%i",(int)x,(int)y);
+          if (loops > 500)
+            return SM_TIMEOUT;
+          
+          loops++;
+        }
+        
+        tempStar = [[Star alloc] initWithSeed:[mtrand randomUInt32]];  // create a temporary star
+        [tempStar setStarPos:newStarPosition];
+        [tempStar setType:NETWORKING_STAR];
+        [tempStar setNetworkStar:aStar];
+        [tempStar setUid:star_uid];
+        star_uid ++;
+        //NSLog(@"Adding Networking Star At: %i,%i",(int)tempStar.starPos.x,(int)tempStar.starPos.y);        
+        [starArray addObject:tempStar];
+        [tempStar release];
+      }
+    }
+    //NSLog(@"\n");
+  }
+  return 0;
+}
+
+- (uint)generateRectangularStarmap
+{
+  int numstars = starmapStarCount;
+  int starmapWidth = starmapSize.width;
+  int starmapHeight = starmapSize.height;
+  float x,y = 0;
+  uint star_uid = 0;
+  Star *tempStar = nil;
+  
+  [starArray release];
+  starArray = [[NSMutableArray alloc] init];
+  
+  // Stars
+  NSLog(@"Generating Starmap");
+  for (int i1 = 0; i1 < numstars; ++i1)  {
+    if (tempStar != nil) {
+      int loops = 0;
+      BOOL validStar = NO;
+      NSPoint newStarPosition;
+      
+      while (!validStar) {
+        x = [mtrand randomDoubleFrom:0 to: starmapWidth]-starmapWidth/2;
+        y = [mtrand randomDoubleFrom:0 to: starmapHeight]-starmapHeight/2;
+        
+        newStarPosition = NSMakePoint(x,y);          
+        validStar = [self goodStarPosition:newStarPosition checkDistance:5];
+        //if (!validStar)
+        //  NSLog(@"Invalid Star: %i of %i At: %i,%i",i1+1,numstars,(int)x,(int)y);
+        if (loops > 500)
+          return SM_TIMEOUT;
+        
+        loops++;
+      }
+      
+      
+      [tempStar release];
+      tempStar = [[Star alloc] initWithSeed:[mtrand randomUInt32]];  // create a temporary star
+      [tempStar setStarPos:newStarPosition];
+      [tempStar setType:PRIMARY_STAR];
+      [tempStar setUid:star_uid];
+      star_uid ++;
+      //NSLog(@"Adding Star: %i of %i At: %i,%i",i1+1,numstars,(int)tempStar.starPos.x,(int)tempStar.starPos.y);
+      [starArray addObject:tempStar];
+    }
+    else {
+      if (starmapWidth <= 0 || starmapHeight <= 0) {
+        NSLog(@"WARNING: starmapSize is zero");
+        //Note that if starmapSize is nil then so will stararray.
+        return SM_FATAL_ERROR;
+      }
+
+      x = [mtrand randomDoubleFrom:0 to: starmapWidth]-starmapWidth/2;
+      y = [mtrand randomDoubleFrom:0 to: starmapHeight]-starmapHeight/2;
+      
+      tempStar = [[Star alloc] initWithSeed:[mtrand randomUInt32]];  // create a temporary star
+      [tempStar setStarPos:NSMakePoint(x,y)];
+      [tempStar setUid:star_uid];
+      star_uid ++;
+      //NSLog(@"Adding First Star At:  %i,%i",(int)tempStar.starPos.x,(int)tempStar.starPos.y);
+      [tempStar setType:FIRST_STAR];
+      [starArray addObject:tempStar];
+    }
+  }
+  //NSLog(@"\n");
+  
+  //Networking Stars - Only generated for stars with less than networkStarNeighbors.
+  if (generateNetworkingStars) {
+    if (networkSize <= 0) {
+      NSLog(@"WARNING: networkSize is zero");
+      return SM_FATAL_ERROR;
+    }
+    
+    int i5;
+    for (i5 = 0; i5 < [starArray count]; i5++) {
+      Star *aStar = [starArray objectAtIndex:i5];
+      if (aStar.type == NETWORKING_STAR)
+        continue;
+      
+      NSArray *neighbors = [self neighborStarsForStar:aStar checkDistance:networkSize/2];
+      if ([neighbors count] < networkStarNeighbors) {
+        
+        int loops = 0;
+        BOOL validStar = NO;
+        NSPoint newStarPosition;
+        while (!validStar) {
+          float angle = [mtrand randomDoubleFrom:0 to:360]*pi/180;
+          float radius = sqrt([mtrand randomDouble]) * (networkSize/2.5);
+          
+          x = radius * cos(angle);
+          y = radius * sin(angle);
+          
+          
+          newStarPosition = NSMakePoint(aStar.starPos.x + x,aStar.starPos.y + y);
+          validStar = [self goodStarPosition:newStarPosition checkDistance:networkStarMargin];
+          //if (!validStar)
+          //  NSLog(@"Invalid Networking Star At: %i,%i",(int)x,(int)y);
+          if (loops > 500)
+            return SM_TIMEOUT;
+          
+          loops++;
         }
         
         tempStar = [[Star alloc] initWithSeed:[mtrand randomUInt32]];  // create a temporary star
@@ -381,12 +384,12 @@
   if (pos.x == 0 && pos.y == 0)
     return NO;
   
-  if (starmapShape == CIRCULAR_STARMAP) {
-    float dist = sqrt(pos.x * pos.x + pos.y * pos.y);
-    if (dist > starmapSize.width)
+  if (starmapShape == SHAPE_CIRCULAR) {
+    float dist = sqrt(powf(0 - pos.x,2) + powf(0 - pos.y,2));
+    if (dist > starmapSize.width/2)
       return NO;
   }
-  else if (starmapShape == RECTANGULAR_STARMAP) {
+  else if (starmapShape == SHAPE_RECTANGULAR) {
     if (pos.x > starmapSize.width/2 || pos.x < starmapSize.width/-2)
       return NO;
     else if (pos.y > starmapSize.height/2 || pos.y < starmapSize.height/-2)
@@ -435,7 +438,7 @@
   // Identify starmap type and shape
   NSString *bShape = @"square";
   NSString *size = [NSString stringWithFormat:@"%.0f,%.0f",self.starmapSize.width,self.starmapSize.height];
-  if (starmapShape == CIRCULAR_STARMAP) {
+  if (starmapShape == SHAPE_CIRCULAR) {
     bShape = @"circular";
     size = [NSString stringWithFormat:@"%.0f",self.starmapSize.width];
   }
