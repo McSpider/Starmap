@@ -1,0 +1,81 @@
+seed:
+stars:
+shape: # Elipical | Starburst | Ring | Spiral
+border_shape: # Round | Rectangle
+border_size: # Radius | Width, Height
+
+network_stars: |
+  neighbors_less_than:
+  network_size:
+  network_star_margin:
+
+star_margin:
+
+
+star_systems: |
+  generate: YES
+  border: |
+    shape: # Round | Rectangle
+    size: # Radius | Width, Height
+
+  sectors: |
+    create: YES
+    size: 64
+
+  moons: |
+    min: 0
+    max: 3
+    curve: # curve function
+
+  spaceports: |
+    min: 0
+    max: 5
+    curve: # curve function
+
+  asteroid_belts:
+   generate: YES
+   probability: 30 # 30 percent chance that an asteroid belt is located in a system
+   radius:
+     min: 200
+     max: 500
+     curve: # curve function - ease in curve would result in less large sized fields. 
+                         
+   asteroids: |
+     min: 200
+     max: 800
+     curve: # curve function
+
+  asteroid_fields:
+    generate: YES
+    probability: 30
+    size:
+      min: 20
+      max: 50
+      curve: # curve function - ease in curve would result in less large fields.
+    asteroids: |
+      min: 10
+      max: 80
+      curve: # curve function
+  
+  # Generate derelics. Groups contain derelics taged with "group: #,#,..." only derelics with the same #,#,... are used.
+  derelics:
+    generate: YES
+    probability: 0.5
+    amount:
+      min: 1
+      max: 15
+      curve: # curve function
+    groups: |
+      generate: YES
+      probability: 0.1
+      min: 50
+      max: 200
+      curve: # curve function
+                          
+
+
+
+
+
+
+

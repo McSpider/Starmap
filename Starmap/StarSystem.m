@@ -17,7 +17,7 @@
 @synthesize habitable;
 @synthesize temperature;
 @synthesize goverment;
-@synthesize technology_level;
+@synthesize technologyLevel;
 @synthesize produce;
 @synthesize spaceports;
 
@@ -118,7 +118,7 @@
 //
 
 @implementation StarSystem
-@synthesize radius;
+@synthesize size, sectorSize;
 @synthesize planet;
 
 - (id)init
@@ -134,7 +134,8 @@
   // Initialization code here.
   mtrand = [[MTRandom alloc] initWithSeed:aSeed];
   
-  radius = [mtrand randomUInt32From:150 to:450];
+  size = 512;
+  sectorSize = 64;
   planet = [[SystemPlanet alloc] initWithName:aName];
   uint gov = [mtrand randomUInt32From:0 to:7];
   // 10% chance that the goverment becomes a pirate state
@@ -142,7 +143,7 @@
     gov = GT_Pirate_State;
   
   [planet setGoverment:gov];
-  [planet setTechnology_level:(int)[mtrand randomUInt32From:0 to:7] + 1];
+  [planet setTechnologyLevel:(int)[mtrand randomUInt32From:0 to:7] + 1];
   
   return self;
 }
@@ -156,7 +157,7 @@
 
 - (NSString *)systemInfo
 {
-  return [NSString stringWithFormat:@"%@ Star System - Goverment: %@, Tech Level: %i",[planet name],[planet govermentString],[planet technology_level]];
+  return [NSString stringWithFormat:@"%@ Star System - Goverment: %@, Tech Level: %i",[planet name],[planet govermentString],[planet technologyLevel]];
 }
 
 

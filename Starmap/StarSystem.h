@@ -41,7 +41,7 @@ typedef enum {
   bool habitable;
   uint temperature;
   uint goverment;
-  uint technology_level;
+  uint technologyLevel;
   NSArray *produce;
   NSArray *spaceports;
 }
@@ -53,7 +53,7 @@ typedef enum {
 @property bool habitable;
 @property uint temperature;
 @property uint goverment;
-@property uint technology_level;
+@property uint technologyLevel;
 @property (nonatomic, retain) NSArray *produce;
 @property (nonatomic, retain) NSArray *spaceports;
 
@@ -120,12 +120,13 @@ typedef enum {
 @interface StarSystem : NSObject {
   MTRandom *mtrand;
 
-  uint radius;
+  uint size;
+  uint sectorSize;
   SystemPlanet *planet;
   NSMutableArray *objects;
 }
 
-@property uint radius;
+@property uint size, sectorSize;
 @property (nonatomic, retain) SystemPlanet *planet;
 
 - (id)initWithName:(NSString *)aName andSeed:(uint)aSeed;

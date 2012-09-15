@@ -43,7 +43,7 @@
     return;
   
     
-  int starSystemRadius = activeStar.starSystem.radius;
+  int starSystemRadius = activeStar.starSystem.size;
   
   // 20px margin
   starSystemRadius += 20;
@@ -51,12 +51,12 @@
                                 0+(int)cameraOffset.y+height/2-starSystemRadius/2,
                                 starSystemRadius, starSystemRadius);
   
-  NSBezierPath *mapMarginPath = [NSBezierPath bezierPathWithOvalInRect:mapMargin];
+  NSBezierPath *mapMarginPath = [NSBezierPath bezierPathWithRoundedRect:mapMargin xRadius:2 yRadius:2];
   [[NSColor colorWithDeviceWhite:0 alpha:0.1] set];
   [mapMarginPath setLineWidth:4];
   [mapMarginPath stroke];
   
-  mapMarginPath = [NSBezierPath bezierPathWithOvalInRect:NSInsetRect(mapMargin, 2, 2)];
+  mapMarginPath = [NSBezierPath bezierPathWithRoundedRect:NSInsetRect(mapMargin, 2, 2) xRadius:2 yRadius:2];
   [[NSColor colorWithDeviceWhite:0 alpha:0.4] set];
   [mapMarginPath setLineWidth:1];
   [mapMarginPath stroke];

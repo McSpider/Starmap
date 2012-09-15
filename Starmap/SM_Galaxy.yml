@@ -1,71 +1,153 @@
-galaxy:
-  planets:
-    desert:
+galaxy: |
+  planets: |
+    desert: |
       frequency: 20
       habitable: 10 # 0 - 100 % equates to YES or NO in the generator
       temperature: "Hot"
       technology_level: 30 # base tech level, will be modified by the generator
+      technology_variation: 20 # tech level variation ±
       surface_sites: NO
       subterranean_sites: YES
-      produce: "lithus ore"
-    ocean:
+      produce: "ores", "spice"
+
+    ocean: |
       frequency: 40
       habitable: 30 # 0 - 100 % equates to YES or NO in the generator
       temperature: "Temperate"
       technology_level: 80 # base tech level, will be modified by the generator
+      technology_variation: 20 # tech level variation ±
       surface_sites: YES
       subterranean_sites: NO
-      produce: "fish", "mussels" , "Quartz Sand"
-    jungle:
-      frequency: 25
+      produce: "food"
 
-    gas:
+    jungle: |
+      frequency: 25
+      habitable: 30 # 0 - 100 % equates to YES or NO in the generator
+      temperature: "Temperate"
+      technology_level: 80 # base tech level, will be modified by the generator
+      technology_variation: 20 # tech level variation ±
+      surface_sites: YES
+      subterranean_sites: YES
+      produce: "cloth", "food", "liquor"
+
+
+    gas: |
       frequency: 70
       habitable: 0 # 0 - 100 % equates to YES or NO in the generator
       temperature: "Hot"
       technology_level: 20 # base tech level, will be modified by the generator
+      technology_variation: 20 # tech level variation ±
       surface_sites: NO
       subterranean_sites: NO
-      produce: "Xyphon Fuel"
+      produce: "fuel"
 
-    rock:
+    rock: |
       frequency: 80
       habitable: 20 # 0 - 100 % equates to YES or NO in the generator
       temperature: "temperate", "warm", "cool"
 
-    ice:
+    ice: |
       frequency: 30
       habitable: 20 # 0 - 100 % equates to YES or NO in the generator
       temperature: "cold", "freezing", "icy"
 
-    terra:
+    terra: |
       frequency: 30
 
 
-  stations:
-    subterranean:
-      cave:
-        planets: "desert", "jungle"
-        description: "A large spaceport build in one of the vast caves of the planet %p."
+  stations: |
+    subterranean: |
+      cave: |
+        planets: "desert:60", "jungle:4" # desert:60 means there is a 60 percent chance that a cave spaceport is placed on a desert planet
+        description: "A large spaceport build in one of the vast caves of the planet %p.", "A run-down spaceport build in one of the caves of %p."
       
-    surface:
-      floating:
-        planets: "ocean"
+    surface: |
+      floating: |
+        planets: "ocean:80"
         description: "A highly technological floating spaceport build to weather the roughest of seas."
 
-    orbiting:
+    orbiting: |
 
 
 
-  races:
-     humanoid:
+  races: |
+     humanoid: |
        frequency: 80 # 0 - 100 %
        planets: "all"
-     avian:
+     avian: |
        frequency: 1 # 0 - 100 %
        planets: "jungle", "terra"
-     enuue:
+     enuue: |
        frequency: 19 # 0 - 100 %
        planets: "ocean"
+
+
+  produce: |
+   alloys:
+   cloth:
+   computers:
+   contraband:
+   cybernetics:
+   food:
+   fuel:
+   gems:
+   liquor:
+   machinery:
+   ores:
+   relics:
+   spice:
+   weapons:
+
+
+  ships: |
+    eagle:
+      cargo_capacity: 10
+      passengers: 1
+      energy:
+      shields:
+      speed:
+      turn_rate:
+    cobra:
+      cargo_capacity: 20
+      passengers: 0
+      energy:
+      shields:
+      speed:
+      turn_rate:
+    courier:
+      cargo_capacity: 4
+      passengers: 4
+      energy:
+      shields:
+      speed:
+      turn_rate:
+    shunu:
+      cargo_capacity: 4
+      passengers: 4
+      energy:
+      shields:
+      speed:
+      turn_rate:
+      shipyard: |
+        race: "ennue"
+        tech_level: 60
+        equipment: |
+
+  
+  derelics: |
+    navi_scout: |
+      frequency: 20
+      min_group_size: 0
+
+    navy_cruiser: |
+      frequency: 2
+      min_group_size: 80
+
+    navy_frigate: |
+      frequency: 5
+      min_group_size: 40
+  
+
+
 
   

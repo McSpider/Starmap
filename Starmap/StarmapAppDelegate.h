@@ -15,7 +15,6 @@
 
   IBOutlet NSTextField *seedField;
   IBOutlet NSTextField *starsField;
-  IBOutlet NSTextField *radiusField;
   IBOutlet NSTextField *xSizeField;
   IBOutlet NSTextField *ySizeField;
   IBOutlet NSTextField *networkSizeField;
@@ -25,7 +24,6 @@
 
   IBOutlet NSTextField *statusField;
   IBOutlet NSSegmentedControl *shapeSelector;
-  IBOutlet NSTabView *sizeTabView;
 
   IBOutlet NSButton *generateButton;
 
@@ -42,6 +40,5 @@
 
 - (IBAction)generate:(id)sender;
 - (IBAction)saveStarmapXML:(id)sender;
-- (NSSize)starmapSize;
 
 @end

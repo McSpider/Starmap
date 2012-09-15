@@ -117,15 +117,13 @@
     return;
 
   if (starmap.starmapShape == CIRCULAR_STARMAP) {
-    int starmapRadius = starmap.starmapSize.width;
-    starmapRadius = sqrt(starmapRadius);
-    starmapRadius *= 20*2;
-
-    // 20px margin
-    starmapRadius += 20;
+    int starmapRadius = starmap.starmapSize.width;    
     NSRect mapMargin = NSMakeRect(0+width/2+(int)cameraOffset.x-(starmapRadius/2),
                                   0+height/2+(int)cameraOffset.y-(starmapRadius/2),
                                   starmapRadius, starmapRadius);
+    
+    // 20px margin
+    mapMargin = NSInsetRect(mapMargin, -10, -10);
 
     NSBezierPath *mapMarginPath = [NSBezierPath bezierPathWithOvalInRect:NSInsetRect(mapMargin, -2, -2)];
     [[NSColor colorWithDeviceWhite:0 alpha:0.1] set];
@@ -173,12 +171,12 @@
     // 20px margin
     mapMargin = NSInsetRect(mapMargin, -10, -10);
 
-    NSBezierPath *mapMarginPath = [NSBezierPath bezierPathWithRect:mapMargin];
+    NSBezierPath *mapMarginPath = [NSBezierPath bezierPathWithRoundedRect:mapMargin xRadius:2 yRadius:2];
     [[NSColor colorWithDeviceWhite:0 alpha:0.1] set];
     [mapMarginPath setLineWidth:4];
     [mapMarginPath stroke];
 
-    mapMarginPath = [NSBezierPath bezierPathWithRect:NSInsetRect(mapMargin, 2, 2)];
+    mapMarginPath = [NSBezierPath bezierPathWithRoundedRect:NSInsetRect(mapMargin, 2, 2) xRadius:2 yRadius:2];
     [[NSColor colorWithDeviceWhite:0 alpha:0.4] set];
     [mapMarginPath setLineWidth:1];
     [mapMarginPath stroke];
@@ -216,7 +214,7 @@
 
   // Darken Selected Star Network Ring
   if (selectedStar != nil && drawRings) {    
-    float radius = starmap.networkSize/2; //sqrt(starmap.networkSize/20)*20;
+    float radius = starmap.networkSize/2;
     
     int xPos = selectedStar.starPos.x;
     int yPos = selectedStar.starPos.y;

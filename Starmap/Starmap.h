@@ -12,6 +12,9 @@
 #define CIRCULAR_STARMAP 0
 #define RECTANGULAR_STARMAP 1
 
+#define SM_TIMEOUT 1
+#define SM_FATAL_ERROR 2
+
 typedef enum {
   S_Eliptical,
   S_Starburst,
@@ -30,6 +33,7 @@ typedef enum {
 @end
 
 @interface Starmap : NSObject {
+  MTRandom *mtrand;
   id delegate;
 
   unsigned int seed;
