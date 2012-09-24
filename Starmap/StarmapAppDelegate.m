@@ -16,17 +16,8 @@
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
   starmap = [[Starmap alloc] initWithSeed:23747];
-  [starmap setDelegate:self];
-  [starmap setGenerateNetworkingStars:YES];
-  [starmap setNetworkSize:100];
-  [starmap setNetworkStarMargin:3];
-  [starmap setStarmapSize:NSMakeSize(500, 500)];
-  [starmap setStarmapShape:SHAPE_CIRCULAR];
-  [starmap setStarmapStarCount:100];
-  
-  [statusField setStringValue:@"Opening Connection to Xyphon. Wayfarer Information Loaded."];
-
-  [starmap performSelectorInBackground:@selector(generateStarmap) withObject:nil];
+  [starmap setDelegate:self];  
+  [self performSelectorInBackground:@selector(generate:) withObject:self];
 }
 
 - (void)dealloc
@@ -41,11 +32,14 @@
   [starsField setStringValue:@"100"];
   [xSizeField  setStringValue:@"500"];
   [ySizeField  setStringValue:@"500"];
-  [networkSizeField setStringValue:@"106"];
+  [networkSizeField setStringValue:@"100"];
   [statusField setStringValue:@""];
-  [networkMarginField setStringValue:@"3"];
+  [networkMarginField setStringValue:@"6"];
   [nStarNeighborsField setStringValue:@"3"];
+  [nStarMinNeighborsField setStringValue:@"2"];
   [starMarginField setStringValue:@"5"];
+  
+  [statusField setStringValue:@"Opening Connection to Xyphon. Wayfarer Information Loaded."];
 
   [window center];
   [window zoom:self];
@@ -88,7 +82,8 @@
   [starmap setNormalStarMargin:[starMarginField intValue]];
   [starmap setNetworkStarMargin:[networkMarginField intValue]];
   [starmap setNetworkStarNeighbors:[nStarNeighborsField intValue]];
-
+  [starmap setNetworkStarMinNeighbors:[nStarMinNeighborsField intValue]];
+  
   [starmap performSelectorInBackground:@selector(generateStarmap) withObject:nil];
 }
 

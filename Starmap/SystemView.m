@@ -35,6 +35,11 @@
   int width = self.bounds.size.width;
   int height = self.bounds.size.height;
   
+  float sSize = activeStar.starSystem.sectorSize;
+  float sWidth = activeStar.starSystem.size.width;
+  float sHeight = activeStar.starSystem.size.height;
+
+  
   [[NSColor colorWithDeviceWhite:0.7 alpha:1] set];
   NSRectFill(self.bounds);
 
@@ -42,21 +47,17 @@
   if (!activeStar)
     return;
   
-    
-  int starSystemRadius = activeStar.starSystem.size.width;
-  
   // 20px margin
-  starSystemRadius += 20;
-  NSRect mapMargin = NSMakeRect(0+(int)cameraOffset.x+width/2-starSystemRadius/2,
-                                0+(int)cameraOffset.y+height/2-starSystemRadius/2,
-                                starSystemRadius, starSystemRadius);
+  NSRect mapMargin = NSMakeRect(0+(int)cameraOffset.x+width/2-sWidth/2,
+                                0+(int)cameraOffset.y+height/2-sHeight/2,
+                                sWidth, sHeight);
   
-  NSBezierPath *mapMarginPath = [NSBezierPath bezierPathWithRoundedRect:mapMargin xRadius:2 yRadius:2];
+  NSBezierPath *mapMarginPath = [NSBezierPath bezierPathWithRoundedRect:NSInsetRect(mapMargin, -2, -2) xRadius:2 yRadius:2];
   [[NSColor colorWithDeviceWhite:0 alpha:0.1] set];
   [mapMarginPath setLineWidth:4];
   [mapMarginPath stroke];
   
-  mapMarginPath = [NSBezierPath bezierPathWithRoundedRect:NSInsetRect(mapMargin, 2, 2) xRadius:2 yRadius:2];
+  mapMarginPath = [NSBezierPath bezierPathWithRoundedRect:mapMargin xRadius:2 yRadius:2];
   [[NSColor colorWithDeviceWhite:0 alpha:0.4] set];
   [mapMarginPath setLineWidth:1];
   [mapMarginPath stroke];
@@ -64,6 +65,26 @@
   [[NSColor whiteColor] set];
   [mapMarginPath fill];
   
+  
+  // Grid lines
+  /*for (int i1 = -1 * sWidth+sSize; i1 < (sWidth/sSize)-sSize; i1+=sSize) {
+    NSBezierPath *starPath = [NSBezierPath bezierPath];
+    [starPath moveToPoint:NSMakePoint((i1)+width/2+sWidth/2+(int)cameraOffset.x, height/2-sHeight/2+(int)cameraOffset.y)];
+    [starPath lineToPoint:NSMakePoint((i1)+width/2+sWidth/2+(int)cameraOffset.x, height/2+sHeight/2+(int)cameraOffset.y)];
+    
+    [[NSColor colorWithDeviceWhite:0 alpha:0.05] set];
+    [starPath setLineWidth:1];
+    [starPath stroke];
+  }
+  for (int i1 = -1 * sHeight+sSize; i1 < (sHeight/sSize)-sSize; i1+=sSize) {
+    NSBezierPath *starPath = [NSBezierPath bezierPath];
+    [starPath moveToPoint:NSMakePoint(width/2-sWidth/2+(int)cameraOffset.x, (i1)+height/2+sHeight/2+(int)cameraOffset.y)];
+    [starPath lineToPoint:NSMakePoint(width/2+sWidth/2+(int)cameraOffset.x, (i1)+height/2+sHeight/2+(int)cameraOffset.y)];
+    
+    [[NSColor colorWithDeviceWhite:0 alpha:0.05] set];
+    [starPath setLineWidth:1];
+    [starPath stroke];
+  }*/
   
   // Draw Center Star
   NSBezierPath * path;

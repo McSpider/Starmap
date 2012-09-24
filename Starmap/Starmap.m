@@ -19,7 +19,7 @@
 @synthesize shape;
 @synthesize networkSize;
 @synthesize networkStarMargin,normalStarMargin;
-@synthesize networkStarNeighbors;
+@synthesize networkStarNeighbors, networkStarMinNeighbors;
 @synthesize generateNetworkingStars;
 @synthesize removeSolitaryStars;
 @synthesize starmapShape;
@@ -40,8 +40,9 @@
   seed = aSeed;
   networkSize = 100;
   normalStarMargin = 5;
-  networkStarMargin = 3;
+  networkStarMargin = 6;
   networkStarNeighbors = 3;
+  networkStarMinNeighbors = 2;
   generateNetworkingStars = YES;
   removeSolitaryStars = NO;
   shape = S_Eliptical;
@@ -214,6 +215,11 @@
   
   //Networking Stars - Only generated for stars with less than networkStarNeighbors.
   if (generateNetworkingStars) {
+    if (networkSize <= 0) {
+      NSLog(@"WARNING: networkSize is zero");
+      return SM_FATAL_ERROR;
+    }
+    
     int i5;
     for (i5 = 0; i5 < [starArray count]; i5++) {
       Star *aStar = [starArray objectAtIndex:i5];
@@ -236,6 +242,13 @@
           
           newStarPosition = NSMakePoint(aStar.starPos.x + x,aStar.starPos.y + y);
           validStar = [self goodStarPosition:newStarPosition checkDistance:networkStarMargin];
+          
+          Star *nStar = [[Star alloc] init];
+          [nStar setStarPos:newStarPosition];
+          if ([[self neighborStarsForStar:nStar checkDistance:networkSize/2] count] < networkStarMinNeighbors){
+            validStar = NO;
+          }
+          [nStar release];
           //if (!validStar)
           //  NSLog(@"Invalid Networking Star At: %i,%i",(int)x,(int)y);
           if (loops > 500)
@@ -354,6 +367,13 @@
           
           newStarPosition = NSMakePoint(aStar.starPos.x + x,aStar.starPos.y + y);
           validStar = [self goodStarPosition:newStarPosition checkDistance:networkStarMargin];
+          
+          Star *nStar = [[Star alloc] init];
+          [nStar setStarPos:newStarPosition];
+          if ([[self neighborStarsForStar:nStar checkDistance:networkSize/2] count] < networkStarMinNeighbors){
+            validStar = NO;
+          }
+          [nStar release];
           //if (!validStar)
           //  NSLog(@"Invalid Networking Star At: %i,%i",(int)x,(int)y);
           if (loops > 500)
@@ -368,7 +388,7 @@
         [tempStar setNetworkStar:aStar];
         [tempStar setUid:star_uid];
         star_uid ++;
-        //NSLog(@"Adding Networking Star At: %i,%i",(int)tempStar.starPos.x,(int)tempStar.starPos.y);
+        //NSLog(@"Adding Networking Star At: %i,%i",(int)tempStar.starPos.x,(int)tempStar.starPos.y);        
         [starArray addObject:tempStar];
         [tempStar release];
       }

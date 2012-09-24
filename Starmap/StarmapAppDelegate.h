@@ -21,6 +21,7 @@
   IBOutlet NSTextField *starMarginField;
   IBOutlet NSTextField *networkMarginField;
   IBOutlet NSTextField *nStarNeighborsField;
+  IBOutlet NSTextField *nStarMinNeighborsField;
 
   IBOutlet NSTextField *statusField;
   IBOutlet NSSegmentedControl *shapeSelector;

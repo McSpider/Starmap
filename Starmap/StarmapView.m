@@ -10,6 +10,7 @@
 
 @implementation StarmapView
 @synthesize selectedStar;
+@synthesize systemView;
 
 - (id)initWithFrame:(NSRect)frameRect
 {
@@ -183,7 +184,7 @@
     [mapMarginPath stroke];
 
     [[NSColor whiteColor] set];
-    [mapMarginPath fill];
+    [mapMarginPath fill];    
   }
 
 

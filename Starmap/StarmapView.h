@@ -33,6 +33,7 @@
 }
 
 @property (nonatomic, readonly) Star *selectedStar;
+@property (nonatomic, assign) SystemView *systemView;
 
 
 - (IBAction)resetCamera:(id)sender;

@@ -39,6 +39,7 @@ typedef enum {
   int networkStarMargin;
   int normalStarMargin;
   int networkStarNeighbors;
+  int networkStarMinNeighbors;
   BOOL generateNetworkingStars;
   BOOL removeSolitaryStars;
 
@@ -57,7 +58,7 @@ typedef enum {
 @property int shape;
 @property int networkSize;
 @property int networkStarMargin,normalStarMargin;
-@property int networkStarNeighbors;
+@property int networkStarNeighbors, networkStarMinNeighbors;
 @property BOOL generateNetworkingStars;
 @property BOOL removeSolitaryStars;
 @property int starmapShape;

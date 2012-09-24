@@ -33,6 +33,12 @@ typedef enum {
   GT_Pirate_State
 } Goverment_Types;
 
+typedef enum {
+  ET_Agricultural,
+  ET_Mining,
+  ET_Industrial
+} Economy_Types;
+
 @interface SystemPlanet : NSObject {
   NSString *name;
   uint type;
@@ -54,6 +60,7 @@ typedef enum {
 @property uint temperature;
 @property uint goverment;
 @property uint technologyLevel;
+@property uint economy;
 @property (nonatomic, retain) NSArray *produce;
 @property (nonatomic, retain) NSArray *spaceports;
 
@@ -63,7 +70,9 @@ typedef enum {
 
 - (NSString *)planetInfo;
 - (NSString *)govermentString;
-- (NSString *)economy;
+- (NSString *)economyString;
+- (NSString *)typeString;
+- (void)randomizeWithSeed:(uint)aSeed;
 
 @end
 
