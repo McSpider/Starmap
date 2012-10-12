@@ -195,13 +195,13 @@
     for (i3 = 0; i3 < [starmap.starArray count]; i3++) {
       Star *aStar = [starmap.starArray objectAtIndex:i3];
 
-      int xPos = aStar.starPos.x;
-      int yPos = aStar.starPos.y;
+      int xPos = aStar.position.x;
+      int yPos = aStar.position.y;
 
       [circlesPath appendBezierPathWithOvalInRect:
        NSMakeRect(xPos+width/2+(int)cameraOffset.x-starmap.networkSize/2,
                   yPos+height/2+(int)cameraOffset.y-starmap.networkSize/2,
-                  starmap.networkSize, starmap.networkSize)];
+                  starmap.networkSize, starmap.networkSize)];      
     }
 
     [[NSColor colorWithDeviceWhite:0 alpha:0.05] set];
@@ -218,8 +218,8 @@
   if (selectedStar != nil && drawRings) {    
     float radius = starmap.networkSize/2;
     
-    int xPos = selectedStar.starPos.x;
-    int yPos = selectedStar.starPos.y;
+    int xPos = selectedStar.position.x;
+    int yPos = selectedStar.position.y;
     
     NSBezierPath * circlesPath = [NSBezierPath bezierPathWithOvalInRect:
                                   NSMakeRect(xPos+width/2+(int)cameraOffset.x-radius,
@@ -239,14 +239,14 @@
 
       NSArray *aArray = aStar.neighbors;
 
-      int xFrom = aStar.starPos.x;
-      int yFrom = aStar.starPos.y;
+      int xFrom = aStar.position.x;
+      int yFrom = aStar.position.y;
 
       for (int i4 = 0; i4 < [aArray count]; i4++) {
         Star *neighborStar = [aArray objectAtIndex:i4];
 
-        int xTo = neighborStar.starPos.x;
-        int yTo = neighborStar.starPos.y;
+        int xTo = neighborStar.position.x;
+        int yTo = neighborStar.position.y;
 
         NSBezierPath *starPath = [NSBezierPath bezierPath];
         [starPath moveToPoint:NSMakePoint(xFrom+width/2+(int)cameraOffset.x, yFrom+height/2+(int)cameraOffset.y)];
@@ -267,14 +267,14 @@
     for (i1 = 0; i1 < [selectedStarPath count]; i1++) {
       Star *aStar = [selectedStarPath objectAtIndex:i1];
             
-      int xFrom = aStar.starPos.x;
-      int yFrom = aStar.starPos.y;
+      int xFrom = aStar.position.x;
+      int yFrom = aStar.position.y;
       
       if ([selectedStarPath count] > i1+1) {
         Star *nextStar = [selectedStarPath objectAtIndex:i1+1];
         
-        int xTo = nextStar.starPos.x;
-        int yTo = nextStar.starPos.y;
+        int xTo = nextStar.position.x;
+        int yTo = nextStar.position.y;
         
         NSBezierPath *starPath = [NSBezierPath bezierPath];
         [starPath moveToPoint:NSMakePoint(xFrom+width/2+(int)cameraOffset.x, yFrom+height/2+(int)cameraOffset.y)];
@@ -295,29 +295,35 @@
     Star *aStar = [starmap.starArray objectAtIndex:i2];
 
   	NSBezierPath * path;
-    int xPos = aStar.starPos.x;
-    int yPos = aStar.starPos.y;
+    int xPos = aStar.position.x;
+    int yPos = aStar.position.y;
 
     NSRect dotRect = NSMakeRect(xPos+width/2+(int)cameraOffset.x-2, yPos+height/2+(int)cameraOffset.y-2, 4, 4);
     path = [NSBezierPath bezierPathWithOvalInRect:dotRect];
-    [[aStar starColor] set];
+    if (drawPlanetTypeColors)
+      [[aStar.starSystem.planet mapColor] set];
+    else [[aStar starColor] set];
   	[path fill];
-
+    
     if (aStar == selectedStar) {
       path = [NSBezierPath bezierPathWithOvalInRect:NSInsetRect(dotRect, -4, -4)];
-      [[[aStar starColor] colorWithAlphaComponent:0.2] set];
+      if (drawPlanetTypeColors)
+        [[[aStar.starSystem.planet mapColor] colorWithAlphaComponent:0.2] set];
+      else [[[aStar starColor] colorWithAlphaComponent:0.2] set];
       [path setLineWidth:2];
       [path stroke];
       
       // Also hilight the network star
       if (aStar.type == NETWORKING_STAR) {
         NSBezierPath * path;
-        int xPos = aStar.networkStar.starPos.x;
-        int yPos = aStar.networkStar.starPos.y;
+        int xPos = aStar.networkStar.position.x;
+        int yPos = aStar.networkStar.position.y;
         
         NSRect dotRect = NSMakeRect(xPos+width/2+(int)cameraOffset.x-2, yPos+height/2+(int)cameraOffset.y-2, 4, 4);
         path = [NSBezierPath bezierPathWithOvalInRect:NSInsetRect(dotRect, -4, -4)];
-        [[[aStar.networkStar starColor] colorWithAlphaComponent:0.2] set];
+        if (drawPlanetTypeColors)
+          [[[aStar.networkStar.starSystem.planet mapColor] colorWithAlphaComponent:0.2] set];
+        else [[[aStar.networkStar starColor] colorWithAlphaComponent:0.2] set];
         [path setLineWidth:2];
         [path stroke];
       }
@@ -330,8 +336,8 @@
     for (i3 = 0; i3 < [starmap.starArray count]; i3++) {
       Star *aStar = [starmap.starArray objectAtIndex:i3];
 
-      int xPos = aStar.starPos.x;
-      int yPos = aStar.starPos.y;
+      int xPos = aStar.position.x;
+      int yPos = aStar.position.y;
 
       NSString *nameLabel = [NSString stringWithFormat:@"%@",aStar.starName];
       NSDictionary *attr = [NSDictionary dictionaryWithObjectsAndKeys:[NSFont systemFontOfSize:5],NSFontAttributeName,
@@ -339,7 +345,7 @@
       [nameLabel drawAtPoint:NSMakePoint(xPos+width/2+(int)cameraOffset.x, yPos+height/2+(int)cameraOffset.y) withAttributes:attr];
 
       if (zoomFactor >= 3){
-        NSString *posLabel = [NSString stringWithFormat:@"%.1f,%.1f uid:%u",aStar.starPos.x,aStar.starPos.y,aStar.uid];
+        NSString *posLabel = [NSString stringWithFormat:@"%.1f,%.1f uid:%u",aStar.position.x,aStar.position.y,aStar.uid];
         attr = [NSDictionary dictionaryWithObjectsAndKeys:[NSFont systemFontOfSize:3],NSFontAttributeName,
                               [NSColor colorWithDeviceWhite:0.0 alpha:0.8],NSForegroundColorAttributeName,nil];
         [posLabel drawAtPoint:NSMakePoint(xPos+width/2+(int)cameraOffset.x+2, yPos+height/2+(int)cameraOffset.y-2) withAttributes:attr];
@@ -378,8 +384,8 @@
     for (i2 = 0; i2 < [starmap.starArray count]; i2++) {
       Star *aStar = [starmap.starArray objectAtIndex:i2];
       
-      int xPos = aStar.starPos.x;
-      int yPos = aStar.starPos.y;
+      int xPos = aStar.position.x;
+      int yPos = aStar.position.y;
       
       NSRect dotRect = NSMakeRect(xPos+width/2+(int)cameraOffset.x-2, yPos+height/2+(int)cameraOffset.y-2, 4, 4);
       if (NSPointInRect(mousePos, dotRect)) {
@@ -480,5 +486,15 @@
   return drawLabels;
 }
 
+- (void)setDrawPlanetTypeColors:(BOOL)flag
+{
+  drawPlanetTypeColors = flag;
+  [self setNeedsDisplay:YES];
+}
+
+- (int)drawPlanetTypeColors
+{
+  return drawPlanetTypeColors;
+}
 
 @end

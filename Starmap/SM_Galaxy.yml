@@ -81,6 +81,17 @@ galaxy: |
        frequency: 19 # 0 - 100 %
        planets: "ocean"
 
+  goverments: |
+    - "Anarchy", 1
+    - "Democracy", 2
+    - "Feudal", 1
+    - "Communist", 1
+    - "Multi Government", 2
+    - "Dictatorship", 3
+    - "Confederacy", 2
+    - "Corporate State", 3
+    - "Pirate State", 1, 3
+
 
   produce: |
    alloys:

@@ -13,12 +13,12 @@
 typedef enum {
   PT_Gas,
   PT_Desert,
-  PT_Ocean,
   PT_Jungle,
-  PT_Rock,
-  PT_Ice,
   PT_Terra,
-  PT_Snow
+  PT_Ocean,
+  PT_Snow,
+  PT_Ice,
+  PT_Rock,
 } PlanetTypes;
 
 typedef enum {
@@ -47,9 +47,11 @@ typedef enum {
   bool habitable;
   uint temperature;
   uint goverment;
+  uint faction;
   uint technologyLevel;
   NSArray *produce;
   NSArray *spaceports;
+  NSArray *moons;
 }
 
 @property (nonatomic, retain) NSString *name;
@@ -59,10 +61,12 @@ typedef enum {
 @property bool habitable;
 @property uint temperature;
 @property uint goverment;
+@property uint faction;
 @property uint technologyLevel;
 @property uint economy;
 @property (nonatomic, retain) NSArray *produce;
 @property (nonatomic, retain) NSArray *spaceports;
+@property (nonatomic, retain) NSArray *moons;
 
 
 
@@ -72,6 +76,7 @@ typedef enum {
 - (NSString *)govermentString;
 - (NSString *)economyString;
 - (NSString *)typeString;
+- (NSColor *)mapColor;
 - (void)randomizeWithSeed:(uint)aSeed;
 
 @end
@@ -94,7 +99,7 @@ typedef enum {
   ST_Floating,
   ST_Orbiting,
   ST_Rock
-} STtationTypes;
+} StationTypes;
 
 typedef enum {
   SS_Large,
@@ -137,12 +142,16 @@ typedef enum {
   uint sectorSize;
   SystemPlanet *planet;
   NSMutableArray *objects;
+  NSPoint warpZonePosition;
+  uint warpZoneRadius;
 }
 
 @property NSSize size;
 @property uint shape;
 @property uint sectorSize;
 @property (nonatomic, retain) SystemPlanet *planet;
+@property NSPoint warpZonePosition;
+@property uint warpZoneRadius;
 
 - (id)initWithName:(NSString *)aName andSeed:(uint)aSeed;
 - (NSString *)systemInfo;

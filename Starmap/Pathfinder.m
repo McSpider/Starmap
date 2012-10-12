@@ -25,8 +25,8 @@
 {
   // A Star pathfinding uses heristics Djikstra's doesn't.
   if (pathfinderType == A_STAR) {
-    float dx = fromStar.starPos.x - toStar.starPos.x;
-    float dy = fromStar.starPos.y - toStar.starPos.y;
+    float dx = fromStar.position.x - toStar.position.x;
+    float dy = fromStar.position.y - toStar.position.y;
     return sqrt( dx * dx + dy * dy ) * cost;
   }
   // pathfinderType == DJIKSTRA

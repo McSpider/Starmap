@@ -9,7 +9,7 @@
 #import <Cocoa/Cocoa.h>
 #import "StarmapView.h"
 
-@interface StarmapAppDelegate : NSObject <NSApplicationDelegate> {
+@interface StarmapAppDelegate : NSObject <NSApplicationDelegate, NSTextStorageDelegate> {
   NSWindow *window;
   StarmapView *mapView;
 
@@ -22,6 +22,8 @@
   IBOutlet NSTextField *networkMarginField;
   IBOutlet NSTextField *nStarNeighborsField;
   IBOutlet NSTextField *nStarMinNeighborsField;
+  
+  IBOutlet NSTextView *settingsView;
 
   IBOutlet NSTextField *statusField;
   IBOutlet NSSegmentedControl *shapeSelector;

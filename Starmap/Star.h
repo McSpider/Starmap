@@ -17,10 +17,9 @@
 @interface Star : NSObject {
   MTRandom *mtrand;
   
-  NSPoint starPos;
-
-  NSString *name;
+  NSPoint position;
   uint uid;
+  uint seed;
   int type;
 
   Star *networkStar;
@@ -35,8 +34,9 @@
   NSArray *neighbors;
 }
 
-@property NSPoint starPos;
+@property NSPoint position;
 @property uint uid;
+@property uint seed;
 @property int type;
 
 @property (nonatomic, assign) Star *networkStar;

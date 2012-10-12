@@ -17,10 +17,12 @@
 @synthesize habitable;
 @synthesize temperature;
 @synthesize goverment;
+@synthesize faction;
 @synthesize technologyLevel;
 @synthesize economy;
 @synthesize produce;
 @synthesize spaceports;
+@synthesize moons;
 
 - (id)init
 {
@@ -88,7 +90,6 @@
 
 - (NSString *)typeString
 {
-  
   if (type == PT_Gas) {
     return @"Gas";
   }
@@ -117,6 +118,36 @@
   return @"Xyphon";
 }
 
+- (NSColor *)mapColor
+{
+  if (type == PT_Gas) {
+    return [NSColor colorWithCalibratedRed:0.30 green:0.03 blue:0.51 alpha:1.00];
+  }
+  else if (type == PT_Desert) {
+    return [NSColor colorWithCalibratedRed:0.62 green:0.48 blue:0.05 alpha:1.00];
+  }
+  else if (type == PT_Ocean) {
+    return [NSColor colorWithCalibratedRed:0.05 green:0.21 blue:0.62 alpha:1.00];
+  }
+  else if (type == PT_Jungle) {
+    return [NSColor colorWithCalibratedRed:0.02 green:0.51 blue:0.06 alpha:1.00];
+  }
+  else if (type == PT_Rock) {
+    return [NSColor colorWithCalibratedRed:0.41 green:0.39 blue:0.39 alpha:1.00];
+  }
+  else if (type == PT_Ice) {
+    return [NSColor colorWithCalibratedRed:0.48 green:0.55 blue:0.69 alpha:1.00];
+  }
+  else if (type == PT_Terra) {
+    return [NSColor colorWithCalibratedRed:0.30 green:0.15 blue:0.00 alpha:1.00];
+  }
+  else if (type == PT_Snow) {
+    return [NSColor colorWithCalibratedRed:0.69 green:0.68 blue:0.71 alpha:1.00];
+  }
+  
+  return [NSColor colorWithCalibratedRed:0.20 green:0.44 blue:0.39 alpha:1.00];
+}
+
 - (void)randomizeWithSeed:(uint)aSeed
 {
   MTRandom *mtrand = [[MTRandom alloc] initWithSeed:aSeed];
@@ -128,9 +159,15 @@
   
   [self setGoverment:gov];
   [self setTechnologyLevel:(int)[mtrand randomUInt32From:0 to:7] + 1];
-  [self setType:(int)[mtrand randomUInt32From:0 to:7]];  
+  
+  float rTypeP = [mtrand randomDoubleFrom:0 to:7];
+  // Causes types near the end and beginning of the list to be more common (I think so anyway :| )
+  // Kinda works, what I really want is to assign a precentage to each type ie PT_Ocean has a 20% chance to appear.
+  float nTypeV = 7*powf(sin(pi/7*rTypeP/2),3);
+  [self setType:roundf(nTypeV)];  
+  
   [self setEconomy:(int)[mtrand randomUInt32From:0 to:2]];
-
+  
   while (((type == PT_Ice || type == PT_Gas) && economy == ET_Agricultural) ||
          ((type == PT_Gas) && economy == ET_Industrial))
     [self setEconomy:(int)[mtrand randomUInt32From:0 to:2]];
@@ -189,6 +226,9 @@
 @synthesize shape;
 @synthesize sectorSize;
 @synthesize planet;
+@synthesize warpZonePosition;
+@synthesize warpZoneRadius;
+
 
 - (id)init
 {
@@ -208,6 +248,9 @@
   sectorSize = 32;
   planet = [[SystemPlanet alloc] initWithName:aName];
   [planet randomizeWithSeed:aSeed];
+  
+  warpZonePosition = NSMakePoint([mtrand randomDoubleFrom:0 to:size.width]-size.width/2, [mtrand randomDoubleFrom:0 to:size.height]-size.height/2);
+  warpZoneRadius = [mtrand randomUInt32From:5 to:20];
   
   return self;
 }

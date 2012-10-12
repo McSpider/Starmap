@@ -139,6 +139,16 @@
   }
   [solitaryStars release];
   
+  
+  // Generate system data
+  for (Star *aStar in starArray) {
+    StarSystem *starSystem = [[StarSystem alloc] initWithName:[aStar randomStarName] andSeed:[mtrand randomUInt32]];
+    NSLog(@"%@",[starSystem systemInfo]);
+
+    [aStar setStarSystem:starSystem];
+    [starSystem release];
+  }
+  
   [mtrand release];
   return returnValue;
 }
@@ -183,11 +193,11 @@
       
       [tempStar release];
       tempStar = [[Star alloc] initWithSeed:[mtrand randomUInt32]];  // create a temporary star
-      [tempStar setStarPos:newStarPosition];
+      [tempStar setPosition:newStarPosition];
       [tempStar setType:PRIMARY_STAR];
       [tempStar setUid:star_uid];
       star_uid ++;
-      //NSLog(@"Adding Star: %i of %i At: %i,%i",i1+1,numstars,(int)tempStar.starPos.x,(int)tempStar.starPos.y);
+      //NSLog(@"Adding Star: %i of %i At: %i,%i",i1+1,numstars,(int)tempStar.position.x,(int)tempStar.position.y);
       [starArray addObject:tempStar];
     }
     else {
@@ -203,8 +213,8 @@
       y = radius * sin(angle);
       
       tempStar = [[Star alloc] initWithSeed:[mtrand randomUInt32]];  // create a temporary star
-      [tempStar setStarPos:NSMakePoint(x,y)];
-      NSLog(@"Adding First Star At:  %i,%i",(int)tempStar.starPos.x,(int)tempStar.starPos.y);
+      [tempStar setPosition:NSMakePoint(x,y)];
+      NSLog(@"Adding First Star At:  %i,%i",(int)tempStar.position.x,(int)tempStar.position.y);
       [tempStar setType:FIRST_STAR];
       [tempStar setUid:star_uid];
       star_uid ++;
@@ -240,11 +250,11 @@
           y = radius * sin(angle);
           
           
-          newStarPosition = NSMakePoint(aStar.starPos.x + x,aStar.starPos.y + y);
+          newStarPosition = NSMakePoint(aStar.position.x + x,aStar.position.y + y);
           validStar = [self goodStarPosition:newStarPosition checkDistance:networkStarMargin];
           
           Star *nStar = [[Star alloc] init];
-          [nStar setStarPos:newStarPosition];
+          [nStar setPosition:newStarPosition];
           if ([[self neighborStarsForStar:nStar checkDistance:networkSize/2] count] < networkStarMinNeighbors){
             validStar = NO;
           }
@@ -258,12 +268,12 @@
         }
         
         tempStar = [[Star alloc] initWithSeed:[mtrand randomUInt32]];  // create a temporary star
-        [tempStar setStarPos:newStarPosition];
+        [tempStar setPosition:newStarPosition];
         [tempStar setType:NETWORKING_STAR];
         [tempStar setNetworkStar:aStar];
         [tempStar setUid:star_uid];
         star_uid ++;
-        //NSLog(@"Adding Networking Star At: %i,%i",(int)tempStar.starPos.x,(int)tempStar.starPos.y);        
+        //NSLog(@"Adding Networking Star At: %i,%i",(int)tempStar.position.x,(int)tempStar.position.y);        
         [starArray addObject:tempStar];
         [tempStar release];
       }
@@ -310,11 +320,11 @@
       
       [tempStar release];
       tempStar = [[Star alloc] initWithSeed:[mtrand randomUInt32]];  // create a temporary star
-      [tempStar setStarPos:newStarPosition];
+      [tempStar setPosition:newStarPosition];
       [tempStar setType:PRIMARY_STAR];
       [tempStar setUid:star_uid];
       star_uid ++;
-      //NSLog(@"Adding Star: %i of %i At: %i,%i",i1+1,numstars,(int)tempStar.starPos.x,(int)tempStar.starPos.y);
+      //NSLog(@"Adding Star: %i of %i At: %i,%i",i1+1,numstars,(int)tempStar.position.x,(int)tempStar.position.y);
       [starArray addObject:tempStar];
     }
     else {
@@ -328,10 +338,10 @@
       y = [mtrand randomDoubleFrom:0 to: starmapHeight]-starmapHeight/2;
       
       tempStar = [[Star alloc] initWithSeed:[mtrand randomUInt32]];  // create a temporary star
-      [tempStar setStarPos:NSMakePoint(x,y)];
+      [tempStar setPosition:NSMakePoint(x,y)];
       [tempStar setUid:star_uid];
       star_uid ++;
-      //NSLog(@"Adding First Star At:  %i,%i",(int)tempStar.starPos.x,(int)tempStar.starPos.y);
+      //NSLog(@"Adding First Star At:  %i,%i",(int)tempStar.position.x,(int)tempStar.position.y);
       [tempStar setType:FIRST_STAR];
       [starArray addObject:tempStar];
     }
@@ -365,11 +375,11 @@
           y = radius * sin(angle);
           
           
-          newStarPosition = NSMakePoint(aStar.starPos.x + x,aStar.starPos.y + y);
+          newStarPosition = NSMakePoint(aStar.position.x + x,aStar.position.y + y);
           validStar = [self goodStarPosition:newStarPosition checkDistance:networkStarMargin];
           
           Star *nStar = [[Star alloc] init];
-          [nStar setStarPos:newStarPosition];
+          [nStar setPosition:newStarPosition];
           if ([[self neighborStarsForStar:nStar checkDistance:networkSize/2] count] < networkStarMinNeighbors){
             validStar = NO;
           }
@@ -383,12 +393,12 @@
         }
         
         tempStar = [[Star alloc] initWithSeed:[mtrand randomUInt32]];  // create a temporary star
-        [tempStar setStarPos:newStarPosition];
+        [tempStar setPosition:newStarPosition];
         [tempStar setType:NETWORKING_STAR];
         [tempStar setNetworkStar:aStar];
         [tempStar setUid:star_uid];
         star_uid ++;
-        //NSLog(@"Adding Networking Star At: %i,%i",(int)tempStar.starPos.x,(int)tempStar.starPos.y);        
+        //NSLog(@"Adding Networking Star At: %i,%i",(int)tempStar.position.x,(int)tempStar.position.y);        
         [starArray addObject:tempStar];
         [tempStar release];
       }
@@ -417,8 +427,8 @@
   }
   
   for (Star *aStar in starArray) {
-    float nomX = pos.x - aStar.starPos.x;
-    float nomY = pos.y - aStar.starPos.y;
+    float nomX = pos.x - aStar.position.x;
+    float nomY = pos.y - aStar.position.y;
     
     float dist = sqrt(nomX * nomX + nomY * nomY);
     if (dist < checkDist)
@@ -435,8 +445,8 @@
     if (aStar == theStar)
       continue;
     
-    float nomX = theStar.starPos.x - aStar.starPos.x;
-    float nomY = theStar.starPos.y - aStar.starPos.y;
+    float nomX = theStar.position.x - aStar.position.x;
+    float nomY = theStar.position.y - aStar.position.y;
     
     float dist = sqrt(nomX * nomX + nomY * nomY);
     if (dist < checkDist)
@@ -472,14 +482,14 @@
   for (uint i1 = 0; i1 < starArray.count; i1++) {
     Star *aStar = [starArray objectAtIndex:i1];
     NSString *xmlStar = [NSString stringWithFormat:@"<star index=\"%u\">\n  <name>%@</name>\n  <pos>%f,%f</pos>\n  <type>%i</type>\n",
-                         i1,aStar.starName,aStar.starPos.x,aStar.starPos.y,aStar.type];
+                         i1,aStar.starName,aStar.position.x,aStar.position.y,aStar.type];
     
     
     if (saveNeighbors) {
       xmlStar = [xmlStar stringByAppendingString:@"  <neighbors>\n"];
       for (uint i2 = 0; i2 < aStar.neighbors.count; i2++) {
         Star *nStar = [aStar.neighbors objectAtIndex:i2];
-        NSString *neighborStar = [NSString stringWithFormat:@"    <star index=\"%u\">\n      <name>%@</name>\n      <pos>%f,%f</pos>\n      <type>%i</type>\n    </star>\n",i2,nStar.starName,nStar.starPos.x,nStar.starPos.y,nStar.type];
+        NSString *neighborStar = [NSString stringWithFormat:@"    <star index=\"%u\">\n      <name>%@</name>\n      <pos>%f,%f</pos>\n      <type>%i</type>\n    </star>\n",i2,nStar.starName,nStar.position.x,nStar.position.y,nStar.type];
         xmlStar = [xmlStar stringByAppendingString:neighborStar];
       }
       xmlStar = [xmlStar stringByAppendingString:@"  </neighbors>\n"];

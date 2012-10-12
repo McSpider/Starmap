@@ -30,14 +30,18 @@
 {
   [seedField setStringValue:@"23747"];
   [starsField setStringValue:@"100"];
-  [xSizeField  setStringValue:@"500"];
-  [ySizeField  setStringValue:@"500"];
+  [xSizeField setStringValue:@"500"];
+  [ySizeField setStringValue:@"500"];
   [networkSizeField setStringValue:@"100"];
   [statusField setStringValue:@""];
   [networkMarginField setStringValue:@"6"];
   [nStarNeighborsField setStringValue:@"3"];
   [nStarMinNeighborsField setStringValue:@"2"];
   [starMarginField setStringValue:@"5"];
+  
+  [[settingsView textStorage] setDelegate:self];
+  [settingsView setFont:[NSFont fontWithName:@"Menlo" size:12]];
+  [settingsView setString:[NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"SM_Generator" ofType:@"yml"] encoding:NSUTF8StringEncoding error:nil]];
   
   [statusField setStringValue:@"Opening Connection to Xyphon. Wayfarer Information Loaded."];
 
@@ -51,6 +55,33 @@
 		return starmap.starArray.count != 0;
 	}
 	return YES;
+}
+
+- (void)textStorageDidProcessEditing:(NSNotification *)notification
+{
+  NSTextStorage *textStorage = [notification object];
+  NSColor *blue = [NSColor colorWithCalibratedRed:0.000 green:0.251 blue:0.502 alpha:1.000];
+  NSRange found, area;
+  NSString *string = [textStorage string];
+  NSUInteger length = [string length];
+  
+  // remove the old colors
+  area.location = 0;
+  area.length = length;
+  [textStorage removeAttribute:NSForegroundColorAttributeName range:area];
+  
+  // add new colors
+  while (area.length) {
+    found = [string rangeOfString:@":" 
+                          options:NSCaseInsensitiveSearch 
+                            range:area];
+    if (found.location == NSNotFound) break;
+    [textStorage addAttribute:NSForegroundColorAttributeName
+                        value:blue
+                        range:found];
+    area.location = NSMaxRange(found);
+    area.length = length - area.location;    
+  }
 }
 
 

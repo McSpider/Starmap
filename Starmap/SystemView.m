@@ -86,27 +86,39 @@
     [starPath stroke];
   }*/
   
-  // Draw Center Star
+  // Draw the center star
   NSBezierPath * path;
   int xPos = 0;
   int yPos = 0;
   
   NSRect dotRect = NSMakeRect(xPos+(int)cameraOffset.x+width/2-2, yPos+(int)cameraOffset.y+height/2-2, 4, 4);
   path = [NSBezierPath bezierPathWithOvalInRect:dotRect];
-  [[activeStar starColor] set];
+  [[activeStar.starSystem.planet mapColor] set];
   [path fill];
   
   path = [NSBezierPath bezierPathWithOvalInRect:NSInsetRect(dotRect, -3, -3)];
-  [[[activeStar starColor] colorWithAlphaComponent:0.2] set];
+  [[[activeStar.starSystem.planet mapColor] colorWithAlphaComponent:0.2] set];
   [path setLineWidth:1.5];
   [path stroke];      
   
-  // Draw Label
+  // Draw label
   NSString *nameLabel = [NSString stringWithFormat:@"%@",activeStar.starName];
   NSDictionary *attr = [NSDictionary dictionaryWithObjectsAndKeys:[NSFont systemFontOfSize:5],NSFontAttributeName,
                         [NSColor colorWithDeviceWhite:0.0 alpha:0.8],NSForegroundColorAttributeName,nil];
   [nameLabel drawAtPoint:NSMakePoint(xPos+(int)cameraOffset.x+width/2, yPos+(int)cameraOffset.y+height/2) withAttributes:attr];
   
+  
+  
+  // Draw the warp zone
+  xPos = activeStar.starSystem.warpZonePosition.x;
+  yPos = activeStar.starSystem.warpZonePosition.y;
+  NSBezierPath * warpPath;  
+  NSRect warpRect = NSMakeRect(xPos+(int)cameraOffset.x+width/2-3, yPos+(int)cameraOffset.y+height/2-3, 6, 6);
+  
+  warpPath = [NSBezierPath bezierPathWithOvalInRect:warpRect];
+  [[NSColor colorWithCalibratedRed:0.000 green:0.578 blue:0.428 alpha:0.8] set];
+  [warpPath setLineWidth:1.5];
+  [warpPath fill];      
 }
 
 

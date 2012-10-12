@@ -22,6 +22,7 @@
   BOOL drawNetwork;
   BOOL drawRings;
   BOOL drawLabels;
+  BOOL drawPlanetTypeColors;
 
   Starmap *starmap;
   Star *selectedStar;

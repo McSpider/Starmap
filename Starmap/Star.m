@@ -9,11 +9,13 @@
 #import "Star.h"
 
 @implementation Star
-@synthesize starPos;
+@synthesize position;
 @synthesize uid;
+@synthesize seed;
 @synthesize type;
 @synthesize networkStar;
 @synthesize starSystem;
+// Pathfinding
 @synthesize g, f, h;
 @synthesize parentStar;
 @synthesize neighbors;
@@ -30,25 +32,22 @@
   if (!(self = [super init]))
     return nil;
   
+  seed = aSeed;
   mtrand = [[MTRandom alloc] initWithSeed:aSeed];
   
   type = FIRST_STAR;
   uid = 0;
-  starPos = NSZeroPoint;
+  position = NSZeroPoint;
   networkStar = nil;
   g = f = h = 0;
   parentStar = nil;
   neighbors = [[NSArray alloc] init];
   
-  name = [[self randomStarName] retain];
-  starSystem = [[StarSystem alloc] initWithName:name andSeed:[mtrand randomUInt32]];
-  NSLog(@"%@",[starSystem systemInfo]);
   return self;
 }
 
 - (void)dealloc
 {
-  [name release];
   [neighbors release];
   [starSystem release];
   [super dealloc];
@@ -78,7 +77,7 @@
 
 - (NSString *)starName
 {
-  return name;
+  return self.starSystem.planet.name;
 }
 
 - (NSString *)randomStarName
