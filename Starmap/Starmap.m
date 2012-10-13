@@ -11,6 +11,7 @@
 @interface Starmap ()
 - (uint)generateRectangularStarmap;
 - (uint)generateCircularStarmap;
+- (void)groupStarSystemsForStar:(Star *)aStar groupIndex:(NSNumber *)groupIndex;
 @end
 
 @implementation Starmap
@@ -149,8 +150,35 @@
     [starSystem release];
   }
   
+  // Group star systems
+  BOOL systemsGrouped = NO;
+  uint groupIndex = 1;
+  while (!systemsGrouped) {
+    for (uint i1 = 0; i1 < starArray.count; i1++) {
+      Star *aStar = [starArray objectAtIndex:i1];
+      if (aStar.starSystem.group == 0) {
+        [self groupStarSystemsForStar:aStar groupIndex:[NSNumber numberWithUnsignedInt:groupIndex]];
+        groupIndex++;
+      }
+    }
+    systemsGrouped = YES;
+  }
+  
+  // Generate faction areas etc
+  
   [mtrand release];
   return returnValue;
+}
+
+- (void)groupStarSystemsForStar:(Star *)aStar groupIndex:(NSNumber *)groupIndex
+{
+  // Loop through all star neighbors and set a group index unless it's already set.
+  [aStar.starSystem setGroup:groupIndex.unsignedIntValue];
+  for (Star *star in aStar.neighbors) {
+    if (star.starSystem.group == 0) {
+      [self groupStarSystemsForStar:star groupIndex:groupIndex];
+    }
+  }
 }
 
 - (uint)generateCircularStarmap

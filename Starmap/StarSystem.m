@@ -225,6 +225,7 @@
 @synthesize size;
 @synthesize shape;
 @synthesize sectorSize;
+@synthesize group;
 @synthesize planet;
 @synthesize warpZonePosition;
 @synthesize warpZoneRadius;
@@ -246,6 +247,7 @@
   size = NSMakeSize(256, 256);
   shape = SHAPE_CIRCULAR;
   sectorSize = 32;
+  group = 0;
   planet = [[SystemPlanet alloc] initWithName:aName];
   [planet randomizeWithSeed:aSeed];
   
@@ -264,7 +266,7 @@
 
 - (NSString *)systemInfo
 {
-  return [NSString stringWithFormat:@"%@ Star System \nGoverment: %@ \nTech Level: %i \nType: %@ \nEconomy: %@\n",[planet name],[planet govermentString],[planet technologyLevel],[planet typeString],[planet economyString]];
+  return [NSString stringWithFormat:@"%@ Star System \nGoverment: %@ \nTech Level: %i \nType: %@ \nEconomy: %@\nGroup: %i\n",[planet name],[planet govermentString],[planet technologyLevel],[planet typeString],[planet economyString],group];
 }
 
 - (NSString *)description

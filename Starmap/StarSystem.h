@@ -140,6 +140,7 @@ typedef enum {
   NSSize size;
   uint shape;
   uint sectorSize;
+  uint group;
   SystemPlanet *planet;
   NSMutableArray *objects;
   NSPoint warpZonePosition;
@@ -149,6 +150,7 @@ typedef enum {
 @property NSSize size;
 @property uint shape;
 @property uint sectorSize;
+@property uint group;
 @property (nonatomic, retain) SystemPlanet *planet;
 @property NSPoint warpZonePosition;
 @property uint warpZoneRadius;

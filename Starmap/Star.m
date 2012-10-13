@@ -57,11 +57,11 @@
 - (NSString *)description
 {
   if (self.type == NETWORKING_STAR) {
-    return [NSString stringWithFormat:@"Name: %@ \r\nParent: %@ \r\nNeighbors: %i \r\nType: %@",
-            self.starName,self.networkStar.starName,[self.neighbors count],self.starType];
+    return [NSString stringWithFormat:@"Name: %@ \r\nParent: %@ \r\nNeighbors: %i \r\nType: %@ \r\n\r\n%@",
+            self.starName,self.networkStar.starName,[self.neighbors count],self.starType,self.starSystem.systemInfo];
   }
-  return [NSString stringWithFormat:@"Name: %@ \r\nNeighbors: %i \r\nType: %@",
-          self.starName,[self.neighbors count],self.starType];
+  return [NSString stringWithFormat:@"Name: %@ \r\nNeighbors: %i \r\nType: %@ \r\n\r\n%@",
+          self.starName,[self.neighbors count],self.starType,self.starSystem.systemInfo];
 }
 
 - (NSColor *)starColor
