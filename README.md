@@ -8,11 +8,11 @@ Currently generates star systems with random goverments, tech levels and types.
   
 Starmap Window
 ***
-![Starmap Screenshot](http://mcspider.oc.tc/files/Starmap.png)
+![Starmap Screenshot](http://mcspider.github.com/screenshots/Starmap.png)
 
 Settings Window
 ***
-![Starmap Settings Screenshot](http://mcspider.oc.tc/files/StarmapSettings.png)
+![Starmap Settings Screenshot](http://mcspider.github.com/screenshots/StarmapSettings.png)
 
 
 ### Credits
