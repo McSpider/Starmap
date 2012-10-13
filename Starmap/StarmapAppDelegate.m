@@ -9,7 +9,7 @@
 #import "StarmapAppDelegate.h"
 
 @implementation StarmapAppDelegate
-@synthesize window,mapView;
+@synthesize window,settingsWindow,mapView;
 @synthesize starmap;
 
 
@@ -18,6 +18,13 @@
   starmap = [[Starmap alloc] initWithSeed:23747];
   [starmap setDelegate:self];  
   [self performSelectorInBackground:@selector(generate:) withObject:self];
+  
+  [window center];
+  [window zoom:self];
+  [window orderFront:self];
+  
+  [settingsWindow center];
+  [settingsWindow makeKeyAndOrderFront:self];
 }
 
 - (void)dealloc
@@ -39,14 +46,7 @@
   [nStarMinNeighborsField setStringValue:@"2"];
   [starMarginField setStringValue:@"5"];
   
-  [[settingsView textStorage] setDelegate:self];
-  [settingsView setFont:[NSFont fontWithName:@"Menlo" size:12]];
-  [settingsView setString:[NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"SM_Generator" ofType:@"yml"] encoding:NSUTF8StringEncoding error:nil]];
-  
   [statusField setStringValue:@"Opening Connection to Xyphon. Wayfarer Information Loaded."];
-
-  [window center];
-  [window zoom:self];
 }
 
 - (BOOL)validateUserInterfaceItem:(id <NSValidatedUserInterfaceItem>)anItem
@@ -55,33 +55,6 @@
 		return starmap.starArray.count != 0;
 	}
 	return YES;
-}
-
-- (void)textStorageDidProcessEditing:(NSNotification *)notification
-{
-  NSTextStorage *textStorage = [notification object];
-  NSColor *blue = [NSColor colorWithCalibratedRed:0.000 green:0.251 blue:0.502 alpha:1.000];
-  NSRange found, area;
-  NSString *string = [textStorage string];
-  NSUInteger length = [string length];
-  
-  // remove the old colors
-  area.location = 0;
-  area.length = length;
-  [textStorage removeAttribute:NSForegroundColorAttributeName range:area];
-  
-  // add new colors
-  while (area.length) {
-    found = [string rangeOfString:@":" 
-                          options:NSCaseInsensitiveSearch 
-                            range:area];
-    if (found.location == NSNotFound) break;
-    [textStorage addAttribute:NSForegroundColorAttributeName
-                        value:blue
-                        range:found];
-    area.location = NSMaxRange(found);
-    area.length = length - area.location;    
-  }
 }
 
 

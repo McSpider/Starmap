@@ -11,6 +11,7 @@
 
 @interface StarmapAppDelegate : NSObject <NSApplicationDelegate, NSTextStorageDelegate> {
   NSWindow *window;
+  NSWindow *settingsWindow;
   StarmapView *mapView;
 
   IBOutlet NSTextField *seedField;
@@ -23,8 +24,6 @@
   IBOutlet NSTextField *nStarNeighborsField;
   IBOutlet NSTextField *nStarMinNeighborsField;
   
-  IBOutlet NSTextView *settingsView;
-
   IBOutlet NSTextField *statusField;
   IBOutlet NSSegmentedControl *shapeSelector;
 
@@ -37,6 +36,7 @@
 }
 
 @property (assign) IBOutlet NSWindow *window;
+@property (assign) IBOutlet NSWindow *settingsWindow;
 @property (assign) IBOutlet StarmapView *mapView;
 
 @property (nonatomic, assign) Starmap *starmap;

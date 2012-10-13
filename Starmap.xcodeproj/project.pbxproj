@@ -10,8 +10,6 @@
 		AE03056614EC7248000BFD25 /* Pathfinder.m in Sources */ = {isa = PBXBuildFile; fileRef = AE03056514EC7248000BFD25 /* Pathfinder.m */; };
 		AE0DAC2114E8512700ECF52B /* KBLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = AE0DAC2014E8512700ECF52B /* KBLabel.m */; };
 		AE16E84815314B19002262D4 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = AE16E84715314B19002262D4 /* README.md */; };
-		AE2BB21615F7B92C00F06A89 /* Design.png in Resources */ = {isa = PBXBuildFile; fileRef = AE2BB21415F7B92C00F06A89 /* Design.png */; };
-		AE2BB21715F7B92C00F06A89 /* Magnifying Glass.png in Resources */ = {isa = PBXBuildFile; fileRef = AE2BB21515F7B92C00F06A89 /* Magnifying Glass.png */; };
 		AE2BB21B15F7B98200F06A89 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AE2BB21A15F7B98200F06A89 /* ViewController.m */; };
 		AE57084314E78A190071E284 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE57084214E78A190071E284 /* Cocoa.framework */; };
 		AE57084D14E78A190071E284 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = AE57084B14E78A190071E284 /* InfoPlist.strings */; };
@@ -28,6 +26,7 @@
 		AE9163DA15FEF53A002C08D7 /* SM_Generator.yml in Resources */ = {isa = PBXBuildFile; fileRef = AE9163D915FEF53A002C08D7 /* SM_Generator.yml */; };
 		AEB9041D1602CC42008B0F24 /* MTRandom.m in Sources */ = {isa = PBXBuildFile; fileRef = AEB9041C1602CC42008B0F24 /* MTRandom.m */; };
 		AEE2F1DB14EDDC6300DF77D1 /* License.rtf in Resources */ = {isa = PBXBuildFile; fileRef = AEE2F1DA14EDDC6300DF77D1 /* License.rtf */; };
+		AEF61FDB16291741009DEDB7 /* Generator_Settings.plist in Resources */ = {isa = PBXBuildFile; fileRef = AEF61FDA16291741009DEDB7 /* Generator_Settings.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,8 +35,6 @@
 		AE0DAC1F14E8512700ECF52B /* KBLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KBLabel.h; sourceTree = "<group>"; };
 		AE0DAC2014E8512700ECF52B /* KBLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KBLabel.m; sourceTree = "<group>"; };
 		AE16E84715314B19002262D4 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
-		AE2BB21415F7B92C00F06A89 /* Design.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Design.png; sourceTree = "<group>"; };
-		AE2BB21515F7B92C00F06A89 /* Magnifying Glass.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Magnifying Glass.png"; sourceTree = "<group>"; };
 		AE2BB21915F7B98200F06A89 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		AE2BB21A15F7B98200F06A89 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		AE57083E14E78A190071E284 /* Starmap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Starmap.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -68,6 +65,7 @@
 		AEB9041B1602CC42008B0F24 /* MTRandom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTRandom.h; sourceTree = "<group>"; };
 		AEB9041C1602CC42008B0F24 /* MTRandom.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTRandom.m; sourceTree = "<group>"; };
 		AEE2F1DA14EDDC6300DF77D1 /* License.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = License.rtf; sourceTree = SOURCE_ROOT; };
+		AEF61FDA16291741009DEDB7 /* Generator_Settings.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Generator_Settings.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -160,8 +158,7 @@
 			children = (
 				AE9163D915FEF53A002C08D7 /* SM_Generator.yml */,
 				AE9163D615FEF0E3002C08D7 /* SM_Galaxy.yml */,
-				AE2BB21415F7B92C00F06A89 /* Design.png */,
-				AE2BB21515F7B92C00F06A89 /* Magnifying Glass.png */,
+				AEF61FDA16291741009DEDB7 /* Generator_Settings.plist */,
 				AE57084A14E78A190071E284 /* Starmap-Info.plist */,
 				AE57084B14E78A190071E284 /* InfoPlist.strings */,
 				AE57084E14E78A190071E284 /* main.m */,
@@ -233,10 +230,9 @@
 				AE57085914E78A190071E284 /* MainMenu.xib in Resources */,
 				AEE2F1DB14EDDC6300DF77D1 /* License.rtf in Resources */,
 				AE16E84815314B19002262D4 /* README.md in Resources */,
-				AE2BB21615F7B92C00F06A89 /* Design.png in Resources */,
-				AE2BB21715F7B92C00F06A89 /* Magnifying Glass.png in Resources */,
 				AE9163D715FEF0E3002C08D7 /* SM_Galaxy.yml in Resources */,
 				AE9163DA15FEF53A002C08D7 /* SM_Generator.yml in Resources */,
+				AEF61FDB16291741009DEDB7 /* Generator_Settings.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
