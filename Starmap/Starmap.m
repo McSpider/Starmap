@@ -216,13 +216,13 @@
     total = total + [weight intValue];
   }
   
-  int threshold = [mtrand randomUInt32From:0 to:total];
-  NSString *found = [[NSString alloc] init];
+  int threshold = [mtrand randomUInt32From:1 to:total];
+  NSString *found = [[NSString alloc] initWithString:@"Xyphon"];
   
   for (id key in dataSet) {
     NSNumber *weight = [dataSet objectForKey:key];
     threshold = threshold - [weight intValue];
-    if (threshold < 0) {
+    if (threshold <= 0) {
       found = key;
       break;
     }

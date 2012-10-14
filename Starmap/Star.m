@@ -48,6 +48,7 @@
 
 - (void)dealloc
 {
+  [mtrand release];
   [neighbors release];
   [starSystem release];
   [super dealloc];

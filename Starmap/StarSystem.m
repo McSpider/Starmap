@@ -44,7 +44,7 @@
 
 - (NSString *)economyString
 {
-  NSString *money;
+  NSString *money = [[NSString alloc] init];
   if (technologyLevel > 5)
     money = @"Rich";
   else if (technologyLevel > 2)
@@ -53,11 +53,11 @@
     money = @"Poor";
   
   if (economy == ET_Agricultural)
-    return [NSString stringWithFormat:@"%@ Agricultural",money];
+    return [NSString stringWithFormat:@"%@ Agricultural",[money autorelease]];
   else if (economy == ET_Mining)
-    return [NSString stringWithFormat:@"%@ Mining",money]; 
+    return [NSString stringWithFormat:@"%@ Mining",[money autorelease]]; 
   else if (economy == ET_Industrial)
-    return [NSString stringWithFormat:@"%@ Industrial",money];
+    return [NSString stringWithFormat:@"%@ Industrial",[money autorelease]];
   
   return @"NILL";
 }
