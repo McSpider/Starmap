@@ -24,6 +24,7 @@
 		AE833BA215F54F9400E2A68B /* StarSystem.m in Sources */ = {isa = PBXBuildFile; fileRef = AE833BA115F54F9400E2A68B /* StarSystem.m */; };
 		AE9163D715FEF0E3002C08D7 /* SM_Galaxy.yml in Resources */ = {isa = PBXBuildFile; fileRef = AE9163D615FEF0E3002C08D7 /* SM_Galaxy.yml */; };
 		AE9163DA15FEF53A002C08D7 /* SM_Generator.yml in Resources */ = {isa = PBXBuildFile; fileRef = AE9163D915FEF53A002C08D7 /* SM_Generator.yml */; };
+		AEB25BE2162B3CF5003709E1 /* Settings.m in Sources */ = {isa = PBXBuildFile; fileRef = AEB25BE1162B3CF5003709E1 /* Settings.m */; };
 		AEB9041D1602CC42008B0F24 /* MTRandom.m in Sources */ = {isa = PBXBuildFile; fileRef = AEB9041C1602CC42008B0F24 /* MTRandom.m */; };
 		AEE2F1DB14EDDC6300DF77D1 /* License.rtf in Resources */ = {isa = PBXBuildFile; fileRef = AEE2F1DA14EDDC6300DF77D1 /* License.rtf */; };
 		AEF61FDB16291741009DEDB7 /* Generator_Settings.plist in Resources */ = {isa = PBXBuildFile; fileRef = AEF61FDA16291741009DEDB7 /* Generator_Settings.plist */; };
@@ -62,6 +63,8 @@
 		AE833BA115F54F9400E2A68B /* StarSystem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StarSystem.m; sourceTree = "<group>"; };
 		AE9163D615FEF0E3002C08D7 /* SM_Galaxy.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SM_Galaxy.yml; sourceTree = "<group>"; };
 		AE9163D915FEF53A002C08D7 /* SM_Generator.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SM_Generator.yml; sourceTree = "<group>"; };
+		AEB25BE0162B3CF5003709E1 /* Settings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Settings.h; sourceTree = "<group>"; };
+		AEB25BE1162B3CF5003709E1 /* Settings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Settings.m; sourceTree = "<group>"; };
 		AEB9041B1602CC42008B0F24 /* MTRandom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTRandom.h; sourceTree = "<group>"; };
 		AEB9041C1602CC42008B0F24 /* MTRandom.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTRandom.m; sourceTree = "<group>"; };
 		AEE2F1DA14EDDC6300DF77D1 /* License.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = License.rtf; sourceTree = SOURCE_ROOT; };
@@ -141,6 +144,8 @@
 				AE57087114E78AFF0071E284 /* Star.m */,
 				AE833BA015F54F9400E2A68B /* StarSystem.h */,
 				AE833BA115F54F9400E2A68B /* StarSystem.m */,
+				AEB25BE0162B3CF5003709E1 /* Settings.h */,
+				AEB25BE1162B3CF5003709E1 /* Settings.m */,
 				AE03056B14EC7260000BFD25 /* A Star Pathfinding */,
 				AE0DAC1F14E8512700ECF52B /* KBLabel.h */,
 				AE0DAC2014E8512700ECF52B /* KBLabel.m */,
@@ -254,6 +259,7 @@
 				AE833BA215F54F9400E2A68B /* StarSystem.m in Sources */,
 				AE2BB21B15F7B98200F06A89 /* ViewController.m in Sources */,
 				AEB9041D1602CC42008B0F24 /* MTRandom.m in Sources */,
+				AEB25BE2162B3CF5003709E1 /* Settings.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

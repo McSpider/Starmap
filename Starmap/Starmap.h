@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Settings.h"
 #import "Star.h"
 
 #define SM_TIMEOUT 1

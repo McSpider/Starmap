@@ -26,17 +26,12 @@
 
 - (id)init
 {
-  return [self initWithName:@"NULL"];
-}
-
-- (id)initWithName:(NSString *)aName
-{
   self = [super init];
   if (!(self = [super init]))
     return nil;
-  
+
   // Initialization code here.
-  self.name = aName;
+
   
   return self;
 }
@@ -88,91 +83,34 @@
   return @"NILL";
 }
 
-- (NSString *)typeString
-{
-  if (type == PT_Gas) {
-    return @"Gas";
-  }
-  else if (type == PT_Desert) {
-    return @"Desert";
-  }
-  else if (type == PT_Ocean) {
-    return @"Ocean";
-  }
-  else if (type == PT_Jungle) {
-    return @"Jungle";
-  }
-  else if (type == PT_Rock) {
-    return @"Rock";
-  }
-  else if (type == PT_Ice) {
-    return @"Ice";
-  }
-  else if (type == PT_Terra) {
-    return @"Terra";
-  }
-  else if (type == PT_Snow) {
-    return @"Snow";
-  }
-  
-  return @"Xyphon";
-}
-
 - (NSColor *)mapColor
 {
-  if (type == PT_Gas) {
+  if ([type isEqualToString:@"Gas"]) {
     return [NSColor colorWithCalibratedRed:0.30 green:0.03 blue:0.51 alpha:1.00];
   }
-  else if (type == PT_Desert) {
+  else if ([type isEqualToString:@"Desert"]) {
     return [NSColor colorWithCalibratedRed:0.62 green:0.48 blue:0.05 alpha:1.00];
   }
-  else if (type == PT_Ocean) {
+  else if ([type isEqualToString:@"Ocean"]) {
     return [NSColor colorWithCalibratedRed:0.05 green:0.21 blue:0.62 alpha:1.00];
   }
-  else if (type == PT_Jungle) {
+  else if ([type isEqualToString:@"Jungle"]) {
     return [NSColor colorWithCalibratedRed:0.02 green:0.51 blue:0.06 alpha:1.00];
   }
-  else if (type == PT_Rock) {
+  else if ([type isEqualToString:@"Rock"]) {
     return [NSColor colorWithCalibratedRed:0.41 green:0.39 blue:0.39 alpha:1.00];
   }
-  else if (type == PT_Ice) {
+  else if ([type isEqualToString:@"Ice"]) {
     return [NSColor colorWithCalibratedRed:0.48 green:0.55 blue:0.69 alpha:1.00];
   }
-  else if (type == PT_Terra) {
+  else if ([type isEqualToString:@"Terra"]) {
     return [NSColor colorWithCalibratedRed:0.30 green:0.15 blue:0.00 alpha:1.00];
   }
-  else if (type == PT_Snow) {
+  else if ([type isEqualToString:@"Snow"]) {
     return [NSColor colorWithCalibratedRed:0.69 green:0.68 blue:0.71 alpha:1.00];
   }
   
   return [NSColor colorWithCalibratedRed:0.20 green:0.44 blue:0.39 alpha:1.00];
-}
-
-- (void)randomizeWithSeed:(uint)aSeed
-{
-  MTRandom *mtrand = [[MTRandom alloc] initWithSeed:aSeed];
-
-  uint gov = [mtrand randomUInt32From:0 to:7];
-  // 10% chance that the goverment becomes a pirate state
-  if (gov == GT_Anarchy && ([mtrand randomUInt32From:0 to:100] < 10))
-    gov = GT_Pirate_State;
-  
-  [self setGoverment:gov];
-  [self setTechnologyLevel:(int)[mtrand randomUInt32From:0 to:7] + 1];
-  
-  float rTypeP = [mtrand randomDoubleFrom:0 to:7];
-  // Causes types near the end and beginning of the list to be more common (I think so anyway :| )
-  // Kinda works, what I really want is to assign a precentage to each type ie PT_Ocean has a 20% chance to appear.
-  float nTypeV = 7*powf(sin(pi/7*rTypeP/2),3);
-  [self setType:roundf(nTypeV)];  
-  
-  [self setEconomy:(int)[mtrand randomUInt32From:0 to:2]];
-  
-  while (((type == PT_Ice || type == PT_Gas) && economy == ET_Agricultural) ||
-         ((type == PT_Gas) && economy == ET_Industrial))
-    [self setEconomy:(int)[mtrand randomUInt32From:0 to:2]];
-  
-  [mtrand release];
 }
 
 @end
@@ -233,40 +171,31 @@
 
 - (id)init
 {
-  return [self initWithName:@"NULL" andSeed:(uint)time(NULL)];
-}
-
-- (id)initWithName:(NSString *)aName andSeed:(uint)aSeed
-{
   if (!(self = [super init]))
     return nil;
-  
-  // Initialization code here.
-  mtrand = [[MTRandom alloc] initWithSeed:aSeed];
-  
+
+  // Initialization code here.  
   size = NSMakeSize(256, 256);
   shape = SHAPE_CIRCULAR;
   sectorSize = 32;
   group = 0;
-  planet = [[SystemPlanet alloc] initWithName:aName];
-  [planet randomizeWithSeed:aSeed];
+  planet = [[SystemPlanet alloc] init];
   
-  warpZonePosition = NSMakePoint([mtrand randomDoubleFrom:0 to:size.width]-size.width/2, [mtrand randomDoubleFrom:0 to:size.height]-size.height/2);
-  warpZoneRadius = [mtrand randomUInt32From:5 to:20];
+  warpZonePosition = NSZeroPoint;
+  warpZoneRadius = 20;
   
   return self;
 }
 
 - (void)dealloc
 {
-  [mtrand release];
   [planet release];
   [super dealloc];
 }
 
 - (NSString *)systemInfo
 {
-  return [NSString stringWithFormat:@"%@ Star System \nGoverment: %@ \nTech Level: %i \nType: %@ \nEconomy: %@\nGroup: %i\n",[planet name],[planet govermentString],[planet technologyLevel],[planet typeString],[planet economyString],group];
+  return [NSString stringWithFormat:@"%@ Star System \nGoverment: %@ \nTech Level: %i \nType: %@ \nEconomy: %@\nGroup: %i\n",[planet name],[planet govermentString],[planet technologyLevel],[planet type],[planet economyString],group];
 }
 
 - (NSString *)description

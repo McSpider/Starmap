@@ -11,6 +11,9 @@
 @interface Starmap ()
 - (uint)generateRectangularStarmap;
 - (uint)generateCircularStarmap;
+
+- (void)randomizePlanet:(SystemPlanet *)aPlanet;
+- (NSString *)weightedRandomFromSet:(NSDictionary *)dataSet;
 - (void)groupStarSystemsForStar:(Star *)aStar groupIndex:(NSNumber *)groupIndex;
 @end
 
@@ -81,7 +84,7 @@
       [delegate starmapGenerationFinishedWithTime:[[NSDate date] timeIntervalSinceDate:generatorStartTime]];
     }
   }
-  else if (result == 1) {
+  else if (result == SM_TIMEOUT) {
     if ([delegate respondsToSelector:@selector(starmapGenerationTimedOutWithTime:)]) {
       [delegate starmapGenerationTimedOutWithTime:[[NSDate date] timeIntervalSinceDate:generatorStartTime]];
     }
@@ -143,7 +146,11 @@
   
   // Generate system data
   for (Star *aStar in starArray) {
-    StarSystem *starSystem = [[StarSystem alloc] initWithName:[aStar randomStarName] andSeed:[mtrand randomUInt32]];
+    StarSystem *starSystem = [[StarSystem alloc] init];
+    [starSystem setPlanet:[[SystemPlanet alloc] init]];
+    [starSystem.planet setName:[aStar randomStarName]];
+    [self randomizePlanet:starSystem.planet];
+    
     NSLog(@"%@",[starSystem systemInfo]);
 
     [aStar setStarSystem:starSystem];
@@ -170,6 +177,55 @@
   return returnValue;
 }
 
+
+- (void)randomizePlanet:(SystemPlanet *)aPlanet;
+{  
+  uint gov = [mtrand randomUInt32From:0 to:7];
+  // 10% chance that the goverment becomes a pirate state
+  if (gov == GT_Anarchy && ([mtrand randomUInt32From:0 to:100] < 10))
+    gov = GT_Pirate_State;
+  
+  [aPlanet setGoverment:gov];
+  [aPlanet setTechnologyLevel:(int)[mtrand randomUInt32From:0 to:7] + 1];
+  
+  NSArray *planetTypes = [NSArray arrayWithObjects:@"Gas", @"Desert", @"Jungle", @"Terra", @"Ocean", @"Snow", @"Ice", @"Rock", nil];
+  NSArray *typeWeights = [NSArray arrayWithObjects:@"11", @"9", @"3", @"4", @"1", @"6", @"8", @"9", nil];
+  
+  NSDictionary *planetTypeSet = [NSDictionary dictionaryWithObjects:typeWeights forKeys:planetTypes];
+  NSString *newPlanetType = [self weightedRandomFromSet:planetTypeSet];
+  [aPlanet setType:newPlanetType];
+  
+  [aPlanet setEconomy:(int)[mtrand randomUInt32From:0 to:2]];
+  
+  while ((([aPlanet.type isEqualToString:@"Ice"] || [aPlanet.type isEqualToString:@"Gas"]) && aPlanet.economy == ET_Agricultural) ||
+         (([aPlanet.type isEqualToString:@"Gas"]) && aPlanet.economy == ET_Industrial))
+    [aPlanet setEconomy:(int)[mtrand randomUInt32From:0 to:2]];
+  
+}
+
+- (NSString *)weightedRandomFromSet:(NSDictionary *)dataSet
+{
+  int total = 0;
+  for (id key in dataSet) {
+    NSNumber *weight = [dataSet objectForKey:key];
+    total = total + [weight intValue];
+  }
+  
+  int threshold = [mtrand randomUInt32From:0 to:total];
+  NSString *found = [[NSString alloc] init];
+  
+  for (id key in dataSet) {
+    NSNumber *weight = [dataSet objectForKey:key];
+    threshold = threshold - [weight intValue];
+    if (threshold < 0) {
+      found = key;
+      break;
+    }
+  }
+  
+  return found;  
+}
+
 - (void)groupStarSystemsForStar:(Star *)aStar groupIndex:(NSNumber *)groupIndex
 {
   // Loop through all star neighbors and set a group index unless it's already set.
@@ -180,6 +236,7 @@
     }
   }
 }
+
 
 - (uint)generateCircularStarmap
 {
@@ -336,7 +393,7 @@
         y = [mtrand randomDoubleFrom:0 to: starmapHeight]-starmapHeight/2;
         
         newStarPosition = NSMakePoint(x,y);          
-        validStar = [self goodStarPosition:newStarPosition checkDistance:5];
+        validStar = [self goodStarPosition:newStarPosition checkDistance:normalStarMargin];
         //if (!validStar)
         //  NSLog(@"Invalid Star: %i of %i At: %i,%i",i1+1,numstars,(int)x,(int)y);
         if (loops > 500)

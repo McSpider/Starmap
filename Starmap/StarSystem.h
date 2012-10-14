@@ -11,17 +11,6 @@
 #define MAX_TECH_LVL 8
 
 typedef enum {
-  PT_Gas,
-  PT_Desert,
-  PT_Jungle,
-  PT_Terra,
-  PT_Ocean,
-  PT_Snow,
-  PT_Ice,
-  PT_Rock,
-} PlanetTypes;
-
-typedef enum {
   GT_Anarchy,
   GT_Democracy,
   GT_Feudal,
@@ -41,7 +30,7 @@ typedef enum {
 
 @interface SystemPlanet : NSObject {
   NSString *name;
-  uint type;
+  NSString *type;
   uint size;
   NSPoint position;  // Radius & Angle
   bool habitable;
@@ -55,7 +44,7 @@ typedef enum {
 }
 
 @property (nonatomic, retain) NSString *name;
-@property uint type;
+@property (nonatomic, retain) NSString *type;
 @property uint size;
 @property NSPoint position;
 @property bool habitable;
@@ -69,15 +58,10 @@ typedef enum {
 @property (nonatomic, retain) NSArray *moons;
 
 
-
-- (id)initWithName:(NSString *)aName;
-
 - (NSString *)planetInfo;
 - (NSString *)govermentString;
 - (NSString *)economyString;
-- (NSString *)typeString;
 - (NSColor *)mapColor;
-- (void)randomizeWithSeed:(uint)aSeed;
 
 @end
 
@@ -135,8 +119,6 @@ typedef enum {
 #define SHAPE_RECTANGULAR 1
 
 @interface StarSystem : NSObject {
-  MTRandom *mtrand;
-
   NSSize size;
   uint shape;
   uint sectorSize;
@@ -155,7 +137,6 @@ typedef enum {
 @property NSPoint warpZonePosition;
 @property uint warpZoneRadius;
 
-- (id)initWithName:(NSString *)aName andSeed:(uint)aSeed;
 - (NSString *)systemInfo;
 
 @end
