@@ -22,9 +22,9 @@
 			<string>NSButton</string>
 			<string>NSToolbarSpaceItem</string>
 			<string>NSButtonCell</string>
-			<string>NSProgressIndicator</string>
 			<string>NSBox</string>
 			<string>NSNumberFormatter</string>
+			<string>NSProgressIndicator</string>
 			<string>NSCustomObject</string>
 			<string>NSCustomView</string>
 			<string>NSView</string>
@@ -98,7 +98,7 @@
 								</object>
 								<object class="NSMenuItem" id="609285721">
 									<reference key="NSMenu" ref="110575045"/>
-									<string key="NSTitle">Preferences…</string>
+									<string key="NSTitle">Settings…</string>
 									<string key="NSKeyEquiv">,</string>
 									<int key="NSKeyEquivModMask">1048576</int>
 									<int key="NSMnemonicLoc">2147483647</int>
@@ -965,8 +965,9 @@
 										</object>
 										<string key="NSCellIdentifier">_NS:3196</string>
 										<reference key="NSControlView" ref="843143457"/>
-										<int key="NSButtonFlags">-2038152961</int>
+										<int key="NSButtonFlags">-2038021889</int>
 										<int key="NSButtonFlags2">163</int>
+										<reference key="NSAlternateImage" ref="256756980"/>
 										<string key="NSAlternateContents"/>
 										<string key="NSKeyEquivalent"/>
 										<int key="NSPeriodicDelay">400</int>
@@ -1040,7 +1041,7 @@
 							</object>
 						</object>
 					</object>
-					<object class="NSMutableArray" key="NSToolbarIBAllowedItems">
+					<object class="NSArray" key="NSToolbarIBAllowedItems">
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<reference ref="805363077"/>
 						<reference ref="193586778"/>
@@ -2280,7 +2281,7 @@
 						<object class="NSTextField" id="41668905">
 							<reference key="NSNextResponder" ref="131352285"/>
 							<int key="NSvFlags">268</int>
-							<string key="NSFrame">{{63, 443}, {90, 22}}</string>
+							<string key="NSFrame">{{63, 443}, {100, 22}}</string>
 							<reference key="NSSuperview" ref="131352285"/>
 							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="165108107"/>
@@ -2449,10 +2450,10 @@
 						<object class="NSTextField" id="870027804">
 							<reference key="NSNextResponder" ref="131352285"/>
 							<int key="NSvFlags">268</int>
-							<string key="NSFrame">{{63, 473}, {90, 22}}</string>
+							<string key="NSFrame">{{63, 473}, {100, 22}}</string>
 							<reference key="NSSuperview" ref="131352285"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView" ref="839027002"/>
+							<reference key="NSNextKeyView" ref="536653820"/>
 							<int key="NSViewLayerContentsRedrawPolicy">2</int>
 							<string key="NSReuseIdentifierKey">_NS:248</string>
 							<bool key="NSEnabled">YES</bool>
@@ -2562,6 +2563,35 @@
 								<object class="NSCustomResource" key="NSNormalImage">
 									<string key="NSClassName">NSImage</string>
 									<string key="NSResourceName">NSQuickLookTemplate</string>
+								</object>
+								<string key="NSAlternateContents"/>
+								<string key="NSKeyEquivalent"/>
+								<int key="NSPeriodicDelay">400</int>
+								<int key="NSPeriodicInterval">75</int>
+							</object>
+						</object>
+						<object class="NSButton" id="536653820">
+							<reference key="NSNextResponder" ref="131352285"/>
+							<int key="NSvFlags">268</int>
+							<string key="NSFrame">{{171, 476}, {20, 19}}</string>
+							<reference key="NSSuperview" ref="131352285"/>
+							<reference key="NSWindow"/>
+							<reference key="NSNextKeyView" ref="839027002"/>
+							<double key="NSViewAlphaValue">0.90000000000000002</double>
+							<string key="NSReuseIdentifierKey">_NS:3196</string>
+							<bool key="NSEnabled">YES</bool>
+							<object class="NSButtonCell" key="NSCell" id="172404170">
+								<int key="NSCellFlags">-2080244224</int>
+								<int key="NSCellFlags2">134348800</int>
+								<string key="NSContents"/>
+								<reference key="NSSupport" ref="26"/>
+								<string key="NSCellIdentifier">_NS:3196</string>
+								<reference key="NSControlView" ref="536653820"/>
+								<int key="NSButtonFlags">-2041822977</int>
+								<int key="NSButtonFlags2">163</int>
+								<object class="NSCustomResource" key="NSNormalImage">
+									<string key="NSClassName">NSImage</string>
+									<string key="NSResourceName">NSRefreshTemplate</string>
 								</object>
 								<string key="NSAlternateContents"/>
 								<string key="NSKeyEquivalent"/>
@@ -3265,6 +3295,22 @@
 						<reference key="destination" ref="680548166"/>
 					</object>
 					<int key="connectionID">1309</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">makeKeyAndOrderFront:</string>
+						<reference key="source" ref="506243031"/>
+						<reference key="destination" ref="609285721"/>
+					</object>
+					<int key="connectionID">1318</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">generateSeedFromTime:</string>
+						<reference key="source" ref="976324537"/>
+						<reference key="destination" ref="536653820"/>
+					</object>
+					<int key="connectionID">1331</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -4029,6 +4075,7 @@
 							<reference ref="870027804"/>
 							<reference ref="441333555"/>
 							<reference ref="680548166"/>
+							<reference ref="536653820"/>
 						</object>
 						<reference key="parent" ref="506243031"/>
 					</object>
@@ -4039,11 +4086,6 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<reference ref="744408052"/>
 						</object>
-						<reference key="parent" ref="131352285"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">890</int>
-						<reference key="object" ref="720393554"/>
 						<reference key="parent" ref="131352285"/>
 					</object>
 					<object class="IBObjectRecord">
@@ -4703,6 +4745,25 @@
 						<reference key="object" ref="296452082"/>
 						<reference key="parent" ref="680548166"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">890</int>
+						<reference key="object" ref="720393554"/>
+						<reference key="parent" ref="131352285"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1327</int>
+						<reference key="object" ref="536653820"/>
+						<object class="NSMutableArray" key="children">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<reference ref="172404170"/>
+						</object>
+						<reference key="parent" ref="131352285"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1328</int>
+						<reference key="object" ref="172404170"/>
+						<reference key="parent" ref="536653820"/>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -4770,6 +4831,9 @@
 					<string>1306.IBPluginDependency</string>
 					<string>1307.IBPluginDependency</string>
 					<string>131.IBPluginDependency</string>
+					<string>1327.IBAttributePlaceholdersKey</string>
+					<string>1327.IBPluginDependency</string>
+					<string>1328.IBPluginDependency</string>
 					<string>134.IBPluginDependency</string>
 					<string>136.IBPluginDependency</string>
 					<string>143.IBPluginDependency</string>
@@ -5028,7 +5092,7 @@
 						<object class="IBToolTipAttribute" key="NS.object.0">
 							<string key="name">ToolTip</string>
 							<reference key="object" ref="843143457"/>
-							<string key="toolTip">Open Settings Window</string>
+							<string key="toolTip">Open settings window</string>
 						</object>
 					</object>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -5040,10 +5104,20 @@
 						<object class="IBToolTipAttribute" key="NS.object.0">
 							<string key="name">ToolTip</string>
 							<reference key="object" ref="680548166"/>
-							<string key="toolTip">Preview Starmap</string>
+							<string key="toolTip">Preview starmap</string>
 						</object>
 					</object>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<object class="NSMutableDictionary">
+						<string key="NS.key.0">ToolTip</string>
+						<object class="IBToolTipAttribute" key="NS.object.0">
+							<string key="name">ToolTip</string>
+							<reference key="object" ref="536653820"/>
+							<string key="toolTip">Generate a new seed from the current time</string>
+						</object>
+					</object>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -5214,7 +5288,7 @@
 						<object class="IBToolTipAttribute" key="NS.object.0">
 							<string key="name">ToolTip</string>
 							<reference key="object" ref="415117098"/>
-							<string key="toolTip">Reset Camera Position</string>
+							<string key="toolTip">Reset camera position</string>
 						</object>
 					</object>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -5251,7 +5325,7 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">1311</int>
+			<int key="maxID">1331</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -5339,10 +5413,12 @@
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>generate:</string>
+							<string>generateSeedFromTime:</string>
 							<string>saveStarmapXML:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 						</object>
@@ -5352,12 +5428,17 @@
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>generate:</string>
+							<string>generateSeedFromTime:</string>
 							<string>saveStarmapXML:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<object class="IBActionInfo">
 								<string key="name">generate:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">generateSeedFromTime:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
@@ -5585,6 +5666,7 @@
 				<string>NSMenuCheckmark</string>
 				<string>NSMenuMixedState</string>
 				<string>NSQuickLookTemplate</string>
+				<string>NSRefreshTemplate</string>
 				<string>NSRemoveTemplate</string>
 				<string>NSRevealFreestandingTemplate</string>
 				<string>NSSwitch</string>
@@ -5595,6 +5677,7 @@
 				<string>{9, 8}</string>
 				<string>{7, 2}</string>
 				<string>{21, 16}</string>
+				<string>{10, 12}</string>
 				<string>{8, 8}</string>
 				<string>{14, 14}</string>
 				<string>{15, 15}</string>

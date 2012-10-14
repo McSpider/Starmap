@@ -32,6 +32,7 @@ typedef enum {
 
 @interface Starmap : NSObject {
   MTRandom *mtrand;
+  Settings *settings;
   id delegate;
 
   unsigned int seed;
@@ -55,6 +56,7 @@ typedef enum {
 }
 
 @property (nonatomic, assign) id delegate;
+@property BOOL generatingStarmap;
 @property unsigned int seed;
 @property int shape;
 @property int networkSize;

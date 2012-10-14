@@ -28,7 +28,6 @@
   IBOutlet NSSegmentedControl *shapeSelector;
 
   IBOutlet NSButton *generateButton;
-
   IBOutlet NSProgressIndicator *activityIndicator;
 
 
@@ -42,6 +41,7 @@
 @property (nonatomic, assign) Starmap *starmap;
 
 - (IBAction)generate:(id)sender;
+- (IBAction)generateSeedFromTime:(id)sender;
 - (IBAction)saveStarmapXML:(id)sender;
 
 @end

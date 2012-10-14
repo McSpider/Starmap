@@ -12,11 +12,11 @@
 @implementation SystemPlanet
 @synthesize name;
 @synthesize type;
+@synthesize goverment;
 @synthesize size;
 @synthesize position;
 @synthesize habitable;
 @synthesize temperature;
-@synthesize goverment;
 @synthesize faction;
 @synthesize technologyLevel;
 @synthesize economy;
@@ -41,27 +41,6 @@
   return @"NULL";
 }
 
-- (NSString *)govermentString
-{
-  if (goverment == GT_Anarchy)
-    return @"Anarchy";
-  else if (goverment == GT_Democracy)
-    return @"Democracy"; 
-  else if (goverment == GT_Feudal)
-    return @"Feudal";
-  else if (goverment == GT_Communist)
-    return @"Communist";
-  else if (goverment == GT_Multi_Government)
-    return @"Multi Goverment";
-  else if (goverment == GT_Dictatorship)
-    return @"Dictatorship";
-  else if (goverment == GT_Confederacy)
-    return @"Confederacy";
-  else if (goverment == GT_Corporate_State)
-    return @"Corporate State";
-  
-  return @"Pirate State";
-}
 
 - (NSString *)economyString
 {
@@ -195,7 +174,7 @@
 
 - (NSString *)systemInfo
 {
-  return [NSString stringWithFormat:@"%@ Star System \nGoverment: %@ \nTech Level: %i \nType: %@ \nEconomy: %@\nGroup: %i\n",[planet name],[planet govermentString],[planet technologyLevel],[planet type],[planet economyString],group];
+  return [NSString stringWithFormat:@"%@ Star System \nGoverment: %@ \nTech Level: %i \nType: %@ \nEconomy: %@\nGroup: %i\n",[planet name],[planet goverment],[planet technologyLevel],[planet type],[planet economyString],group];
 }
 
 - (NSString *)description

@@ -75,6 +75,10 @@
 
 - (IBAction)generate:(id)sender
 {
+  // Don't change any of the starmap settings if we are still generating one
+  if (starmap.generatingStarmap)
+    return;
+  
   [starmap setSeed:[seedField intValue]];
   [starmap setNetworkSize:[networkSizeField intValue]];
   [starmap setGenerateNetworkingStars:([nStarNeighborsField intValue] <= 0?NO:YES)];
@@ -89,6 +93,11 @@
   [starmap setNetworkStarMinNeighbors:[nStarMinNeighborsField intValue]];
   
   [starmap performSelectorInBackground:@selector(generateStarmap) withObject:nil];
+}
+
+- (IBAction)generateSeedFromTime:(id)sender
+{
+  [seedField setStringValue:[NSString stringWithFormat:@"%u",(uint)time(NULL)]];
 }
 
 - (void)starmapGeneratorStarted

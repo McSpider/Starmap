@@ -19,6 +19,7 @@
 
 @implementation Starmap
 @synthesize delegate;
+@synthesize generatingStarmap;
 @synthesize seed;
 @synthesize shape;
 @synthesize networkSize;
@@ -55,6 +56,7 @@
   starmapStarCount = 100;
   
   starArray = [[NSMutableArray alloc] init];
+  settings = [[Settings alloc] init];
   
   return self;
 }
@@ -62,6 +64,7 @@
 - (void)dealloc
 {
   [starArray release];
+  [settings release];
   [super dealloc];
 }
 
@@ -112,15 +115,22 @@
     [aStar setNeighbors:[self neighborStarsForStar:aStar checkDistance:networkSize/2]];
   }
   
+  
+  // This block of code should be changed so that it uses the StarSystem group variable.
+  // If the group count is under a certian threshold remove the whole group.
+  
   // Mark solitary stars
   NSMutableArray *solitaryStars = [[NSMutableArray alloc] init];
   for (Star *aStar in starArray) {
     if ([aStar.neighbors count] == 0) {
+      [aStar setType:SOLITARY_STAR];
       [solitaryStars addObject:aStar];
     }
     else if ([aStar.neighbors count] == 1) {
       Star *nextStar1 = [aStar.neighbors objectAtIndex:0];
       if ([nextStar1.neighbors count] == 1) {
+        [aStar setType:SOLITARY_STAR];
+        [nextStar1 setType:SOLITARY_STAR];
         [solitaryStars addObject:aStar];
         [solitaryStars addObject:nextStar1];
       }
@@ -129,15 +139,14 @@
       Star *nextStar1 = [aStar.neighbors objectAtIndex:0];
       Star *nextStar2 = [aStar.neighbors objectAtIndex:1];
       if ([nextStar1.neighbors count] == 1 && [nextStar2.neighbors count] == 1) {
+        [aStar setType:SOLITARY_STAR];
+        [nextStar1 setType:SOLITARY_STAR];
         [solitaryStars addObject:aStar];
         [solitaryStars addObject:nextStar1];
       }
     }
   }
   
-  for (Star *aStar in solitaryStars) {
-    [aStar setType:SOLITARY_STAR];
-  }
   if (removeSolitaryStars) {
     [starArray removeObjectsInArray:solitaryStars];
   }
@@ -180,19 +189,15 @@
 
 - (void)randomizePlanet:(SystemPlanet *)aPlanet;
 {  
-  uint gov = [mtrand randomUInt32From:0 to:7];
+  NSString *newGovermentType = [self weightedRandomFromSet:settings.govermentTypeSet];
   // 10% chance that the goverment becomes a pirate state
-  if (gov == GT_Anarchy && ([mtrand randomUInt32From:0 to:100] < 10))
-    gov = GT_Pirate_State;
+  if ([newGovermentType isEqualToString:@"Anarchy"] && ([mtrand randomUInt32From:0 to:100] < 10))
+    newGovermentType = @"Pirate State";
   
-  [aPlanet setGoverment:gov];
-  [aPlanet setTechnologyLevel:(int)[mtrand randomUInt32From:0 to:7] + 1];
+  [aPlanet setGoverment:newGovermentType];
+  [aPlanet setTechnologyLevel:(int)[mtrand randomUInt32From:0 to:settings.maxTechLevel]];
   
-  NSArray *planetTypes = [NSArray arrayWithObjects:@"Gas", @"Desert", @"Jungle", @"Terra", @"Ocean", @"Snow", @"Ice", @"Rock", nil];
-  NSArray *typeWeights = [NSArray arrayWithObjects:@"11", @"9", @"3", @"4", @"1", @"6", @"8", @"9", nil];
-  
-  NSDictionary *planetTypeSet = [NSDictionary dictionaryWithObjects:typeWeights forKeys:planetTypes];
-  NSString *newPlanetType = [self weightedRandomFromSet:planetTypeSet];
+  NSString *newPlanetType = [self weightedRandomFromSet:settings.planetTypeSet];
   [aPlanet setType:newPlanetType];
   
   [aPlanet setEconomy:(int)[mtrand randomUInt32From:0 to:2]];

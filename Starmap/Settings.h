@@ -8,6 +8,15 @@
 
 #import <Foundation/Foundation.h>
 
-@interface Settings : NSObject
+@interface Settings : NSObject {
+  uint maxTechLevel;
+  NSDictionary *planetTypeSet;
+  NSDictionary *govermentTypeSet;
+}
+
+@property (readonly) uint maxTechLevel;
+@property (readonly) NSDictionary *planetTypeSet;
+@property (readonly) NSDictionary *govermentTypeSet;
+
 
 @end

@@ -8,19 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-#define MAX_TECH_LVL 8
-
-typedef enum {
-  GT_Anarchy,
-  GT_Democracy,
-  GT_Feudal,
-  GT_Communist,
-  GT_Multi_Government,
-  GT_Dictatorship,
-  GT_Confederacy,
-  GT_Corporate_State,
-  GT_Pirate_State
-} Goverment_Types;
 
 typedef enum {
   ET_Agricultural,
@@ -31,11 +18,11 @@ typedef enum {
 @interface SystemPlanet : NSObject {
   NSString *name;
   NSString *type;
+  NSString *goverment;
   uint size;
   NSPoint position;  // Radius & Angle
-  bool habitable;
+  BOOL habitable;
   uint temperature;
-  uint goverment;
   uint faction;
   uint technologyLevel;
   NSArray *produce;
@@ -45,11 +32,11 @@ typedef enum {
 
 @property (nonatomic, retain) NSString *name;
 @property (nonatomic, retain) NSString *type;
+@property (nonatomic, retain) NSString *goverment;
 @property uint size;
 @property NSPoint position;
-@property bool habitable;
+@property BOOL habitable;
 @property uint temperature;
-@property uint goverment;
 @property uint faction;
 @property uint technologyLevel;
 @property uint economy;
@@ -59,7 +46,6 @@ typedef enum {
 
 
 - (NSString *)planetInfo;
-- (NSString *)govermentString;
 - (NSString *)economyString;
 - (NSColor *)mapColor;
 
