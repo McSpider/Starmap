@@ -890,11 +890,9 @@
 								<string key="NSToolbarItemPaletteLabel">Status</string>
 								<nil key="NSToolbarItemToolTip"/>
 								<object class="NSTextField" key="NSToolbarItemView" id="989617560">
-									<reference key="NSNextResponder"/>
+									<nil key="NSNextResponder"/>
 									<int key="NSvFlags">294</int>
 									<string key="NSFrame">{{0, 14}, {581, 14}}</string>
-									<reference key="NSSuperview"/>
-									<reference key="NSNextKeyView"/>
 									<string key="NSReuseIdentifierKey">_NS:3936</string>
 									<bool key="NSEnabled">YES</bool>
 									<object class="NSTextFieldCell" key="NSCell" id="825568297">
@@ -947,11 +945,9 @@
 								<string key="NSToolbarItemPaletteLabel">Settings</string>
 								<nil key="NSToolbarItemToolTip"/>
 								<object class="NSButton" key="NSToolbarItemView" id="843143457">
-									<reference key="NSNextResponder"/>
+									<nil key="NSNextResponder"/>
 									<int key="NSvFlags">268</int>
 									<string key="NSFrame">{{0, 14}, {90, 25}}</string>
-									<reference key="NSSuperview"/>
-									<reference key="NSNextKeyView"/>
 									<string key="NSReuseIdentifierKey">_NS:3196</string>
 									<bool key="NSEnabled">YES</bool>
 									<object class="NSButtonCell" key="NSCell" id="887309134">
@@ -3306,11 +3302,11 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
-						<string key="label">generateSeedFromTime:</string>
+						<string key="label">generateRandomSeed:</string>
 						<reference key="source" ref="976324537"/>
 						<reference key="destination" ref="536653820"/>
 					</object>
-					<int key="connectionID">1331</int>
+					<int key="connectionID">1332</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -5115,7 +5111,7 @@
 						<object class="IBToolTipAttribute" key="NS.object.0">
 							<string key="name">ToolTip</string>
 							<reference key="object" ref="536653820"/>
-							<string key="toolTip">Generate a new seed from the current time</string>
+							<string key="toolTip">Generate a new random seed</string>
 						</object>
 					</object>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -5325,7 +5321,7 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">1331</int>
+			<int key="maxID">1332</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -5413,7 +5409,7 @@
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>generate:</string>
-							<string>generateSeedFromTime:</string>
+							<string>generateRandomSeed:</string>
 							<string>saveStarmapXML:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
@@ -5428,7 +5424,7 @@
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>generate:</string>
-							<string>generateSeedFromTime:</string>
+							<string>generateRandomSeed:</string>
 							<string>saveStarmapXML:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
@@ -5438,7 +5434,7 @@
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
-								<string key="name">generateSeedFromTime:</string>
+								<string key="name">generateRandomSeed:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">

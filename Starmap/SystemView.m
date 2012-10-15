@@ -35,7 +35,7 @@
   int width = self.bounds.size.width;
   int height = self.bounds.size.height;
   
-  float sSize = activeStar.starSystem.sectorSize;
+  //float sSize = activeStar.starSystem.sectorSize;
   float sWidth = activeStar.starSystem.size.width;
   float sHeight = activeStar.starSystem.size.height;
 
@@ -143,8 +143,8 @@
   if (!wasDragging) {
     mousePos = [self convertPoint:[theEvent locationInWindow] fromView:nil];
     
-    int width = self.bounds.size.width;
-    int height = self.bounds.size.height;
+    //int width = self.bounds.size.width;
+    //int height = self.bounds.size.height;
   }
   
   wasDragging = NO;

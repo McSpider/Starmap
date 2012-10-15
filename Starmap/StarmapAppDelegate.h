@@ -41,7 +41,7 @@
 @property (nonatomic, assign) Starmap *starmap;
 
 - (IBAction)generate:(id)sender;
-- (IBAction)generateSeedFromTime:(id)sender;
+- (IBAction)generateRandomSeed:(id)sender;
 - (IBAction)saveStarmapXML:(id)sender;
 
 @end

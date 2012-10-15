@@ -19,6 +19,7 @@
 @synthesize temperature;
 @synthesize faction;
 @synthesize technologyLevel;
+@synthesize population;
 @synthesize economy;
 @synthesize produce;
 @synthesize spaceports;

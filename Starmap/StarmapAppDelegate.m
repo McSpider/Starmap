@@ -95,9 +95,9 @@
   [starmap performSelectorInBackground:@selector(generateStarmap) withObject:nil];
 }
 
-- (IBAction)generateSeedFromTime:(id)sender
+- (IBAction)generateRandomSeed:(id)sender
 {
-  [seedField setStringValue:[NSString stringWithFormat:@"%u",(uint)time(NULL)]];
+  [seedField setStringValue:[NSString stringWithFormat:@"%u",arc4random()]];
 }
 
 - (void)starmapGeneratorStarted

@@ -25,6 +25,8 @@ typedef enum {
   uint temperature;
   uint faction;
   uint technologyLevel;
+  uint population;
+  uint economy;
   NSArray *produce;
   NSArray *spaceports;
   NSArray *moons;
@@ -39,6 +41,7 @@ typedef enum {
 @property uint temperature;
 @property uint faction;
 @property uint technologyLevel;
+@property uint population;
 @property uint economy;
 @property (nonatomic, retain) NSArray *produce;
 @property (nonatomic, retain) NSArray *spaceports;
